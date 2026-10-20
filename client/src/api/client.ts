@@ -1,0 +1,89 @@
+import type {
+  Analysis,
+  Cell,
+  CleaningResult,
+  LintIssue,
+  LlmSettings,
+  MeasureCheck,
+  MeasureSpec,
+  ModelSpec,
+  PreviewData,
+  Project,
+  ProjectSummary,
+  ReportLayout,
+  ReportSpec,
+  TableCleaning,
+  ExportCheck,
+} from '@shared/types';
+
+async function request<T>(method: string, url: string, body?: unknown): Promise<T> {
+  const res = await fetch(`/api${url}`, {
+    method,
+    headers: body instanceof FormData || body === undefined ? undefined : { 'Content-Type': 'application/json' },
+    body: body instanceof FormData ? body : body === undefined ? undefined : JSON.stringify(body),
+  });
+  const text = await res.text();
+  const json = text ? JSON.parse(text) : {};
+  if (!res.ok) throw new Error(json.error ?? `Request failed (${res.status})`);
+  return json as T;
+}
+
+const enc = encodeURIComponent;
+export type Mode = 'ai' | 'rules';
+
+export interface ExportResult {
+  folder: string;
+  zipPath: string;
+  projectFile: string;
+  dataFolder: string;
+  rowChecks: ExportCheck[];
+  measureChecks: MeasureCheck[];
+  warnings: string[];
+}
+
+export const api = {
+  settings: () => request<{ settings: LlmSettings; presets: Record<string, { baseUrl: string; model: string }> }>('GET', '/settings'),
+  saveSettings: (s: { provider: string; baseUrl: string; model: string; apiKey: string }) =>
+    request<{ settings: LlmSettings }>('PUT', '/settings', s),
+  testSettings: () => request<{ ok: boolean; reply?: string; error?: string }>('POST', '/settings/test'),
+
+  projects: () => request<ProjectSummary[]>('GET', '/projects'),
+  createProject: (name: string) => request<Project>('POST', '/projects', { name }),
+  project: (id: string) => request<Project>('GET', `/projects/${id}`),
+  deleteProject: (id: string) => request('DELETE', `/projects/${id}`),
+  patchProject: (id: string, body: Partial<Pick<Project, 'name' | 'brief' | 'export'>>) => request<Project>('PATCH', `/projects/${id}`, body),
+
+  upload: (id: string, files: File[], kind: 'data' | 'brief' = 'data') => {
+    const form = new FormData();
+    form.append('kind', kind);
+    for (const f of files) form.append('files', f, f.name);
+    return request<{ project: Project; warnings: string[] }>('POST', `/projects/${id}/files`, form);
+  },
+  deleteTable: (id: string, table: string) => request<Project>('DELETE', `/projects/${id}/tables/${enc(table)}`),
+  raw: (id: string, table: string) => request<{ headers: string[]; rows: Cell[][]; total: number }>('GET', `/projects/${id}/tables/${enc(table)}/raw`),
+
+  profile: (id: string) => request<Project>('POST', `/projects/${id}/profile`),
+  analyze: (id: string, mode: Mode) => request<Project>('POST', `/projects/${id}/analyze`, { mode }),
+  saveAnalysis: (id: string, a: Analysis) => request<Project>('PUT', `/projects/${id}/analysis`, a),
+
+  suggestCleaning: (id: string, mode: Mode, table?: string) =>
+    request<{ project: Project; warnings: string[] }>('POST', `/projects/${id}/cleaning/suggest`, { mode, table }),
+  cleaning: (id: string, table: string) => request<{ cleaning: TableCleaning; result: CleaningResult }>('GET', `/projects/${id}/cleaning/${enc(table)}`),
+  saveCleaning: (id: string, table: string, c: TableCleaning) =>
+    request<{ cleaning: TableCleaning; result: CleaningResult; project: Project }>('PUT', `/projects/${id}/cleaning/${enc(table)}`, c),
+
+  suggestModel: (id: string, mode: Mode) => request<{ project: Project; issues: string[] }>('POST', `/projects/${id}/model/suggest`, { mode }),
+  saveModel: (id: string, m: ModelSpec) => request<{ project: Project; issues: string[] }>('PUT', `/projects/${id}/model`, m),
+
+  suggestMeasures: (id: string, mode: Mode) => request<{ project: Project; lint: LintIssue[] }>('POST', `/projects/${id}/measures/suggest`, { mode }),
+  saveMeasures: (id: string, m: MeasureSpec[]) => request<{ project: Project; lint: LintIssue[] }>('PUT', `/projects/${id}/measures`, m),
+  checkMeasures: (id: string) => request<{ lint: LintIssue[]; values: MeasureCheck[] }>('GET', `/projects/${id}/measures/check`),
+
+  suggestReport: (id: string, mode: Mode) => request<{ project: Project; issues: string[] }>('POST', `/projects/${id}/report/suggest`, { mode }),
+  saveReport: (id: string, r: ReportSpec) => request<{ project: Project; issues: string[] }>('PUT', `/projects/${id}/report`, r),
+  reportPreview: (id: string) => request<{ layout: ReportLayout; data: PreviewData }>('GET', `/projects/${id}/report/preview`),
+
+  export: (id: string) => request<ExportResult>('POST', `/projects/${id}/export`),
+  openExport: (id: string, target: 'folder' | 'pbip') => request('POST', `/projects/${id}/export/open`, { target }),
+  downloadUrl: (id: string) => `/api/projects/${id}/export/download`,
+};
