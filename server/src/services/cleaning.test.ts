@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { CleaningOp, SourceTable } from '../../../shared/types.js';
+import type { CleaningOp, Relationship, SourceTable } from '../../../shared/types.js';
 import { runPipeline, properCase } from './cleaning.js';
 import { lintMeasures, evaluateMeasure } from './dax.js';
 import { parseDate, parseNumber, inferType } from './values.js';
 import { excelSerialToIso, isDateFormat } from './ingest.js';
 import { embeddedSourceSteps } from './tmdl.js';
+import { deactivateAmbiguousPaths } from './model.js';
 import zlib from 'node:zlib';
 
 const table: SourceTable = { name: 'Orders', file: 'orders.csv', kind: 'csv', delimiter: ',', rowCount: 4, headers: [] };
@@ -157,6 +158,37 @@ describe('collections operations', () => {
     expect(res.m).toContain('if v <= 549 then 25 else if v <= 649 then 15');
     expect(res.m).toContain('Table.AddRankColumn(#"Added Critical", "Rank", {{"Risk", Order.Descending}}, [RankKind = RankKind.Competition])');
     expect(res.m).toContain('each if (try ([#"Risk"] > 60) = true otherwise false) then "Yes" else if (try ([#"DPD"] > 90) = true otherwise false) then "Yes" else "No"');
+  });
+});
+
+describe('model relationships', () => {
+  const tables = [
+    { name: 'POLICY', role: 'fact' as const, source: 'POLICY', columns: [] },
+    { name: 'AGENT', role: 'dimension' as const, source: 'AGENT', columns: [] },
+    { name: 'BRANCH', role: 'dimension' as const, source: 'BRANCH', columns: [] },
+  ];
+  const dt = { enabled: true, name: 'Date', table: 'POLICY', column: 'Issue Date' };
+
+  it('deactivates the dimension-to-dimension link that makes paths ambiguous', () => {
+    const rels: Relationship[] = [
+      { fromTable: 'AGENT', fromColumn: 'Branch ID', toTable: 'BRANCH', toColumn: 'Branch ID' },
+      { fromTable: 'POLICY', fromColumn: 'Agent ID', toTable: 'AGENT', toColumn: 'Agent ID' },
+      { fromTable: 'POLICY', fromColumn: 'Branch ID', toTable: 'BRANCH', toColumn: 'Branch ID' },
+      { fromTable: 'POLICY', fromColumn: 'Issue Date', toTable: 'Date', toColumn: 'Date' },
+    ];
+    const issues: string[] = [];
+    deactivateAmbiguousPaths(rels, tables, dt, issues);
+    expect(rels.map((r) => r.active !== false)).toEqual([false, true, true, true]);
+    expect(issues[0]).toContain('AGENT[Branch ID] → BRANCH[Branch ID] set to inactive');
+  });
+
+  it('keeps only one of two relationships between the same pair', () => {
+    const rels: Relationship[] = [
+      { fromTable: 'POLICY', fromColumn: 'Agent ID', toTable: 'AGENT', toColumn: 'Agent ID' },
+      { fromTable: 'POLICY', fromColumn: 'Referrer ID', toTable: 'AGENT', toColumn: 'Agent ID' },
+    ];
+    deactivateAmbiguousPaths(rels, tables, { ...dt, enabled: false }, []);
+    expect(rels.map((r) => r.active !== false)).toEqual([true, false]);
   });
 });
 

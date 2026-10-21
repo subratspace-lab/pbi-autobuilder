@@ -1,4 +1,4 @@
-import type { Cell, CleanedColumn, ColumnType, ModelSpec, ModelTable, Project, Relationship } from '../../../shared/types.js';
+import type { Cell, CleanedColumn, ColumnType, DateTableSpec, ModelSpec, ModelTable, Project, Relationship } from '../../../shared/types.js';
 import { getPipeline } from './store.js';
 
 export const MEASURE_TABLE = '_Measures';
@@ -113,18 +113,42 @@ export function validateModel(project: Project, spec: ModelSpec): { model: Model
     ...dateRels,
   ];
 
-  // Only one active path between two tables.
-  const seenPairs = new Set<string>();
-  for (const r of rels) {
-    const pair = [r.fromTable, r.toTable].sort().join('|');
-    if (seenPairs.has(pair) && r.active !== false) {
-      r.active = false;
-      issues.push(`Second relationship between ${r.fromTable} and ${r.toTable} set to inactive`);
-    }
-    seenPairs.add(pair);
-  }
+  deactivateAmbiguousPaths(rels, tables, dt, issues);
 
   return { model: { ...spec, tables, relationships: rels, dateTable: { ...dt } }, issues };
+}
+
+/**
+ * Power BI allows only one active filter path between any two tables, so the
+ * active relationships must form a tree (no loops). E.g. POLICY→AGENT→BRANCH
+ * plus POLICY→BRANCH is ambiguous and Power BI refuses to open the model.
+ * Relationships are kept in priority order — the Date table, then fact → dimension
+ * (the star schema), then dimension → dimension — and any relationship that
+ * would close a loop is made inactive (still usable in DAX with USERELATIONSHIP).
+ */
+export function deactivateAmbiguousPaths(rels: Relationship[], tables: ModelTable[], dt: DateTableSpec, issues: string[]) {
+  const parent = new Map<string, string>();
+  const root = (t: string): string => {
+    let r = t;
+    while (parent.has(r) && parent.get(r) !== r) r = parent.get(r)!;
+    parent.set(t, r);
+    return r;
+  };
+  const role = (t: string) => tables.find((x) => x.name === t)?.role;
+  const priority = (r: Relationship) => (dt.enabled && r.toTable === dt.name ? 0 : role(r.fromTable) === 'fact' ? 1 : 2);
+  const ordered = rels.filter((r) => r.active !== false).sort((a, b) => priority(a) - priority(b));
+  for (const r of ordered) {
+    const a = root(r.fromTable);
+    const b = root(r.toTable);
+    if (a === b) {
+      r.active = false;
+      issues.push(
+        `${r.fromTable}[${r.fromColumn}] → ${r.toTable}[${r.toColumn}] set to inactive: ${r.fromTable} and ${r.toTable} are already connected through other tables (Power BI allows only one active path)`,
+      );
+    } else {
+      parent.set(a, b);
+    }
+  }
 }
 
 export interface ModelTableData {
