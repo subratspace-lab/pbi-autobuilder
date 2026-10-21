@@ -1,15 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Download, ExternalLink, FolderOpen, PackageCheck } from 'lucide-react';
-import { api, type ExportResult } from '../api/client';
+import { api, type ExportResult, type ExportStatus } from '../api/client';
 import { useStore } from '../store/projectStore';
 import { Notice, PageHeader, Spinner, formatValue } from '../components/ui';
 
 export function ExportPage() {
-  const { project, setProject, run, busy } = useStore();
+  const { project, setProject, run, busy, toast } = useStore();
   const [fileName, setFileName] = useState('');
   const [dataFolder, setDataFolder] = useState('');
   const [embedData, setEmbedData] = useState(true);
   const [result, setResult] = useState<ExportResult | null>(null);
+  const [status, setStatus] = useState<ExportStatus | null>(null);
+
+  const refreshStatus = async (id: string) => {
+    try {
+      setStatus(await api.exportStatus(id));
+    } catch {
+      setStatus(null);
+    }
+  };
+  useEffect(() => {
+    if (project?.id) void refreshStatus(project.id);
+  }, [project?.id]);
 
   useEffect(() => {
     setFileName(project?.export.projectFileName || project?.name || '');
@@ -30,6 +42,17 @@ export function ExportPage() {
     if (p) setProject(p);
     const res = await run('export', () => api.export(project.id));
     if (res) setResult(res);
+    await refreshStatus(project.id);
+  };
+
+  const openPbi = async () => {
+    const res = await run('open', () => api.openExport(project.id, 'pbip'));
+    if (!res) return;
+    toast(
+      'success',
+      res.method === 'powerbi' ? 'Opening in Power BI Desktop…' : 'Opening with the default app for .pbip files…',
+      ['It can take 20–60 seconds to start. Then click “Refresh now” on the yellow bar.'],
+    );
   };
 
   return (
@@ -91,22 +114,32 @@ export function ExportPage() {
         </section>
       </div>
 
-      {result && (
+      {(result || status?.exists) && (
         <div className="mt-6 space-y-4">
-          <Notice tone="green" title="Project generated">
-            <code className="break-all text-xs">{result.projectFile}</code>
+          <Notice tone="green" title={result ? 'Project generated' : 'Last generated project'}>
+            <code className="break-all text-xs">{result?.projectFile ?? status?.projectFile}</code>
           </Notice>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <a className="btn-primary" href={api.downloadUrl(project.id)}>
               <Download className="h-4 w-4" /> Download .zip
             </a>
-            <button className="btn-secondary" onClick={() => run('open', () => api.openExport(project.id, 'pbip'))}>
-              <ExternalLink className="h-4 w-4" /> Open in Power BI Desktop
+            <button className="btn-secondary" disabled={busy.open} onClick={openPbi}>
+              {busy.open ? <Spinner /> : <ExternalLink className="h-4 w-4" />} Open in Power BI Desktop
             </button>
-            <button className="btn-secondary" onClick={() => run('open', () => api.openExport(project.id, 'folder'))}>
+            <button className="btn-secondary" onClick={() => run('openFolder', () => api.openExport(project.id, 'folder'))}>
               <FolderOpen className="h-4 w-4" /> Open folder
             </button>
+            {status && (
+              <span className="text-xs text-slate-500">
+                {status.powerBiDesktop ? '✓ Power BI Desktop found on this PC' : 'Power BI Desktop not detected — the file opens with its default app'}
+              </span>
+            )}
           </div>
+        </div>
+      )}
+
+      {result && (
+        <div className="mt-4 space-y-4">
           <Notice title="Generation notes" items={result.warnings} />
 
           <div className="grid gap-4 md:grid-cols-2">

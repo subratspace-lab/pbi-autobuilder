@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawn } from 'node:child_process';
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import multer from 'multer';
 import type { Analysis, CleaningOp, MeasureSpec, ModelSpec, Project, ReportSpec, TableCleaning } from '../../../shared/types.js';
@@ -24,9 +23,20 @@ import { aiAnalyze, aiCleaning, aiMeasures, aiModel, aiReport } from '../service
 import { MEASURE_TABLE, modelColumns, validateModel } from '../services/model.js';
 import { lintMeasures } from '../services/dax.js';
 import { measureChecks, reportPreview } from '../services/preview.js';
-import { layoutReport, normalizeVisual } from '../services/report.js';
-import { exportProject } from '../services/pbipWriter.js';
+import { layoutPage, normalizeVisual, reportPages } from '../services/report.js';
+import { exportLocation, exportProject } from '../services/pbipWriter.js';
+import { findPowerBiDesktop, openFolder, openInPowerBi } from '../services/opener.js';
 import { APP_ROOT } from '../services/paths.js';
+import {
+  MASTER,
+  collectionsAnalysis,
+  collectionsCleaning,
+  collectionsMeasures,
+  collectionsModel,
+  collectionsReady,
+  collectionsReport,
+  detectCollections,
+} from '../services/packs/collections.js';
 
 export const projects = Router();
 
@@ -205,7 +215,8 @@ projects.post('/:id/profile', h((req) => {
 projects.post('/:id/analyze', h(async (req) => {
   const p = load(req);
   requireProfiles(p);
-  p.analysis = useAi(req) ? await aiAnalyze(p) : analysisRules(p);
+  const plan = detectCollections(p);
+  p.analysis = useAi(req) ? await aiAnalyze(p) : plan ? collectionsAnalysis(p, plan) : analysisRules(p);
   return saveProject(p);
 }));
 
@@ -233,7 +244,12 @@ projects.post('/:id/cleaning/suggest', h(async (req) => {
     suggested = res.ops;
     warnings = res.warnings;
   } else {
-    suggested = Object.fromEntries(p.profiles.map((pr) => [pr.table, cleaningRules(pr)]));
+    // A recognised domain pack (collections) adds its analysis steps on top of the generic fixes.
+    const plan = detectCollections(p);
+    suggested = Object.fromEntries(p.profiles.map((pr) => [pr.table, cleaningRules(pr, { bands: !plan })]));
+    if (plan) {
+      for (const [table, ops] of Object.entries(collectionsCleaning(p, plan))) suggested[table] = [...(suggested[table] ?? []), ...ops];
+    }
   }
   for (const t of p.tables) {
     if (only && t.name !== only) continue;
@@ -278,7 +294,8 @@ projects.post('/:id/model/suggest', h(async (req) => {
     issues = res.issues;
   } else {
     const pipes = new Map(p.tables.map((t) => [t.name, getPipeline(p, t.name)]));
-    const res = validateModel(p, modelRules(p, pipes));
+    const plan = collectionsReady(p);
+    const res = validateModel(p, plan ? collectionsModel(p, plan) : modelRules(p, pipes));
     p.model = res.model;
     issues = res.issues;
   }
@@ -302,7 +319,8 @@ function lint(p: Project, model: ModelSpec) {
 projects.post('/:id/measures/suggest', h(async (req) => {
   const p = load(req);
   const model = requireModel(p);
-  p.measures = useAi(req) ? await aiMeasures(p, model) : measureRules(p, model);
+  const plan = collectionsReady(p);
+  p.measures = useAi(req) ? await aiMeasures(p, model) : plan && model.tables.some((t) => t.name === MASTER) ? collectionsMeasures(p, plan) : measureRules(p, model);
   return { project: saveProject(p), lint: lint(p, model) };
 }));
 
@@ -331,7 +349,11 @@ projects.post('/:id/report/suggest', h(async (req) => {
     p.report = res.report;
     issues = res.issues;
   } else {
-    p.report = reportRules(p, model, p.measures);
+    const plan = collectionsReady(p);
+    p.report =
+      plan && model.tables.some((t) => t.name === MASTER) && p.measures.some((m) => m.name === 'Accounts in Collection')
+        ? collectionsReport(p, plan, p.measures)
+        : reportRules(p, model, p.measures);
   }
   return { project: saveProject(p), issues };
 }));
@@ -340,12 +362,18 @@ projects.put('/:id/report', h((req) => {
   const p = load(req);
   const body = req.body as ReportSpec;
   const issues: string[] = [];
-  const visuals = body.visuals.map((v) => {
-    const res = normalizeVisual({ ...v, id: v.id || newId() });
-    issues.push(...res.issues);
-    return res.visual;
-  });
-  p.report = { ...body, visuals, source: 'user' };
+  const pages = reportPages(body).map((page) => ({
+    ...page,
+    id: page.id || newId(),
+    name: page.name?.trim() || 'Page',
+    visuals: page.visuals.map((v) => {
+      const res = normalizeVisual({ ...v, id: v.id || newId() });
+      issues.push(...res.issues);
+      return res.visual;
+    }),
+  }));
+  const { visuals: _legacy, ...rest } = body;
+  p.report = { ...rest, pages, source: 'user' };
   return { project: saveProject(p), issues };
 }));
 
@@ -353,44 +381,54 @@ projects.get('/:id/report/preview', h((req) => {
   const p = load(req);
   if (!p.report) throw fail(400, 'Design the dashboard first');
   const model = requireModel(p);
-  return { layout: layoutReport(p.report), data: reportPreview({ ...p, model }, p.report) };
+  return {
+    pages: reportPages(p.report).map((page) => ({ id: page.id, layout: layoutPage(page) })),
+    data: reportPreview({ ...p, model }, p.report),
+  };
 }));
 
 // ---------- export ----------
 
-const lastExport = new Map<string, Awaited<ReturnType<typeof exportProject>>>();
-
 projects.post('/:id/export', h(async (req) => {
   const p = load(req);
   requireModel(p);
-  const res = await exportProject(p);
-  lastExport.set(p.id, res);
-  return res;
+  return exportProject(p);
+}));
+
+/** The latest export is found on disk, so it survives server restarts and page reloads. */
+function existingExport(p: Project) {
+  const loc = exportLocation(p);
+  if (!fs.existsSync(loc.projectFile)) throw fail(404, 'No export yet — click "Generate Power BI project" first');
+  return loc;
+}
+
+projects.get('/:id/export/status', h((req) => {
+  const p = load(req);
+  const loc = exportLocation(p);
+  return {
+    exists: fs.existsSync(loc.projectFile),
+    ...loc,
+    zipExists: fs.existsSync(loc.zipPath),
+    powerBiDesktop: findPowerBiDesktop(),
+  };
 }));
 
 projects.get('/:id/export/download', (req, res, next) => {
   try {
-    const p = getProject(req.params.id);
-    const last = lastExport.get(p.id);
-    if (!last || !fs.existsSync(last.zipPath)) throw fail(404, 'Export the project first');
-    res.download(last.zipPath, path.basename(last.zipPath));
+    const loc = existingExport(getProject(req.params.id));
+    if (!fs.existsSync(loc.zipPath)) throw fail(404, 'Generate the project again to create the zip');
+    res.download(loc.zipPath, path.basename(loc.zipPath));
   } catch (e) {
     next(e);
   }
 });
 
-projects.post('/:id/export/open', h((req) => {
-  const p = load(req);
-  const last = lastExport.get(p.id);
-  if (!last) throw fail(404, 'Export the project first');
-  const target = req.body?.target === 'pbip' ? last.projectFile : last.folder;
-  if (process.platform === 'win32') {
-    spawn(req.body?.target === 'pbip' ? 'cmd.exe' : 'explorer.exe', req.body?.target === 'pbip' ? ['/c', 'start', '', target] : [target], {
-      detached: true,
-      stdio: 'ignore',
-    }).unref();
-  } else {
-    spawn(process.platform === 'darwin' ? 'open' : 'xdg-open', [target], { detached: true, stdio: 'ignore' }).unref();
+projects.post('/:id/export/open', h(async (req) => {
+  const loc = existingExport(load(req));
+  if (req.body?.target === 'pbip') {
+    const res = await openInPowerBi(loc.projectFile);
+    return { ok: true, target: loc.projectFile, ...res };
   }
-  return { ok: true, target };
+  await openFolder(loc.folder);
+  return { ok: true, target: loc.folder };
 }));

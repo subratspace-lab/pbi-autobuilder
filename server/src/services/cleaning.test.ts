@@ -101,6 +101,65 @@ describe('cleaning pipeline', () => {
   });
 });
 
+describe('collections operations', () => {
+  const loans = {
+    headers: ['Loan ID', 'Customer ID', 'DPD', 'Debt', 'Income'],
+    rows: [
+      ['L1', 'C1', 0, 20000, 100000],
+      ['L2', 'C2', 45, 45000, 60000],
+      ['L3', 'C3', 200, 9000, 10000],
+    ] as (string | number)[][],
+  };
+  const bureau = { headers: ['Customer ID', 'Score'], rows: [['C1', 780], ['C2', 640], ['C3', 520]], columns: [{ name: 'Customer ID', type: 'text' as const }, { name: 'Score', type: 'integer' as const }] };
+  const ctx = { resolve: (t: string) => (t === 'Bureau' ? bureau : null) };
+  const res = runPipeline(
+    { ...table, name: 'Loans' },
+    loans,
+    {
+      table: 'Loans',
+      culture: 'en-US',
+      ops: [
+        op({ op: 'mergeTable', table: 'Bureau', leftKey: 'Customer ID', rightKey: 'Customer ID' }),
+        op({ op: 'addColumn', name: 'DTI %', spec: { kind: 'arithmetic', left: 'Debt', operator: '/', right: 'Income', scale: 100, round: 2 } }),
+        op({ op: 'addColumn', name: 'DPD Score', spec: { kind: 'bucket', column: 'DPD', bounds: [0, 30, 60, 90, 179], labels: [0, 10, 15, 20, 30, 40], numeric: true } }),
+        op({ op: 'addColumn', name: 'Score Points', spec: { kind: 'bucket', column: 'Score', bounds: [549, 649, 699, 749], labels: [25, 15, 8, 4, 0], numeric: true } }),
+        op({ op: 'addColumn', name: 'Risk', spec: { kind: 'sum', columns: ['DPD Score', 'Score Points'] } }),
+        op({ op: 'addColumn', name: 'Bucket', spec: { kind: 'bucket', column: 'DPD', bounds: [0, 30, 60, 90, 180], labels: ['Current', 'SMA-0', 'SMA-1', 'SMA-2', 'NPA', 'Severe NPA'] } }),
+        op({
+          op: 'addColumn',
+          name: 'Critical',
+          spec: { kind: 'cases', cases: [{ column: 'Risk', operator: 'greaterThan', value: 60, then: 'Yes' }, { column: 'DPD', operator: 'greaterThan', value: 90, then: 'Yes' }], else: 'No' },
+        }),
+        op({ op: 'addRank', name: 'Rank', column: 'Risk', descending: true }),
+      ],
+    },
+    ctx,
+  );
+  const col = (n: string) => res.rows.map((r) => r[res.headers.indexOf(n)]);
+
+  it('merges, scores, bands, flags and ranks', () => {
+    expect(res.warnings).toEqual([]);
+    expect(col('Score')).toEqual([780, 640, 520]);
+    expect(col('DTI %')).toEqual([20, 75, 90]);
+    expect(col('Risk')).toEqual([0, 30, 65]);
+    expect(col('Bucket')).toEqual(['Current', 'SMA-1', 'Severe NPA']);
+    expect(col('Bucket Sort')).toEqual([1, 3, 6]);
+    expect(col('Critical')).toEqual(['No', 'No', 'Yes']);
+    expect(col('Rank')).toEqual([3, 2, 1]);
+    expect(res.columns.find((c) => c.name === 'Bucket')?.sortBy).toBe('Bucket Sort');
+    expect(res.columns.find((c) => c.name === 'Risk')?.type).toBe('number');
+  });
+
+  it('emits Power Query for the new steps', () => {
+    expect(res.m).toContain('Table.NestedJoin(#"Changed Type Order Date"'.replace('Changed Type Order Date', 'Promoted Headers'));
+    expect(res.m).toContain('#"Bureau Base", {"Customer ID"}, "__Merged", JoinKind.LeftOuter), "__Merged", {"Score"}, {"Score"})');
+    expect(res.m).toContain('Number.Round((if b = 0 then null else a / b) * 100, 2, RoundingMode.AwayFromZero)');
+    expect(res.m).toContain('if v <= 549 then 25 else if v <= 649 then 15');
+    expect(res.m).toContain('Table.AddRankColumn(#"Added Critical", "Rank", {{"Risk", Order.Descending}}, [RankKind = RankKind.Competition])');
+    expect(res.m).toContain('each if (try ([#"Risk"] > 60) = true otherwise false) then "Yes" else if (try ([#"DPD"] > 90) = true otherwise false) then "Yes" else "No"');
+  });
+});
+
 describe('DAX lint & evaluator', () => {
   const tables = new Map([['Sales', [{ name: 'Amount', type: 'number' as const }, { name: 'Region', type: 'text' as const }]]]);
   const measures = [

@@ -27,9 +27,28 @@ export interface PipelineState {
   culture: Culture;
   /** Power BI column properties produced by steps (sort-by, hidden). */
   meta: Map<string, { sortBy?: string; hidden?: boolean }>;
+  ctx: PipelineContext;
 }
 
+/** Access to other cleaned tables (for merges). */
+export interface PipelineContext {
+  resolve(table: string): { headers: string[]; rows: Cell[][]; columns: CleanedColumn[] } | null;
+}
+
+export const NO_CONTEXT: PipelineContext = { resolve: () => null };
+
 export const sortName = (column: string) => `${column} Sort`;
+
+/** Name of the (not loaded) query holding a table's cleaned data, used by merges and shared sources. */
+export function stagingName(source: string) {
+  return `${source} Base`;
+}
+
+/** Round half away from zero, like Number.Round(x, d, RoundingMode.AwayFromZero). */
+export function roundAway(x: number, d: number) {
+  const f = 10 ** d;
+  return (Math.sign(x) * Math.round(Math.abs(x) * f)) / f;
+}
 
 type OpOf<K extends CleaningOp['op']> = Extract<CleaningOp, { op: K }>;
 
@@ -145,15 +164,27 @@ const OP_LABEL: Record<FilterOperator, string> = {
 const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+const isNum = (v: unknown) => typeof v === 'number' || (typeof v === 'string' && v.trim() !== '' && !Number.isNaN(Number(v)));
+
+function numericType(values: unknown[]): ColumnType {
+  return values.every((v) => Number.isInteger(Number(v))) ? 'integer' : 'number';
+}
+
 function addColumnType(spec: AddColumnSpec): ColumnType {
   switch (spec.kind) {
     case 'arithmetic':
+    case 'sum':
       return 'number';
     case 'datePart':
       return spec.part === 'monthName' || spec.part === 'weekdayName' ? 'text' : 'integer';
+    case 'cases': {
+      const outs = [...spec.cases.map((c) => c.then), spec.else];
+      return outs.every((v) => typeof v === 'number') ? numericType(outs) : 'text';
+    }
+    case 'bucket':
+      return spec.numeric && spec.labels.every(isNum) ? numericType(spec.labels) : 'text';
     case 'concat':
     case 'conditional':
-    case 'bucket':
       return 'text';
     case 'custom':
       return spec.type;
@@ -169,7 +200,10 @@ function addColumnRefs(spec: AddColumnSpec): string[] {
     case 'bucket':
       return [spec.column];
     case 'concat':
+    case 'sum':
       return spec.columns;
+    case 'cases':
+      return [...new Set(spec.cases.map((c) => c.column))];
     case 'custom':
       return [];
   }
@@ -196,10 +230,7 @@ function addColumnValue(spec: AddColumnSpec, s: PipelineState): (row: Cell[]) =>
     case 'arithmetic': {
       const li = idx(s, spec.left);
       const ri = typeof spec.right === 'string' ? idx(s, spec.right) : -1;
-      return (row) => {
-        const a = toNum(row[li]);
-        const b = ri >= 0 ? toNum(row[ri]) : (spec.right as number);
-        if (a === null || b === null) return null;
+      const calc = (a: number, b: number) => {
         switch (spec.operator) {
           case '+':
             return a + b;
@@ -210,6 +241,15 @@ function addColumnValue(spec: AddColumnSpec, s: PipelineState): (row: Cell[]) =>
           case '/':
             return b === 0 ? null : a / b;
         }
+      };
+      return (row) => {
+        const a = toNum(row[li]);
+        const b = ri >= 0 ? toNum(row[ri]) : (spec.right as number);
+        if (a === null || b === null) return null;
+        let r = calc(a, b);
+        if (r === null) return null;
+        if (spec.scale !== undefined) r *= spec.scale;
+        return spec.round !== undefined ? roundAway(r, spec.round) : r;
       };
     }
     case 'datePart': {
@@ -242,9 +282,22 @@ function addColumnValue(spec: AddColumnSpec, s: PipelineState): (row: Cell[]) =>
     }
     case 'bucket': {
       const ci = idx(s, spec.column);
+      const numeric = addColumnType(spec) !== 'text';
       return (row) => {
         const i = bucketIndex(toNum(row[ci]), spec.bounds);
-        return i === null ? null : spec.labels[i];
+        if (i === null) return null;
+        return numeric ? Number(spec.labels[i]) : String(spec.labels[i]);
+      };
+    }
+    case 'sum': {
+      const ids = spec.columns.map((c) => idx(s, c));
+      return (row) => ids.reduce((acc, i) => acc + (toNum(row[i]) ?? 0), 0);
+    }
+    case 'cases': {
+      const rules = spec.cases.map((c) => ({ ...c, ci: idx(s, c.column), target: coerceForCompare(c.value, s.types.get(c.column), s.culture) }));
+      return (row) => {
+        for (const r of rules) if (compare(row[r.ci], r.operator, r.target)) return r.then;
+        return spec.else;
       };
     }
     case 'concat': {
@@ -270,7 +323,9 @@ function addColumnM(spec: AddColumnSpec, s: PipelineState): string {
       const num = (col: string) => `Number.From(${mField(col)}, ${mString(s.culture)})`;
       const a = num(spec.left);
       const b = typeof spec.right === 'string' ? num(spec.right) : String(spec.right);
-      const expr = spec.operator === '/' ? `if b = 0 then null else a / b` : `a ${spec.operator} b`;
+      let expr = spec.operator === '/' ? `(if b = 0 then null else a / b)` : `(a ${spec.operator} b)`;
+      if (spec.scale !== undefined) expr = `${expr} * ${spec.scale}`;
+      if (spec.round !== undefined) expr = `Number.Round(${expr}, ${spec.round}, RoundingMode.AwayFromZero)`;
       return `each try (let a = ${a}, b = ${b} in if a = null or b = null then null else ${expr}) otherwise null`;
     }
     case 'datePart': {
@@ -286,8 +341,19 @@ function addColumnM(spec: AddColumnSpec, s: PipelineState): string {
       };
       return `each try (let d = ${d} in if d = null then null else ${fn[spec.part]}) otherwise null`;
     }
-    case 'bucket':
-      return bucketM(spec, s, (i) => mString(spec.labels[i]));
+    case 'bucket': {
+      const numeric = addColumnType(spec) !== 'text';
+      return bucketM(spec, s, (i) => (numeric ? String(Number(spec.labels[i])) : mString(String(spec.labels[i]))));
+    }
+    case 'sum': {
+      const items = spec.columns.map((c) => `let n = try Number.From(${mField(c)}, ${mString(s.culture)}) otherwise null in if n = null then 0 else n`);
+      return `each List.Sum({${items.map((i) => `(${i})`).join(', ')}})`;
+    }
+    case 'cases': {
+      const lit = (v: string | number) => (typeof v === 'number' ? String(v) : mString(v));
+      const chain = spec.cases.map((c) => `if (${predicateM(c.column, c.operator, c.value, s)}) then ${lit(c.then)} else `).join('');
+      return `each ${chain}${lit(spec.else)}`;
+    }
     case 'concat': {
       const items = spec.columns.map((c) => `if ${mField(c)} = null then null else Text.From(${mField(c)})`);
       return `each let parts = List.RemoveNulls(${mList(items)}) in if List.IsEmpty(parts) then null else Text.Combine(parts, ${mString(spec.separator)})`;
@@ -299,6 +365,22 @@ function addColumnM(spec: AddColumnSpec, s: PipelineState): string {
       return e.startsWith('each') ? e : `each ${e}`;
     }
   }
+}
+
+// ---------- merges ----------
+
+function mergeTarget(s: PipelineState, op: Extract<CleaningOp, { op: 'mergeTable' }>) {
+  const other = s.ctx.resolve(op.table);
+  if (!other) throw new Error(`Table "${op.table}" not found (or it merges this table back — circular merge)`);
+  const ri = other.headers.indexOf(op.rightKey);
+  if (ri < 0) throw new Error(`Column "${op.rightKey}" not found in "${op.table}"`);
+  const cols = op.columns?.length ? op.columns : other.headers.filter((h) => h !== op.rightKey && !s.headers.includes(h));
+  const missing = cols.filter((c) => !other.headers.includes(c));
+  if (missing.length) throw new Error(`Column(s) not found in "${op.table}": ${missing.join(', ')}`);
+  const clash = cols.filter((c) => s.headers.includes(c));
+  if (clash.length) throw new Error(`Column(s) already exist: ${clash.join(', ')} — rename them first`);
+  if (!cols.length) throw new Error(`Nothing to merge from "${op.table}"`);
+  return { other, cols, ri };
 }
 
 // ---------- the op library ----------
@@ -475,15 +557,16 @@ const OPS: { [K in CleaningOp['op']]: OpImpl<K> } = {
     apply(s, op) {
       if (s.headers.includes(op.name)) throw new Error(`Column "${op.name}" already exists`);
       const spec = op.spec;
+      const textBands = spec.kind === 'bucket' && addColumnType(spec) === 'text';
       if (spec.kind === 'bucket') {
         if (spec.labels.length !== spec.bounds.length + 1) throw new Error('A bucket needs exactly one more label than bounds');
-        if (s.headers.includes(sortName(op.name))) throw new Error(`Column "${sortName(op.name)}" already exists`);
+        if (textBands && s.headers.includes(sortName(op.name))) throw new Error(`Column "${sortName(op.name)}" already exists`);
       }
       const fn = addColumnValue(spec, s);
       s.rows = s.rows.map((row) => [...row, fn(row)]);
       s.headers.push(op.name);
       s.types.set(op.name, addColumnType(spec));
-      if (spec.kind === 'bucket') {
+      if (spec.kind === 'bucket' && textBands) {
         // Hidden order column so the bands sort 0-30, 31-60, … not alphabetically.
         const ci = idx(s, spec.column);
         s.rows = s.rows.map((row) => {
@@ -500,7 +583,7 @@ const OPS: { [K in CleaningOp['op']]: OpImpl<K> } = {
     toM(prev, op, s) {
       const added = `Table.AddColumn(${prev}, ${mString(op.name)}, ${addColumnM(op.spec, s)}, ${mType(addColumnType(op.spec))})`;
       const spec = op.spec;
-      if (spec.kind !== 'bucket') return added;
+      if (spec.kind !== 'bucket' || addColumnType(spec) !== 'text') return added;
       return `Table.AddColumn(${added}, ${mString(sortName(op.name))}, ${bucketM(spec, s, (i) => String(i + 1))}, Int64.Type)`;
     },
   },
@@ -533,6 +616,68 @@ const OPS: { [K in CleaningOp['op']]: OpImpl<K> } = {
       }
     },
     toM: (prev, op) => `Table.RemoveColumns(${prev}, ${mStringList(op.columns)}, MissingField.Ignore)`,
+  },
+  addRank: {
+    columns: (op) => [op.column],
+    title: (op) => `Ranked by ${op.column}`,
+    apply(s, op) {
+      if (s.headers.includes(op.name)) throw new Error(`Column "${op.name}" already exists`);
+      const ci = idx(s, op.column);
+      const values = s.rows.map((r) => toNum(r[ci]));
+      // Competition ranking ("1, 2, 2, 4"), like RankKind.Competition; blanks rank last.
+      const sorted = values.filter((v): v is number => v !== null).sort((a, b) => (op.descending ? b - a : a - b));
+      const first = new Map<number, number>();
+      sorted.forEach((v, i) => {
+        if (!first.has(v)) first.set(v, i + 1);
+      });
+      s.rows = s.rows.map((r, i) => [...r, values[i] === null ? sorted.length + 1 : first.get(values[i] as number)!]);
+      s.headers.push(op.name);
+      s.types.set(op.name, 'integer');
+    },
+    toM: (prev, op) =>
+      `Table.AddRankColumn(${prev}, ${mString(op.name)}, {{${mString(op.column)}, Order.${op.descending ? 'Descending' : 'Ascending'}}}, [RankKind = RankKind.Competition])`,
+  },
+  mergeTable: {
+    columns: (op) => [op.leftKey],
+    title: (op) => `Merged ${op.table}`,
+    apply(s, op) {
+      const { other, cols, ri } = mergeTarget(s, op);
+      const index = new Map<string, Cell[][]>();
+      for (const r of other.rows) {
+        const key = JSON.stringify(r[ri]);
+        if (r[ri] === null) continue;
+        (index.get(key) ?? index.set(key, []).get(key)!).push(r);
+      }
+      const ids = cols.map((c) => other.headers.indexOf(c));
+      const li = idx(s, op.leftKey);
+      const empty = ids.map(() => null);
+      const out: Cell[][] = [];
+      let unmatched = 0;
+      for (const row of s.rows) {
+        const matches = row[li] === null ? undefined : index.get(JSON.stringify(row[li]));
+        if (!matches) {
+          unmatched++;
+          out.push([...row, ...empty]);
+        } else for (const m of matches) out.push([...row, ...ids.map((i) => m[i])]);
+      }
+      const before = s.rows.length;
+      s.rows = out;
+      s.headers.push(...cols);
+      for (const c of cols) {
+        const oc = other.columns.find((x) => x.name === c);
+        if (oc) s.types.set(c, oc.type);
+        if (oc?.sortBy && cols.includes(oc.sortBy)) s.meta.set(c, { sortBy: oc.sortBy });
+        if (oc?.hidden) s.meta.set(c, { hidden: true });
+      }
+      const notes = [`${cols.length} columns added`];
+      if (unmatched) notes.push(`${unmatched} rows had no match`);
+      if (out.length !== before) notes.push(`row count changed ${before} → ${out.length} (duplicate keys in ${op.table})`);
+      return notes.join('; ');
+    },
+    toM(prev, op, s) {
+      const { cols } = mergeTarget(s, op);
+      return `Table.ExpandTableColumn(Table.NestedJoin(${prev}, {${mString(op.leftKey)}}, #${mString(stagingName(op.table))}, {${mString(op.rightKey)}}, "__Merged", JoinKind.LeftOuter), "__Merged", ${mStringList(cols)}, ${mStringList(cols)})`;
+    },
   },
   filterRows: {
     columns: (op) => [op.column],
@@ -592,13 +737,14 @@ export interface PipelineOutput extends CleaningResult {
   steps: { name: string; expr: string }[];
 }
 
-export function runPipeline(table: SourceTable, raw: RawTable, cleaning: TableCleaning): PipelineOutput {
+export function runPipeline(table: SourceTable, raw: RawTable, cleaning: TableCleaning, ctx: PipelineContext = NO_CONTEXT): PipelineOutput {
   const s: PipelineState = {
     headers: [...raw.headers],
     rows: raw.rows.map((r) => [...r]),
     types: new Map(),
     culture: cleaning.culture,
     meta: new Map(),
+    ctx,
   };
   const rowsBefore = s.rows.length;
   const previewBefore = preview(s.headers, s.rows);
@@ -629,7 +775,7 @@ export function runPipeline(table: SourceTable, raw: RawTable, cleaning: TableCl
     let note: string | void;
     try {
       expr = im.toM(`#${mString(prev)}`, op as never, s);
-      const snapshot = { headers: [...s.headers], rows: s.rows, types: new Map(s.types), meta: new Map(s.meta) };
+      const snapshot = { headers: [...s.headers], rows: s.rows, types: new Map(s.types), meta: new Map(s.meta), ctx: s.ctx };
       try {
         note = im.apply(s, op as never);
       } catch (e) {

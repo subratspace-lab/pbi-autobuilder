@@ -28,13 +28,26 @@ export const analysisSchema = z.object({
 });
 
 const addColumnSpec = z.discriminatedUnion('kind', [
-  z.object({ kind: z.literal('arithmetic'), left: z.string(), operator: z.enum(['+', '-', '*', '/']), right: scalar }),
+  z.object({
+    kind: z.literal('arithmetic'),
+    left: z.string(),
+    operator: z.enum(['+', '-', '*', '/']),
+    right: scalar,
+    scale: z.number().optional(),
+    round: z.number().int().min(0).max(10).optional(),
+  }),
+  z.object({ kind: z.literal('sum'), columns: z.array(z.string()).min(1) }),
+  z.object({
+    kind: z.literal('cases'),
+    cases: z.array(z.object({ column: z.string(), operator: filterOperator, value: scalar, then: scalar })).min(1),
+    else: scalar,
+  }),
   z.object({
     kind: z.literal('datePart'),
     column: z.string(),
     part: z.enum(['year', 'month', 'monthName', 'quarter', 'day', 'weekdayName', 'age']),
   }),
-  z.object({ kind: z.literal('bucket'), column: z.string(), bounds: z.array(z.number()).min(1), labels: z.array(z.coerce.string()).min(2) }),
+  z.object({ kind: z.literal('bucket'), column: z.string(), bounds: z.array(z.number()).min(1), labels: z.array(scalar).min(2), numeric: z.boolean().optional() }),
   z.object({ kind: z.literal('concat'), columns: z.array(z.string()).min(1), separator: z.string().default(' ') }),
   z.object({
     kind: z.literal('conditional'),
@@ -82,6 +95,8 @@ export const cleaningOpSchema = z.discriminatedUnion('op', [
   z.object({ op: z.literal('rename'), from: z.string(), to: z.string(), ...base }),
   z.object({ op: z.literal('removeColumns'), columns: cols, ...base }),
   z.object({ op: z.literal('filterRows'), column: z.string(), operator: filterOperator, value: scalar.optional(), ...base }),
+  z.object({ op: z.literal('addRank'), name: z.string(), column: z.string(), descending: z.boolean().default(true), ...base }),
+  z.object({ op: z.literal('mergeTable'), table: z.string(), leftKey: z.string(), rightKey: z.string(), columns: z.array(z.string()).optional(), ...base }),
 ]);
 
 /** Ops are validated one by one so a single bad op does not discard the rest. */
@@ -119,10 +134,7 @@ export const measuresSchema = z.object({
 
 const fieldRef = z.object({ kind: z.enum(['measure', 'column']), table: z.string(), name: z.string() });
 
-export const reportSchema = z.object({
-  title: z.string(),
-  subtitle: z.string().default(''),
-  visuals: z.array(
+const visualSchema = z.array(
     z.object({
       type: z.enum([
         'card',
@@ -139,8 +151,25 @@ export const reportSchema = z.object({
       title: z.string(),
       fields: z.array(z.object({ role: z.string(), field: fieldRef })),
       sortDescending: z.boolean().optional(),
+      sortField: fieldRef.optional(),
     }),
-  ),
+  );
+
+export const reportSchema = z.object({
+  title: z.string(),
+  subtitle: z.string().default(''),
+  /** Multi-page reports; a single "visuals" list is accepted as one page. */
+  pages: z
+    .array(
+      z.object({
+        name: z.string(),
+        subtitle: z.string().optional(),
+        visuals: visualSchema,
+        filters: z.array(z.object({ table: z.string(), column: z.string(), values: z.array(z.coerce.string()).min(1) })).optional(),
+      }),
+    )
+    .optional(),
+  visuals: visualSchema.optional(),
   theme: z
     .object({
       name: z.string(),

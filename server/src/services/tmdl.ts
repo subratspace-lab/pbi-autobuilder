@@ -5,7 +5,8 @@ import { mLet, mString, mStringList, mId, mField } from './m.js';
 import { DATE_COLUMNS, MEASURE_TABLE } from './model.js';
 import { daxColumn } from './dax.js';
 import { isIdLikeName } from './values.js';
-import type { PipelineOutput } from './cleaning.js';
+import { stagingName, type PipelineOutput } from './cleaning.js';
+export { stagingName };
 
 // Writes the semantic model as TMDL (Tabular Model Definition Language).
 
@@ -123,9 +124,6 @@ export interface TableQueries {
   tables: Map<string, string>;
 }
 
-export function stagingName(source: string) {
-  return `${source} Base`;
-}
 
 /** Steps appended after cleaning to shape a model table (column subset, unique keys). */
 function shapeSteps(t: ModelTable, cleaned: PipelineOutput, prev: string): { name: string; expr: string }[] {
@@ -181,17 +179,24 @@ function withSource(steps: { name: string; expr: string }[], source?: { name: st
   return [...source, ...steps.slice(k + 1)];
 }
 
+/**
+ * @param pipelines cleaned pipelines for every source used by the model AND every table merged into one.
+ * @param merged sources referenced by merge steps; they become staging queries (not loaded).
+ */
 export function buildTableQueries(
   model: ModelSpec,
   pipelines: Map<string, PipelineOutput>,
   embedded?: Map<string, { name: string; expr: string }[]>,
+  merged: Set<string> = new Set(),
 ): TableQueries {
   const expressions: TableQueries['expressions'] = [];
   const tables = new Map<string, string>();
   const consumers = new Map<string, number>();
   for (const t of model.tables) consumers.set(t.source, (consumers.get(t.source) ?? 0) + 1);
+  // A merged-in source is referenced by name, so it must exist as a query of its own.
+  for (const m of merged) consumers.set(m, Math.max(2, (consumers.get(m) ?? 0) + 1));
 
-  for (const source of new Set(model.tables.map((t) => t.source))) {
+  for (const source of new Set([...model.tables.map((t) => t.source), ...merged])) {
     if ((consumers.get(source) ?? 0) > 1) {
       expressions.push({ name: stagingName(source), m: mLet(withSource(pipelines.get(source)!.steps, embedded?.get(source))) });
     }
@@ -246,9 +251,10 @@ export function buildTmdl(
   pipelines: Map<string, PipelineOutput>,
   dataFolder: string,
   embedded?: Map<string, { name: string; expr: string }[]>,
+  merged: Set<string> = new Set(),
 ): TmdlFiles {
   const files: TmdlFiles = {};
-  const queries = buildTableQueries(model, pipelines, embedded);
+  const queries = buildTableQueries(model, pipelines, embedded, merged);
   const fkColumns = new Set(model.relationships.map((r) => `${r.fromTable}|${r.fromColumn}`));
 
   files['database.tmdl'] = `database\n${TAB}compatibilityLevel: 1567\n`;

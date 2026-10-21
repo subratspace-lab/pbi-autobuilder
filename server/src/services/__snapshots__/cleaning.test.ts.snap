@@ -10,7 +10,7 @@ exports[`cleaning pipeline > emits matching Power Query M 1`] = `
     #"Replaced $ in Sales" = Table.ReplaceValue(#"Capitalized Region", "$", "", Replacer.ReplaceText, {"Sales"}),
     #"Changed Type Sales" = Table.ReplaceErrorValues(Table.TransformColumnTypes(#"Replaced $ in Sales", {{"Sales", type number}}, "en-US"), {{"Sales", null}}),
     #"Changed Type Order Date" = Table.ReplaceErrorValues(Table.TransformColumnTypes(#"Changed Type Sales", {{"Order Date", type date}}, "en-US"), {{"Order Date", null}}),
-    #"Added Profit" = Table.AddColumn(#"Changed Type Order Date", "Profit", each try (let a = Number.From([#"Sales"], "en-US"), b = Number.From([#"Cost"], "en-US") in if a = null or b = null then null else a - b) otherwise null, type number),
+    #"Added Profit" = Table.AddColumn(#"Changed Type Order Date", "Profit", each try (let a = Number.From([#"Sales"], "en-US"), b = Number.From([#"Cost"], "en-US") in if a = null or b = null then null else (a - b)) otherwise null, type number),
     #"Removed Duplicate Rows" = Table.Distinct(#"Added Profit"),
     #"Set Final Types" = Table.TransformColumnTypes(#"Removed Duplicate Rows", {{"Order ID", type text}, {"Order Date", type date}, {"Region", type text}, {"Sales", type number}, {"Cost", Int64.Type}, {"Profit", type number}}, "en-US"),
     #"Replaced Conversion Errors" = Table.ReplaceErrorValues(#"Set Final Types", {{"Order Date", null}, {"Sales", null}, {"Cost", null}, {"Profit", null}})

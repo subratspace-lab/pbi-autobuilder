@@ -10,7 +10,7 @@ import type {
   PreviewData,
   Project,
   ProjectSummary,
-  ReportLayout,
+  PagePreview,
   ReportSpec,
   TableCleaning,
   ExportCheck,
@@ -39,6 +39,16 @@ export interface ExportResult {
   rowChecks: ExportCheck[];
   measureChecks: MeasureCheck[];
   warnings: string[];
+}
+
+export interface ExportStatus {
+  exists: boolean;
+  name: string;
+  folder: string;
+  projectFile: string;
+  zipPath: string;
+  zipExists: boolean;
+  powerBiDesktop: string | null;
 }
 
 export const api = {
@@ -81,9 +91,11 @@ export const api = {
 
   suggestReport: (id: string, mode: Mode) => request<{ project: Project; issues: string[] }>('POST', `/projects/${id}/report/suggest`, { mode }),
   saveReport: (id: string, r: ReportSpec) => request<{ project: Project; issues: string[] }>('PUT', `/projects/${id}/report`, r),
-  reportPreview: (id: string) => request<{ layout: ReportLayout; data: PreviewData }>('GET', `/projects/${id}/report/preview`),
+  reportPreview: (id: string) => request<{ pages: PagePreview[]; data: PreviewData }>('GET', `/projects/${id}/report/preview`),
 
   export: (id: string) => request<ExportResult>('POST', `/projects/${id}/export`),
-  openExport: (id: string, target: 'folder' | 'pbip') => request('POST', `/projects/${id}/export/open`, { target }),
+  openExport: (id: string, target: 'folder' | 'pbip') =>
+    request<{ ok: boolean; target: string; method?: 'powerbi' | 'default-app' }>('POST', `/projects/${id}/export/open`, { target }),
+  exportStatus: (id: string) => request<ExportStatus>('GET', `/projects/${id}/export/status`),
   downloadUrl: (id: string) => `/api/projects/${id}/export/download`,
 };

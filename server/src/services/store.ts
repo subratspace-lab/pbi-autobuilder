@@ -58,7 +58,13 @@ export function createProject(name: string): Project {
 export function getProject(id: string): Project {
   const file = path.join(projectDir(id), 'project.json');
   if (!fs.existsSync(file)) throw Object.assign(new Error('Project not found'), { status: 404 });
-  return JSON.parse(fs.readFileSync(file, 'utf8')) as Project;
+  const project = JSON.parse(fs.readFileSync(file, 'utf8')) as Project;
+  // Reports from older versions had a single list of visuals.
+  if (project.report && !project.report.pages) {
+    project.report.pages = [{ id: 'page1', name: 'Dashboard', visuals: project.report.visuals ?? [] }];
+    delete project.report.visuals;
+  }
+  return project;
 }
 
 export function saveProject(project: Project): Project {
@@ -103,14 +109,39 @@ export function getCleaning(project: Project, table: string): TableCleaning {
   return project.cleaning.find((c) => c.table === table) ?? defaultCleaning(project, table);
 }
 
-export function getPipeline(project: Project, tableName: string): PipelineOutput {
+/** Sources pulled in by merge steps (directly or indirectly) from the given tables. */
+export function mergedSources(project: Project, roots: string[]): Set<string> {
+  const found = new Set<string>();
+  const queue = [...roots];
+  while (queue.length) {
+    const t = queue.shift()!;
+    for (const op of getCleaning(project, t).ops) {
+      if (op.enabled && op.op === 'mergeTable' && !found.has(op.table) && project.tables.some((x) => x.name === op.table)) {
+        found.add(op.table);
+        queue.push(op.table);
+      }
+    }
+  }
+  return found;
+}
+
+export function getPipeline(project: Project, tableName: string, visiting: string[] = []): PipelineOutput {
   const table = project.tables.find((t) => t.name === tableName);
   if (!table) throw Object.assign(new Error(`Table "${tableName}" not found`), { status: 404 });
   const cleaning = getCleaning(project, tableName);
-  const key = `${project.id}:${rawKey(project.id, table)}:${JSON.stringify(cleaning)}`;
+  // Merges make a table depend on other tables: include them all in the cache key.
+  const deps = [...mergedSources(project, [tableName])].map((n) => {
+    const t = project.tables.find((x) => x.name === n)!;
+    return `${rawKey(project.id, t)}:${JSON.stringify(getCleaning(project, n))}`;
+  });
+  const key = `${project.id}:${rawKey(project.id, table)}:${JSON.stringify(cleaning)}:${deps.join('|')}`;
   let out = pipelineCache.get(key);
   if (!out) {
-    out = runPipeline(table, getRaw(project.id, table), cleaning);
+    const path = [...visiting, tableName];
+    const ctx = {
+      resolve: (name: string) => (path.includes(name) || !project.tables.some((t) => t.name === name) ? null : getPipeline(project, name, path)),
+    };
+    out = runPipeline(table, getRaw(project.id, table), cleaning, ctx);
     if (pipelineCache.size >= MAX_PIPELINES) pipelineCache.delete(pipelineCache.keys().next().value!);
     pipelineCache.set(key, out);
   }

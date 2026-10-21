@@ -1,4 +1,4 @@
-import type { Analysis, CleaningOp, MeasureSpec, ModelSpec, Project, ReportSpec } from '../../../shared/types.js';
+import type { Analysis, CleaningOp, MeasureSpec, ModelSpec, PageSpec, Project, ReportSpec } from '../../../shared/types.js';
 import { askJson, loadPrompt } from './llm.js';
 import { analysisSchema, cleaningOpSchema, cleaningSuggestionSchema, measuresSchema, modelSchema, reportSchema } from './schemas.js';
 import { getPipeline, getRaw } from './store.js';
@@ -123,7 +123,8 @@ export async function aiReport(project: Project, model: ModelSpec, measures: Mea
 
   const issues: string[] = [];
   const measureNames = new Map(measures.map((m) => [m.name.toLowerCase(), m.name]));
-  const visuals = res.visuals.map((v) => {
+  type AiVisual = NonNullable<typeof res.visuals>[number];
+  const toVisual = (v: AiVisual) => {
     const fields = v.fields
       .map((f) => {
         if (f.field.kind === 'measure') {
@@ -143,16 +144,33 @@ export async function aiReport(project: Project, model: ModelSpec, measures: Mea
         return { role: f.role, field: { kind: 'column' as const, table, name: col.name } };
       })
       .filter((f): f is NonNullable<typeof f> => f !== null);
-    const { visual, issues: vi } = normalizeVisual({ id: newId(), type: v.type, title: v.title, fields, sortDescending: v.sortDescending });
+    const sortRef = v.sortField && fields.find((f) => f.field.name.toLowerCase() === v.sortField!.name.toLowerCase())?.field;
+    const { visual, issues: vi } = normalizeVisual({ id: newId(), type: v.type, title: v.title, fields, sortDescending: v.sortDescending, sortField: sortRef });
     issues.push(...vi);
     return visual;
-  });
+  };
+  const aiPages = res.pages?.length ? res.pages : [{ name: 'Dashboard', visuals: res.visuals ?? [], filters: undefined, subtitle: undefined }];
+  const pages: PageSpec[] = aiPages.map((p) => ({
+    id: newId(),
+    name: p.name,
+    subtitle: p.subtitle,
+    visuals: p.visuals.map(toVisual).filter((v) => v.fields.length),
+    filters: (p.filters ?? []).flatMap((f) => {
+      const table = [...cols.keys()].find((t) => t.toLowerCase() === f.table.toLowerCase());
+      const col = table && cols.get(table)!.find((c) => c.name.toLowerCase() === f.column.toLowerCase());
+      if (!table || !col) {
+        issues.push(`Page "${p.name}": filter column ${f.table}[${f.column}] does not exist — removed`);
+        return [];
+      }
+      return [{ table, column: col.name, values: f.values }];
+    }),
+  }));
 
   return {
     report: {
       title: res.title,
       subtitle: res.subtitle,
-      visuals: visuals.filter((v) => v.fields.length),
+      pages: pages.filter((p) => p.visuals.length),
       theme: res.theme ?? DEFAULT_THEME,
       source: 'ai',
     },

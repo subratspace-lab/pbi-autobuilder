@@ -61,11 +61,11 @@ export function analysisRules(project: Project): Analysis {
 
 // ---------- cleaning ----------
 
-function op<T extends Omit<CleaningOp, 'id' | 'enabled'>>(o: T, reason: string): CleaningOp {
+export function op<T extends Omit<CleaningOp, 'id' | 'enabled'>>(o: T, reason: string): CleaningOp {
   return { id: newId(), enabled: true, reason, ...o } as unknown as CleaningOp;
 }
 
-export function cleaningRules(profile: TableProfile): CleaningOp[] {
+export function cleaningRules(profile: TableProfile, options: { bands?: boolean } = {}): CleaningOp[] {
   const ops: CleaningOp[] = [];
   if (profile.blankRows > 0) ops.push(op({ op: 'removeBlankRows' }, `${profile.blankRows} completely blank rows`));
 
@@ -108,13 +108,13 @@ export function cleaningRules(profile: TableProfile): CleaningOp[] {
   }
 
   if (profile.duplicateRows > 0) ops.push(op({ op: 'removeDuplicates' }, `${profile.duplicateRows} exact duplicate rows`));
-  ops.push(...bandRules(profile));
+  if (options.bands !== false) ops.push(...bandRules(profile));
   return ops;
 }
 
-const DPD_RE = /\bdpd\b|days past due|overdue days|days overdue/i;
-const SCORE_RE = /\b(cibil|credit|bureau|fico)?\s*score\b/i;
-const DOB_RE = /\bdob\b|date of birth|birth ?date/i;
+export const DPD_RE = /\bdpd\b|days past due|overdue days|days overdue/i;
+export const SCORE_RE = /\b(cibil|credit|bureau|fico)?\s*score\b/i;
+export const DOB_RE = /\bdob\b|date of birth|birth ?date/i;
 
 /** Analysis-friendly bands for well-known measures (DPD, credit score, age). */
 function bandRules(profile: TableProfile): CleaningOp[] {
@@ -602,7 +602,7 @@ export function reportRules(project: Project, model: ModelSpec, measures: Measur
   return {
     title: `${project.name}`,
     subtitle: project.analysis?.dashboardIdea ? 'Interactive overview — use the slicers on the left to filter' : '',
-    visuals,
+    pages: [{ id: newId(), name: 'Dashboard', visuals }],
     theme: DEFAULT_THEME,
     source: 'rules',
   };

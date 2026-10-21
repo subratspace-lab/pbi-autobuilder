@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { CleanedColumn, FieldRef, ReportSpec, ThemeSpec, VisualSpec } from '../../../shared/types.js';
-import { layoutReport } from './report.js';
+import type { CleanedColumn, FieldRef, PageFilter, ReportSpec, ThemeSpec, VisualSpec } from '../../../shared/types.js';
+import { layoutPage, reportPages } from './report.js';
 import { REFERENCE_DIR } from './paths.js';
 
 // Writes the report in PBIR (enhanced report format): one JSON file per page
@@ -24,6 +24,30 @@ function fieldExpr(f: FieldRef) {
 
 function projection(f: FieldRef) {
   return { field: fieldExpr(f), queryRef: `${f.table}.${f.name}`, nativeQueryRef: f.name };
+}
+
+/** Page-level "is one of" filter, in the report filter format. */
+function pageFilterJson(f: PageFilter) {
+  return {
+    name: hexId(),
+    field: { Column: { Expression: { SourceRef: { Entity: f.table } }, Property: f.column } },
+    type: 'Categorical',
+    filter: {
+      Version: 2,
+      From: [{ Name: 't', Entity: f.table, Type: 0 }],
+      Where: [
+        {
+          Condition: {
+            In: {
+              Expressions: [{ Column: { Expression: { SourceRef: { Source: 't' } }, Property: f.column } }],
+              Values: f.values.map((v) => [{ Literal: { Value: `'${v.replace(/'/g, "''")}'` } }]),
+            },
+          },
+        },
+      ],
+    },
+    howCreated: 'User',
+  };
 }
 
 function containerTitle(title: string) {
@@ -51,14 +75,12 @@ function visualJson(v: VisualSpec, box: { x: number; y: number; width: number; h
     objects.data = [{ properties: { mode: litText(mode) } }];
     objects.header = [{ properties: { show: lit('true') } }];
   }
-  if (v.sortDescending && ['clusteredBarChart', 'clusteredColumnChart', 'donutChart'].includes(v.type)) {
-    const y = v.fields.find((f) => f.role === 'Y');
-    if (y) {
-      (visual.query as Record<string, unknown>).sortDefinition = {
-        sort: [{ field: fieldExpr(y.field), direction: 'Descending' }],
-        isDefaultSort: true,
-      };
-    }
+  const sortBy = v.sortField ?? (v.sortDescending && ['clusteredBarChart', 'clusteredColumnChart', 'donutChart'].includes(v.type) ? v.fields.find((f) => f.role === 'Y')?.field : undefined);
+  if (sortBy) {
+    (visual.query as Record<string, unknown>).sortDefinition = {
+      sort: [{ field: fieldExpr(sortBy), direction: v.sortDescending === false ? 'Ascending' : 'Descending' }],
+      isDefaultSort: true,
+    };
   }
   if (v.type === 'lineChart' || v.type === 'clusteredColumnChart' || v.type === 'clusteredBarChart') {
     objects.labels = [{ properties: { show: lit(v.type === 'lineChart' ? 'false' : 'true') } }];
@@ -77,11 +99,9 @@ function visualJson(v: VisualSpec, box: { x: number; y: number; width: number; h
   };
 }
 
-function titleTextbox(report: ReportSpec, box: { x: number; y: number; width: number; height: number }) {
-  const paragraphs = [
-    { textRuns: [{ value: report.title, textStyle: { fontWeight: 'bold', fontSize: '20pt' } }] },
-  ];
-  if (report.subtitle) paragraphs.push({ textRuns: [{ value: report.subtitle, textStyle: { fontSize: '11pt' } as never }] });
+function titleTextbox(title: string, subtitle: string, box: { x: number; y: number; width: number; height: number }) {
+  const paragraphs = [{ textRuns: [{ value: title, textStyle: { fontWeight: 'bold', fontSize: '20pt' } }] }];
+  if (subtitle) paragraphs.push({ textRuns: [{ value: subtitle, textStyle: { fontSize: '11pt' } as never }] });
   return {
     $schema: `${SCHEMA}/visualContainer/1.0.0/schema.json`,
     name: 'title' + hexId().slice(0, 12),
@@ -182,8 +202,6 @@ export interface ReportFiles {
 
 export function buildReport(report: ReportSpec, semanticModelFolder: string, columnTypes: Map<string, string>): ReportFiles {
   const files: ReportFiles = {};
-  const layout = layoutReport(report);
-  const pageName = hexId();
   const base = baseThemeFile();
 
   files['definition.pbir'] = JSON.stringify(
@@ -230,35 +248,40 @@ export function buildReport(report: ReportSpec, semanticModelFolder: string, col
     null,
     2,
   );
+  const pages = reportPages(report);
+  const pageNames = pages.map(() => hexId());
   files['definition/pages/pages.json'] = JSON.stringify(
-    { $schema: `${SCHEMA}/pagesMetadata/1.0.0/schema.json`, pageOrder: [pageName], activePageName: pageName },
+    { $schema: `${SCHEMA}/pagesMetadata/1.0.0/schema.json`, pageOrder: pageNames, activePageName: pageNames[0] },
     null,
     2,
   );
-  files[`definition/pages/${pageName}/page.json`] = JSON.stringify(
-    {
+
+  pages.forEach((page, pi) => {
+    const pageName = pageNames[pi];
+    const layout = layoutPage(page);
+    const pageJson: Record<string, unknown> = {
       $schema: `${SCHEMA}/page/1.0.0/schema.json`,
       name: pageName,
-      displayName: 'Dashboard',
+      displayName: page.name,
       displayOption: 'FitToWidth',
       height: layout.height,
       width: layout.width,
-    },
-    null,
-    2,
-  );
+    };
+    if (page.filters?.length) pageJson.filterConfig = { filters: page.filters.map(pageFilterJson) };
+    files[`definition/pages/${pageName}/page.json`] = JSON.stringify(pageJson, null, 2);
 
-  const titleBox = layout.boxes.find((b) => b.id === '__title')!;
-  const title = titleTextbox(report, titleBox);
-  files[`definition/pages/${pageName}/visuals/${title.name}/visual.json`] = JSON.stringify(title, null, 2);
+    const titleBox = layout.boxes.find((b) => b.id === '__title')!;
+    const title = titleTextbox(pi === 0 ? report.title : page.name, page.subtitle ?? (pi === 0 ? report.subtitle : report.title), titleBox);
+    files[`definition/pages/${pageName}/visuals/${title.name}/visual.json`] = JSON.stringify(title, null, 2);
 
-  let z = 1;
-  for (const v of report.visuals) {
-    const box = layout.boxes.find((b) => b.id === v.id);
-    if (!box || !v.fields.length) continue;
-    files[`definition/pages/${pageName}/visuals/${v.id}/visual.json`] = JSON.stringify(visualJson(v, box, z * 1000, columnTypes), null, 2);
-    z++;
-  }
+    let z = 1;
+    for (const v of page.visuals) {
+      const box = layout.boxes.find((b) => b.id === v.id);
+      if (!box || !v.fields.length) continue;
+      files[`definition/pages/${pageName}/visuals/${v.id}/visual.json`] = JSON.stringify(visualJson(v, box, z * 1000, columnTypes), null, 2);
+      z++;
+    }
+  });
 
   files[`StaticResources/SharedResources/BaseThemes/${base.name}.json`] = base.content;
   files[`StaticResources/RegisteredResources/${CUSTOM_THEME}`] = JSON.stringify(themeJson(report.theme), null, 2);

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { ChevronDown, Map as MapIcon } from 'lucide-react';
-import type { MeasureSpec, PreviewData, ReportLayout, ReportSpec, VisualSpec } from '@shared/types';
+import type { MeasureSpec, PageSpec, PreviewData, ReportLayout, ReportSpec, VisualSpec } from '@shared/types';
 import { formatValue } from './ui';
 
 interface Props {
   report: ReportSpec;
+  page: PageSpec;
+  pageIndex: number;
   layout: ReportLayout;
   data: PreviewData;
   measures: MeasureSpec[];
@@ -15,15 +17,16 @@ function fmtFor(measures: MeasureSpec[], name: string) {
   return measures.find((m) => m.name === name)?.formatString;
 }
 
-function VisualBody({ v, data, colors, measures }: { v: VisualSpec; data: PreviewData; colors: string[]; measures: MeasureSpec[] }) {
+function VisualBody({ v, data, pageId, colors, measures }: { v: VisualSpec; data: PreviewData; pageId: string; colors: string[]; measures: MeasureSpec[] }) {
   const series = data.visuals[v.id];
+  const totals = data.measures[pageId] ?? {};
   const valueFields = v.fields.filter((f) => f.field.kind === 'measure');
   const tick = { fontSize: 10, fill: '#64748b' };
   const fmt = (name: string) => (x: number) => formatValue(x, fmtFor(measures, name));
 
   if (v.type === 'card') {
     const f = valueFields[0];
-    const value = f ? data.measures[f.field.name] : null;
+    const value = f ? totals[f.field.name] : null;
     return (
       <div className="flex h-full flex-col items-center justify-center">
         <div className="text-[28px] font-semibold leading-none" style={{ color: colors[0] }}>
@@ -40,7 +43,7 @@ function VisualBody({ v, data, colors, measures }: { v: VisualSpec; data: Previe
         {valueFields.map((f) => (
           <div key={f.field.name} className="flex justify-between text-xs">
             <span className="text-slate-500">{f.field.name}</span>
-            <span className="font-semibold">{formatValue(data.measures[f.field.name], fmtFor(measures, f.field.name))}</span>
+            <span className="font-semibold">{formatValue(totals[f.field.name], fmtFor(measures, f.field.name))}</span>
           </div>
         ))}
       </div>
@@ -61,6 +64,36 @@ function VisualBody({ v, data, colors, measures }: { v: VisualSpec; data: Previe
     return (
       <div className="flex h-full items-center justify-center text-slate-300">
         <MapIcon className="h-12 w-12" />
+      </div>
+    );
+  }
+  const table = data.tables[v.id];
+  if (v.type === 'tableEx' && table) {
+    return (
+      <div className="h-full overflow-auto px-2 text-[10px]">
+        <table className="w-full">
+          <thead className="sticky top-0 bg-white">
+            <tr className="border-b-2" style={{ borderColor: colors[0] }}>
+              {table.headers.map((h) => (
+                <th key={h} className="whitespace-nowrap px-1 py-1 text-left">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {table.rows.map((r, i) => (
+              <tr key={i} className="border-b border-slate-100">
+                {r.map((c, k) => (
+                  <td key={k} className="whitespace-nowrap px-1 py-0.5">
+                    {c === null ? '' : typeof c === 'number' ? c.toLocaleString('en-US', { maximumFractionDigits: 2 }) : String(c)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="py-1 text-slate-400">{table.total.toLocaleString()} rows</div>
       </div>
     );
   }
@@ -155,7 +188,7 @@ function VisualBody({ v, data, colors, measures }: { v: VisualSpec; data: Previe
   );
 }
 
-export function DashboardPreview({ report, layout, data, measures }: Props) {
+export function DashboardPreview({ report, page, pageIndex, layout, data, measures }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   useEffect(() => {
@@ -175,13 +208,13 @@ export function DashboardPreview({ report, layout, data, measures }: Props) {
             return (
               <div key={b.id} className="absolute flex flex-col justify-center px-2" style={{ left: b.x, top: b.y, width: b.width, height: b.height }}>
                 <div className="text-[22px] font-bold" style={{ color: report.theme.foreground }}>
-                  {report.title}
+                  {pageIndex === 0 ? report.title : page.name}
                 </div>
-                {report.subtitle && <div className="text-xs text-slate-500">{report.subtitle}</div>}
+                <div className="text-xs text-slate-500">{page.subtitle ?? (pageIndex === 0 ? report.subtitle : report.title)}</div>
               </div>
             );
           }
-          const v = report.visuals.find((x) => x.id === b.id);
+          const v = page.visuals.find((x) => x.id === b.id);
           if (!v) return null;
           return (
             <div
@@ -191,7 +224,7 @@ export function DashboardPreview({ report, layout, data, measures }: Props) {
             >
               {v.type !== 'card' && v.type !== 'slicer' && <div className="truncate px-3 pt-2 text-[12px] font-semibold text-slate-700">{v.title}</div>}
               <div className={`min-h-0 flex-1 ${v.type === 'slicer' ? 'pt-2' : 'p-1'}`}>
-                <VisualBody v={v} data={data} colors={colors} measures={measures} />
+                <VisualBody v={v} data={data} pageId={page.id} colors={colors} measures={measures} />
               </div>
             </div>
           );

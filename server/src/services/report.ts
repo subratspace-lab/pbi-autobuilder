@@ -1,4 +1,4 @@
-import type { LayoutBox, ReportLayout, ReportSpec, VisualSpec, VisualType } from '../../../shared/types.js';
+import type { LayoutBox, PageSpec, ReportLayout, ReportSpec, VisualSpec, VisualType } from '../../../shared/types.js';
 
 // Visual "template library": the data roles each Power BI visual accepts and a
 // grid layout engine that places visuals the way a dashboard designer would.
@@ -73,9 +73,9 @@ function group(type: VisualType): 'slicer' | 'card' | 'chart' | 'table' {
   return 'chart';
 }
 
-export function layoutReport(report: ReportSpec): ReportLayout {
+export function layoutPage(page: PageSpec): ReportLayout {
   const boxes: LayoutBox[] = [{ id: '__title', x: MARGIN, y: MARGIN / 2, width: PAGE_W - 2 * MARGIN, height: HEADER_H - 8 }];
-  const visuals = report.visuals.filter((v) => v.fields.length);
+  const visuals = page.visuals.filter((v) => v.fields.length);
   const slicers = visuals.filter((v) => group(v.type) === 'slicer');
   const cards = visuals.filter((v) => group(v.type) === 'card');
   const charts = visuals.filter((v) => group(v.type) === 'chart');
@@ -116,9 +116,11 @@ export function layoutReport(report: ReportSpec): ReportLayout {
     y += Math.ceil(charts.length / perRow) * (CHART_H + GAP);
   }
 
+  // A table that is the main content of a page (working lists) gets the rest of the page.
+  const tableH = tables.length === 1 && charts.length <= 2 ? Math.max(TABLE_H, 720 - MARGIN - y) : TABLE_H;
   for (const t of tables) {
-    boxes.push({ id: t.id, x: left, y, width: contentW, height: TABLE_H });
-    y += TABLE_H + GAP;
+    boxes.push({ id: t.id, x: left, y, width: contentW, height: tableH });
+    y += tableH + GAP;
   }
 
   const contentBottom = y - GAP + MARGIN;
@@ -139,3 +141,13 @@ export const DEFAULT_THEME = {
   foreground: '#1F2937',
   tableAccent: '#2563EB',
 };
+
+/** Every page of a report (older single-page specs included). */
+export function reportPages(report: ReportSpec): PageSpec[] {
+  if (report.pages?.length) return report.pages;
+  return [{ id: 'page1', name: 'Dashboard', visuals: report.visuals ?? [] }];
+}
+
+export function allVisuals(report: ReportSpec): VisualSpec[] {
+  return reportPages(report).flatMap((p) => p.visuals);
+}

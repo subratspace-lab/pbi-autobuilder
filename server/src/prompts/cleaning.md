@@ -24,6 +24,12 @@ Propose the Power Query cleaning steps for each table. Steps run in order, after
 - {"op":"addColumn","name":"DPD Bucket","spec":{"kind":"bucket","column":"DPD","bounds":[0,30,60,90],"labels":["Current","1-30","31-60","61-90","90+"]}}   numeric bands: value <= bounds[i] gets labels[i], above the last bound gets the last label (labels = bounds + 1). A hidden sort column is added automatically.
 - {"op":"addColumn","name":"Full Name","spec":{"kind":"concat","columns":["First","Last"],"separator":" "}}
 - {"op":"addColumn","name":"Size","spec":{"kind":"conditional","column":"Sales","operator":"greaterThan","value":1000,"then":"Large","else":"Small"}}
+- {"op":"addColumn","name":"DTI %","spec":{"kind":"arithmetic","left":"Monthly Debt","operator":"/","right":"Monthly Income","scale":100,"round":2}}   scale/round are optional
+- {"op":"addColumn","name":"DPD Score","spec":{"kind":"bucket","column":"DPD","bounds":[0,30,60,90,179],"labels":[0,10,15,20,30,40],"numeric":true}}   numeric bands = score points
+- {"op":"addColumn","name":"Risk Score","spec":{"kind":"sum","columns":["DPD Score","Bureau Points"]}}
+- {"op":"addColumn","name":"Critical","spec":{"kind":"cases","cases":[{"column":"Risk Score","operator":"greaterThan","value":60,"then":"Yes"},{"column":"DPD","operator":"greaterThan","value":90,"then":"Yes"}],"else":"No"}}   first matching rule wins (OR); for AND conditions list the failing cases first with then "No" and else "Yes"
+- {"op":"addRank","name":"Risk Rank","column":"Risk Score","descending":true}
+- {"op":"mergeTable","table":"Bureau Dataset","leftKey":"Customer ID","rightKey":"Customer ID"}   left join another table and bring its new columns (optional "columns": [...]); use it when the brief asks for one consolidated table
 - {"op":"rename","from":"cust_nm","to":"Customer Name"}
 - {"op":"removeColumns","columns":["Unused"]}
 - {"op":"filterRows","column":"Sales","operator":"equals|notEquals|greaterThan|lessThan|greaterOrEqual|lessOrEqual|contains|notContains|isNotBlank","value":0}

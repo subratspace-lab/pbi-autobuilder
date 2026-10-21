@@ -2,15 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import archiver from 'archiver';
 import Handlebars from 'handlebars';
-import type { ExportCheck, MeasureCheck, Project, ReportSpec } from '../../../shared/types.js';
+import type { ExportCheck, MeasureCheck, Project, ReportSpec, VisualSpec } from '../../../shared/types.js';
 import { buildTmdl, embeddedSourceSteps } from './tmdl.js';
 import { buildReport, columnTypeIndex } from './pbir.js';
 import { buildModelData, modelColumns, validateModel } from './model.js';
-import { dataDir, getPipeline, getRaw, projectDir } from './store.js';
+import { dataDir, getPipeline, getRaw, mergedSources, projectDir } from './store.js';
 import { lintMeasures } from './dax.js';
 import { MEASURE_TABLE } from './model.js';
 import { measureChecks } from './preview.js';
-import { normalizeVisual } from './report.js';
+import { normalizeVisual, reportPages } from './report.js';
 import { SERVER_ROOT } from './paths.js';
 import type { PipelineOutput } from './cleaning.js';
 
@@ -133,6 +133,14 @@ function howToFile(name: string, embedded: boolean): Record<string, string> {
 /** ~40 MB of compressed text in the model is still comfortable for Power BI Desktop. */
 const MAX_EMBED_CHARS = 40_000_000;
 
+/** Where a project's export lives (same rules as exportProject). */
+export function exportLocation(project: Project) {
+  const name = safeFileName(project.export.projectFileName || project.name);
+  const exportRoot = path.join(projectDir(project.id), 'export');
+  const folder = path.join(exportRoot, name);
+  return { name, folder, projectFile: path.join(folder, `${name}.pbip`), zipPath: path.join(exportRoot, `${name}.zip`) };
+}
+
 export async function exportProject(project: Project): Promise<ExportResult> {
   if (!project.model) throw new Error('Build the data model first');
   if (!project.report) throw new Error('Design the dashboard first');
@@ -147,13 +155,12 @@ export async function exportProject(project: Project): Promise<ExportResult> {
   const measures = project.measures.filter((m) => !badMeasures.has(m.name));
 
   const measureNames = new Set(measures.map((m) => m.name));
-  const visuals = project.report.visuals
+  const hasColumn = (table: string, column: string) => Boolean(tables.get(table)?.some((c) => c.name === column));
+  const cleanVisuals = (list: VisualSpec[]) =>
+    list
     .map((v) => {
       const fields = v.fields.filter((f) => {
-        const ok =
-          f.field.kind === 'measure'
-            ? measureNames.has(f.field.name)
-            : Boolean(tables.get(f.field.table)?.some((c) => c.name === f.field.name));
+        const ok = f.field.kind === 'measure' ? measureNames.has(f.field.name) : hasColumn(f.field.table, f.field.name);
         if (!ok) warnings.push(`Visual "${v.title}": field "${f.field.name}" no longer exists — removed`);
         return ok;
       });
@@ -162,7 +169,16 @@ export async function exportProject(project: Project): Promise<ExportResult> {
       return visual;
     })
     .filter((v) => v.fields.length);
-  const report: ReportSpec = { ...project.report, visuals };
+  const pages = reportPages(project.report).map((p) => ({
+    ...p,
+    visuals: cleanVisuals(p.visuals),
+    filters: p.filters?.filter((f) => {
+      const ok = hasColumn(f.table, f.column);
+      if (!ok) warnings.push(`Page "${p.name}": filter on ${f.table}[${f.column}] refers to a missing column — removed`);
+      return ok;
+    }),
+  }));
+  const report: ReportSpec = { ...project.report, pages };
 
   const name = safeFileName(project.export.projectFileName || project.name);
   const exportRoot = path.join(projectDir(project.id), 'export');
@@ -176,8 +192,10 @@ export async function exportProject(project: Project): Promise<ExportResult> {
   for (const f of new Set(project.tables.map((t) => t.file))) fs.copyFileSync(path.join(dataDir(project.id), f), path.join(dataOut, f));
   const dataFolder = project.export.dataFolder.trim() || dataOut;
 
+  // Model sources plus every table merged into them (those become staging queries).
+  const merged = mergedSources(project, model.tables.map((t) => t.source));
   const pipelines = new Map<string, PipelineOutput>();
-  for (const t of model.tables) pipelines.set(t.source, getPipeline(project, t.source));
+  for (const source of new Set([...model.tables.map((t) => t.source), ...merged])) pipelines.set(source, getPipeline(project, source));
 
   // Embed the raw data in the queries (default) so refresh works on any PC
   // without files or paths. Very large data falls back to the Data folder.
@@ -199,7 +217,7 @@ export async function exportProject(project: Project): Promise<ExportResult> {
 
   const smFolder = `${name}.SemanticModel`;
   const rpFolder = `${name}.Report`;
-  const tmdl = buildTmdl(project, model, measures, pipelines, dataFolder, embedded);
+  const tmdl = buildTmdl(project, model, measures, pipelines, dataFolder, embedded, merged);
   writeFiles(path.join(folder, smFolder), {
     'definition.pbism': JSON.stringify(
       {
@@ -248,9 +266,13 @@ export async function exportProject(project: Project): Promise<ExportResult> {
     relationships: model.relationships,
     measures: measures.map((m) => ({ ...m, value: formatNumber(checks.find((c) => c.name === m.name)?.value) })),
     rowChecks,
-    visuals: report.visuals.map((v) => ({
-      ...v,
-      fieldList: v.fields.map((f) => `${f.role}: ${f.field.kind === 'measure' ? `[${f.field.name}]` : `${f.field.table}[${f.field.name}]`}`).join(', '),
+    pages: reportPages(report).map((p) => ({
+      name: p.name,
+      filterText: (p.filters ?? []).map((f) => `${f.table}[${f.column}] in (${f.values.join(', ')})`).join('; '),
+      visuals: p.visuals.map((v) => ({
+        ...v,
+        fieldList: v.fields.map((f) => `${f.role}: ${f.field.kind === 'measure' ? `[${f.field.name}]` : `${f.field.table}[${f.field.name}]`}`).join(', '),
+      })),
     })),
     report,
     warnings,

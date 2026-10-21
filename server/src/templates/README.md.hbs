@@ -83,14 +83,18 @@ Every step is visible in *Transform data → Applied steps* with the same name.
 - {{table}}: {{rows}}
 {{/each}}
 
-## 4. Dashboard page — "{{report.title}}"
+## 4. Report pages — "{{report.title}}"
 
 Visual-by-visual spec (also handy if a visual must be rebuilt by hand):
+{{#each pages}}
+
+### Page {{@index}}: {{name}}{{#if filterText}} (page filter: {{filterText}}){{/if}}
 
 | # | Visual | Title | Fields |
 |---|---|---|---|
 {{#each visuals}}
 | {{@index}} | {{type}} | {{title}} | {{fieldList}} |
+{{/each}}
 {{/each}}
 
 Theme: `{{report.theme.name}}` (applied automatically; colours {{#each report.theme.dataColors}}`{{this}}` {{/each}}).
@@ -101,7 +105,7 @@ Theme: `{{report.theme.name}}` (applied automatically; colours {{#each report.th
 2. **Data quality** — show *Applied steps* and explain each fix (blanks, duplicates, types, inconsistent text).
 3. **Model** — star schema: facts in the middle, dimensions around, a proper Date table for time intelligence.
 4. **Measures** — explicit DAX measures in one `_Measures` table, organised in display folders.
-5. **Dashboard** — KPI cards on top, trends and breakdowns below, slicers on the left that filter everything.
+5. **Report** — KPI cards on top, trends and breakdowns below, slicers on the left that filter everything; detail pages for the working lists.
 
 {{#if warnings.length}}
 ## Warnings during generation

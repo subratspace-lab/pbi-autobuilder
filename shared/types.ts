@@ -93,8 +93,20 @@ export type FilterOperator =
 
 export type DatePart = 'year' | 'month' | 'monthName' | 'quarter' | 'day' | 'weekdayName' | 'age';
 
+export interface CaseRule {
+  column: string;
+  operator: FilterOperator;
+  value: string | number;
+  then: string | number;
+}
+
 export type AddColumnSpec =
-  | { kind: 'arithmetic'; left: string; operator: '+' | '-' | '*' | '/'; right: string | number }
+  /** scale multiplies the result (e.g. 100 for a percentage); round = decimals. */
+  | { kind: 'arithmetic'; left: string; operator: '+' | '-' | '*' | '/'; right: string | number; scale?: number; round?: number }
+  /** Sum of several numeric columns (blanks count as 0). */
+  | { kind: 'sum'; columns: string[] }
+  /** First matching rule wins (IF … ELSE IF … ELSE). */
+  | { kind: 'cases'; cases: CaseRule[]; else: string | number }
   | { kind: 'datePart'; column: string; part: DatePart }
   | { kind: 'concat'; columns: string[]; separator: string }
   | {
@@ -105,8 +117,11 @@ export type AddColumnSpec =
       then: string;
       else: string;
     }
-  /** Numeric bands: value <= bounds[i] → labels[i]; above the last bound → last label. Adds a hidden "<name> Sort" column. */
-  | { kind: 'bucket'; column: string; bounds: number[]; labels: string[] }
+  /**
+   * Numeric bands: value <= bounds[i] → labels[i]; above the last bound → last label.
+   * Text labels get a hidden "<name> Sort" column; numeric: true returns the labels as numbers (score points).
+   */
+  | { kind: 'bucket'; column: string; bounds: number[]; labels: (string | number)[]; numeric?: boolean }
   | { kind: 'custom'; mExpression: string; type: ColumnType };
 
 export type CleaningOp = { id: string; enabled: boolean; title?: string; reason?: string } & (
@@ -128,6 +143,10 @@ export type CleaningOp = { id: string; enabled: boolean; title?: string; reason?
   | { op: 'rename'; from: string; to: string }
   | { op: 'removeColumns'; columns: string[] }
   | { op: 'filterRows'; column: string; operator: FilterOperator; value?: string | number }
+  /** Rank rows by a numeric column (1 = highest when descending); ties share a rank. */
+  | { op: 'addRank'; name: string; column: string; descending: boolean }
+  /** Left join another (cleaned) table and bring its columns in. Empty columns = all columns not already present. */
+  | { op: 'mergeTable'; table: string; leftKey: string; rightKey: string; columns?: string[] }
 );
 
 export type CleaningOpKind = CleaningOp['op'];
@@ -242,6 +261,8 @@ export interface VisualSpec {
   title: string;
   fields: VisualField[];
   sortDescending?: boolean;
+  /** Explicit sort field (e.g. a working list sorted by risk score). */
+  sortField?: FieldRef;
 }
 
 export interface ThemeSpec {
@@ -252,10 +273,27 @@ export interface ThemeSpec {
   tableAccent: string;
 }
 
+/** Page-level filter: keep rows where table[column] is one of values. */
+export interface PageFilter {
+  table: string;
+  column: string;
+  values: string[];
+}
+
+export interface PageSpec {
+  id: string;
+  name: string;
+  subtitle?: string;
+  visuals: VisualSpec[];
+  filters?: PageFilter[];
+}
+
 export interface ReportSpec {
   title: string;
   subtitle: string;
-  visuals: VisualSpec[];
+  pages: PageSpec[];
+  /** @deprecated single-page reports from older versions; migrated to pages on load. */
+  visuals?: VisualSpec[];
   theme: ThemeSpec;
   source: 'ai' | 'rules' | 'user';
 }
@@ -323,6 +361,14 @@ export interface MeasureCheck {
 }
 
 export interface PreviewData {
-  measures: Record<string, number | null>;
+  /** Measure totals per page (page filters applied), keyed by page id then measure name. */
+  measures: Record<string, Record<string, number | null>>;
   visuals: Record<string, { category: string; values: Record<string, number | null> }[]>;
+  /** Row previews for table visuals. */
+  tables: Record<string, { headers: string[]; rows: Cell[][]; total: number }>;
+}
+
+export interface PagePreview {
+  id: string;
+  layout: ReportLayout;
 }

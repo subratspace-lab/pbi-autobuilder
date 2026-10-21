@@ -21,6 +21,8 @@ export const OP_LABELS: Record<CleaningOpKind, string> = {
   rename: 'Rename column',
   removeColumns: 'Remove columns',
   filterRows: 'Filter rows',
+  addRank: 'Rank rows',
+  mergeTable: 'Merge another table',
 };
 
 const TYPES: ColumnType[] = ['text', 'number', 'integer', 'currency', 'date', 'datetime', 'boolean'];
@@ -71,6 +73,17 @@ const FIELDS: Record<CleaningOpKind, { key: string; kind: FieldKind; label: stri
     { key: 'operator', kind: 'operator', label: 'Keep rows where' },
     { key: 'value', kind: 'value', label: 'Value' },
   ],
+  addRank: [
+    { key: 'name', kind: 'text', label: 'New column name' },
+    { key: 'column', kind: 'column', label: 'Rank by' },
+    { key: 'descending', kind: 'bool', label: 'Highest value = rank 1' },
+  ],
+  mergeTable: [
+    { key: 'table', kind: 'text', label: 'Table to merge in' },
+    { key: 'leftKey', kind: 'column', label: 'Key in this table' },
+    { key: 'rightKey', kind: 'text', label: 'Key in the other table' },
+    { key: 'columns', kind: 'list', label: 'Columns to bring (empty = all new columns)' },
+  ],
 };
 
 export const OP_TEMPLATES: Record<CleaningOpKind, Record<string, unknown>> = {
@@ -92,6 +105,8 @@ export const OP_TEMPLATES: Record<CleaningOpKind, Record<string, unknown>> = {
   rename: { from: '', to: '' },
   removeColumns: { columns: [] },
   filterRows: { column: '', operator: 'isNotBlank' },
+  addRank: { name: 'Rank', column: '', descending: true },
+  mergeTable: { table: '', leftKey: '', rightKey: '', columns: [] },
 };
 
 export function describeOp(op: CleaningOp): string {
@@ -123,6 +138,10 @@ export function describeOp(op: CleaningOp): string {
               ? s.columns.join(` "${s.separator}" `)
               : s.kind === 'conditional'
                 ? `if ${s.column} ${s.operator} ${s.value} then "${s.then}" else "${s.else}"`
+                : s.kind === 'cases'
+                  ? s.cases.map((c) => `if ${c.column} ${c.operator} ${c.value} → ${c.then}`).join('; ') + `; else ${s.else}`
+                  : s.kind === 'sum'
+                    ? s.columns.join(' + ')
                 : s.kind === 'bucket'
                   ? `bands of ${s.column}: ${s.labels.join(' · ')}`
                   : s.mExpression;
@@ -130,6 +149,10 @@ export function describeOp(op: CleaningOp): string {
     }
     case 'rename':
       return `${op.from} → ${op.to}`;
+    case 'addRank':
+      return `${op.name} = rank by ${op.column} (${op.descending ? 'highest' : 'lowest'} first)`;
+    case 'mergeTable':
+      return `${op.table} on ${op.leftKey} = ${op.rightKey}${op.columns?.length ? ` → ${op.columns.join(', ')}` : ''}`;
     case 'filterRows':
       return `${op.column} ${op.operator}${op.value !== undefined && op.operator !== 'isNotBlank' ? ` ${op.value}` : ''}`;
     default:
