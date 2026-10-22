@@ -45,7 +45,7 @@ const addColumnSpec = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('datePart'),
     column: z.string(),
-    part: z.enum(['year', 'month', 'monthName', 'quarter', 'day', 'weekdayName', 'age']),
+    part: z.enum(['year', 'month', 'monthName', 'quarter', 'day', 'weekdayName', 'age', 'yearMonth']),
   }),
   z.object({ kind: z.literal('bucket'), column: z.string(), bounds: z.array(z.number()).min(1), labels: z.array(scalar).min(2), numeric: z.boolean().optional() }),
   z.object({ kind: z.literal('concat'), columns: z.array(z.string()).min(1), separator: z.string().default(' ') }),

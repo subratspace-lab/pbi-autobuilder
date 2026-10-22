@@ -176,7 +176,7 @@ function addColumnType(spec: AddColumnSpec): ColumnType {
     case 'sum':
       return 'number';
     case 'datePart':
-      return spec.part === 'monthName' || spec.part === 'weekdayName' ? 'text' : 'integer';
+      return spec.part === 'monthName' || spec.part === 'weekdayName' || spec.part === 'yearMonth' ? 'text' : 'integer';
     case 'cases': {
       const outs = [...spec.cases.map((c) => c.then), spec.else];
       return outs.every((v) => typeof v === 'number') ? numericType(outs) : 'text';
@@ -272,6 +272,8 @@ function addColumnValue(spec: AddColumnSpec, s: PipelineState): (row: Cell[]) =>
             return day;
           case 'weekdayName':
             return DAY_NAMES[new Date(Date.UTC(y, m - 1, day)).getUTCDay()];
+          case 'yearMonth':
+            return `${y}-${String(m).padStart(2, '0')}`;
           case 'age': {
             const now = new Date();
             const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
@@ -337,6 +339,7 @@ function addColumnM(spec: AddColumnSpec, s: PipelineState): string {
         quarter: `Date.QuarterOfYear(d)`,
         day: `Date.Day(d)`,
         weekdayName: `Date.DayOfWeekName(d, "en-US")`,
+        yearMonth: `Date.ToText(d, "yyyy-MM")`,
         age: `Number.RoundDown(Duration.Days(Date.From(DateTime.LocalNow()) - d) / 365.25)`,
       };
       return `each try (let d = ${d} in if d = null then null else ${fn[spec.part]}) otherwise null`;
@@ -708,6 +711,11 @@ export function defaultTitle(op: CleaningOp) {
 // ---------- source step ----------
 
 export function sourceSteps(table: SourceTable): { name: string; expr: string }[] {
+  if (table.kind === 'sql' && table.sql) {
+    // Live SQL Server source: Power BI runs the query itself on refresh.
+    const s = table.sql;
+    return [{ name: 'Source', expr: `Sql.Database(${mString(s.server)}, ${mString(s.database)}, [Query=${mString(s.query)}])` }];
+  }
   const file = `DataFolder & ${mString(table.file)}`;
   if (table.kind === 'excel') {
     return [
@@ -735,6 +743,8 @@ export interface PipelineOutput extends CleaningResult {
   headers: string[];
   rows: Cell[][];
   steps: { name: string; expr: string }[];
+  /** How many leading steps read the source (replaced when the data is embedded). */
+  sourceStepCount: number;
 }
 
 export function runPipeline(table: SourceTable, raw: RawTable, cleaning: TableCleaning, ctx: PipelineContext = NO_CONTEXT): PipelineOutput {
@@ -822,6 +832,7 @@ export function runPipeline(table: SourceTable, raw: RawTable, cleaning: TableCl
   return {
     table: table.name,
     rowsBefore,
+    sourceStepCount: sourceSteps(table).length,
     rowsAfter: s.rows.length,
     columns,
     previewBefore,

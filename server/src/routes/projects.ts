@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Router, type Request, type Response, type NextFunction } from 'express';
 import multer from 'multer';
-import type { Analysis, CleaningOp, MeasureSpec, ModelSpec, Project, ReportSpec, TableCleaning } from '../../../shared/types.js';
+import type { Analysis, CleaningOp, MeasureSpec, ModelSpec, Project, ReportSpec, SqlConnection, TableCleaning, TransformScript } from '../../../shared/types.js';
 import {
   briefDir,
   createProject,
@@ -17,6 +17,9 @@ import {
   saveProject,
 } from '../services/store.js';
 import { describeDataFile, isBriefFile, isDataFile, readBriefFile } from '../services/ingest.js';
+import { detectScriptTable, scriptColumns, scriptLanguage, scriptText, translateScript } from '../services/scripts.js';
+import { detectConnection, runQuery, scriptPassword } from '../services/sqlserver.js';
+import { autoLoadFromScript, findCandidates, importLocalFile, importSqlQuery } from '../services/sources.js';
 import { profileTable } from '../services/profile.js';
 import { analysisRules, cleaningRules, measureRules, modelRules, newId, reportRules } from '../services/rules.js';
 import { aiAnalyze, aiCleaning, aiMeasures, aiModel, aiReport } from '../services/ai.js';
@@ -134,6 +137,8 @@ projects.post(
     const warnings: string[] = [];
     const briefTexts: string[] = [];
     const asBrief = req.body?.kind === 'brief';
+    const newScripts: TransformScript[] = [];
+    let dataLoaded = false;
     for (const f of files) {
       const name = f.filename;
       if (!asBrief && isDataFile(name)) {
@@ -149,6 +154,20 @@ projects.post(
           warnings.push(`${name}: could not be read (${(e as Error).message})`);
           fs.rmSync(target, { force: true });
         }
+      } else if (scriptLanguage(name)) {
+        // SQL / Python transformation script: kept as a reference and translated into cleaning steps.
+        const raw = fs.readFileSync(f.path, 'utf8');
+        fs.rmSync(f.path, { force: true });
+        const script: TransformScript = { fileName: name, language: scriptLanguage(name)!, text: scriptText(name, raw) };
+        p.scripts = [...(p.scripts ?? []).filter((x) => x.fileName !== name), script];
+        newScripts.push(script);
+        // If the script says where its data is (SQL Server details or a full file path), load it now.
+        const auto = await autoLoadFromScript(p, script);
+        if (auto.loaded.length) {
+          dataLoaded = true;
+          warnings.push(`${name}: loaded ${auto.loaded.join('; ')}`);
+        }
+        warnings.push(...auto.notes);
       } else if (isBriefFile(name)) {
         const target = path.join(briefDir(p.id), name);
         fs.mkdirSync(briefDir(p.id), { recursive: true });
@@ -165,7 +184,19 @@ projects.post(
       }
     }
     if (briefTexts.length) p.brief.text = [p.brief.text.trim(), ...briefTexts.map((t) => t.trim())].filter(Boolean).join('\n\n');
-    const dataChanged = !asBrief && files.some((f) => isDataFile(f.filename));
+    for (const script of p.scripts ?? []) {
+      if (!script.table || !p.tables.some((t) => t.name === script.table)) script.table = detectScriptTable(script, p);
+    }
+    for (const script of newScripts.filter((s) => !s.table)) {
+      const expected = scriptColumns(script.text);
+      const cols = expected.length ? ` (it uses columns like ${expected.slice(0, 6).join(', ')})` : '';
+      warnings.push(
+        p.tables.length
+          ? `${script.fileName} saved — but none of the tables (${p.tables.map((t) => t.name).join(', ')}) has the columns this script uses${cols}. Load the matching data, or choose the table next to the script below.`
+          : `${script.fileName} saved. This project has no data yet — load the data the script cleans${cols}: upload the file, enter its path, or connect to SQL Server below.`,
+      );
+    }
+    const dataChanged = dataLoaded || (!asBrief && files.some((f) => isDataFile(f.filename)));
     if (dataChanged && resetDownstream(p)) warnings.push('The data changed, so the analysis, model, measures and dashboard were reset — run those steps again.');
     return { project: saveProject(p), warnings };
   }),
@@ -250,6 +281,15 @@ projects.post('/:id/cleaning/suggest', h(async (req) => {
     if (plan) {
       for (const [table, ops] of Object.entries(collectionsCleaning(p, plan))) suggested[table] = [...(suggested[table] ?? []), ...ops];
     }
+    // An uploaded SQL / Python script is the spec for its table: use its steps.
+    for (const script of p.scripts ?? []) {
+      const table = script.table ?? detectScriptTable(script, p);
+      const t = table && p.tables.find((x) => x.name === table);
+      if (!t) continue;
+      const res = translateScript(script, t.headers);
+      suggested[t.name] = res.ops;
+      warnings.push(...res.notes.map((n) => `${script.fileName}: ${n}`));
+    }
   }
   for (const t of p.tables) {
     if (only && t.name !== only) continue;
@@ -261,6 +301,158 @@ projects.post('/:id/cleaning/suggest', h(async (req) => {
   refreshCleanedSchemas(p);
   for (const t of p.tables) warnings.push(...getPipeline(p, t.name).warnings.map((w) => `${t.name}: ${w}`));
   return { project: saveProject(p), warnings };
+}));
+
+// ---------- data from SQL Server / local paths ----------
+
+function connFromBody(body: Record<string, unknown>): SqlConnection {
+  const server = String(body?.server ?? '').trim();
+  const database = String(body?.database ?? '').trim();
+  const auth = body?.auth === 'sql' ? 'sql' : 'windows';
+  if (!server) throw fail(400, 'Enter the server name (e.g. localhost\\SQLEXPRESS)');
+  if (!database) throw fail(400, 'Enter the database name');
+  return { server, database, auth, user: auth === 'sql' ? String(body?.user ?? '').trim() : undefined };
+}
+
+/** Password typed in the form, else the one written in the script (never stored). */
+function passwordFor(p: Project, body: Record<string, unknown>) {
+  const typed = typeof body?.password === 'string' && body.password ? body.password : undefined;
+  const script = p.scripts?.find((s) => s.fileName === body?.scriptFile);
+  return typed ?? (script ? scriptPassword(script) : undefined);
+}
+
+const sqlError = (e: unknown) => fail(400, (e as Error).message);
+
+/** After new data arrives: reset later steps and link scripts to their tables. */
+function afterDataChange(p: Project, warnings: string[]) {
+  if (resetDownstream(p)) warnings.push('The data changed, so the analysis, model, measures and dashboard were reset — run those steps again.');
+  for (const s of p.scripts ?? []) if (!s.table || !p.tables.some((t) => t.name === s.table)) s.table = detectScriptTable(s, p);
+}
+
+projects.get('/:id/scripts/:file/connection', h((req) => {
+  const p = load(req);
+  const script = p.scripts?.find((x) => x.fileName === req.params.file);
+  if (!script) throw fail(404, 'Script not found');
+  const connection = detectConnection(script);
+  const candidates = Object.fromEntries(connection.files.filter((f) => !/^[A-Za-z]:[\\/]|^\\\\|^\//.test(f)).map((f) => [f, findCandidates(f)]));
+  return { connection, candidates };
+}));
+
+projects.post('/:id/sql/test', h(async (req) => {
+  const p = load(req);
+  const conn = connFromBody(req.body);
+  try {
+    const r = await runQuery(conn, 'SELECT @@SERVERNAME AS ServerName, DB_NAME() AS DatabaseName, @@VERSION AS Version', passwordFor(p, req.body), 1);
+    const row = r.rows[0] ?? [];
+    return { ok: true, server: row[0], database: row[1], version: String(row[2] ?? '').split('\n')[0] };
+  } catch (e) {
+    throw sqlError(e);
+  }
+}));
+
+projects.post('/:id/sql/tables', h(async (req) => {
+  const p = load(req);
+  const conn = connFromBody(req.body);
+  try {
+    const r = await runQuery(
+      conn,
+      "SELECT TABLE_SCHEMA + '.' + TABLE_NAME AS name, TABLE_TYPE AS type FROM INFORMATION_SCHEMA.TABLES ORDER BY TABLE_SCHEMA, TABLE_NAME",
+      passwordFor(p, req.body),
+      5000,
+    );
+    return { tables: r.rows.map((row) => ({ name: String(row[0]), view: String(row[1]).includes('VIEW') })) };
+  } catch (e) {
+    throw sqlError(e);
+  }
+}));
+
+projects.post('/:id/sql/import', h(async (req) => {
+  const p = load(req);
+  const conn = connFromBody(req.body);
+  const items = (Array.isArray(req.body?.items) ? req.body.items : []) as { table?: string; query?: string; name?: string }[];
+  if (!items.length) throw fail(400, 'Choose at least one table or enter a query');
+  const password = passwordFor(p, req.body);
+  const warnings: string[] = [];
+  const loaded: string[] = [];
+  for (const item of items) {
+    try {
+      const r = await importSqlQuery(p, conn, password, item);
+      loaded.push(`${r.name} (${r.rows.toLocaleString()} rows)`);
+      if (r.truncated) warnings.push(`${r.name}: only the first 1,000,000 rows were loaded for the preview — Power BI loads everything on refresh`);
+    } catch (e) {
+      warnings.push(`${item.table ?? 'Query'}: ${(e as Error).message}`);
+    }
+  }
+  if (!loaded.length) throw fail(400, warnings.join(' · ') || 'Nothing was loaded');
+  afterDataChange(p, warnings);
+  return { project: saveProject(p), loaded, warnings };
+}));
+
+projects.post('/:id/files/from-path', h((req) => {
+  const p = load(req);
+  const filePath = String(req.body?.path ?? '').trim();
+  if (!filePath) throw fail(400, 'Enter the full path of the file, e.g. C:\\Data\\sales.csv');
+  let loaded: string[];
+  try {
+    loaded = importLocalFile(p, filePath);
+  } catch (e) {
+    throw fail(400, (e as Error).message);
+  }
+  const warnings: string[] = [];
+  afterDataChange(p, warnings);
+  return { project: saveProject(p), loaded, warnings };
+}));
+
+/** Reload a SQL Server table (Windows sign-in, or the password typed now / written in a script). */
+projects.post('/:id/tables/:table/refresh', h(async (req) => {
+  const p = load(req);
+  const table = p.tables.find((t) => t.name === req.params.table);
+  if (!table?.sql) throw fail(400, 'Only SQL Server tables can be refreshed — re-upload files instead');
+  const { query, ...conn } = table.sql;
+  const password = passwordFor(p, req.body) ?? p.scripts?.map((s) => scriptPassword(s)).find(Boolean);
+  try {
+    const r = await importSqlQuery(p, conn, password, { query, name: table.name });
+    const warnings: string[] = [];
+    afterDataChange(p, warnings);
+    return { project: saveProject(p), loaded: [`${r.name} (${r.rows.toLocaleString()} rows)`], warnings };
+  } catch (e) {
+    throw sqlError(e);
+  }
+}));
+
+// ---------- transformation scripts ----------
+
+projects.patch('/:id/scripts/:file', h((req) => {
+  const p = load(req);
+  const script = p.scripts?.find((x) => x.fileName === req.params.file);
+  if (!script) throw fail(404, 'Script not found');
+  const table = String(req.body?.table ?? '');
+  if (table && !p.tables.some((t) => t.name === table)) throw fail(400, 'Unknown table');
+  script.table = table || undefined;
+  return saveProject(p);
+}));
+
+projects.delete('/:id/scripts/:file', h((req) => {
+  const p = load(req);
+  p.scripts = (p.scripts ?? []).filter((x) => x.fileName !== req.params.file);
+  return saveProject(p);
+}));
+
+/** Translate one script into cleaning steps for its table (replaces that table's steps). */
+projects.post('/:id/scripts/:file/apply', h((req) => {
+  const p = load(req);
+  const script = p.scripts?.find((x) => x.fileName === req.params.file);
+  if (!script) throw fail(404, 'Script not found');
+  const tableName = String(req.body?.table ?? script.table ?? detectScriptTable(script, p) ?? '');
+  const table = p.tables.find((t) => t.name === tableName);
+  if (!table) throw fail(400, 'Choose which table this script applies to');
+  script.table = table.name;
+  const res = translateScript(script, table.headers);
+  const existing = getCleaning(p, table.name);
+  p.cleaning = [...p.cleaning.filter((c) => c.table !== table.name), { ...existing, ops: res.ops }];
+  refreshCleanedSchemas(p);
+  const warnings = getPipeline(p, table.name).warnings;
+  return { project: saveProject(p), table: table.name, steps: res.ops.length, notes: [...res.notes, ...warnings] };
 }));
 
 projects.get('/:id/cleaning/:table', h((req) => cleaningView(load(req), req.params.table)));

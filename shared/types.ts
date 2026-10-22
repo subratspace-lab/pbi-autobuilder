@@ -13,12 +13,44 @@ export type Culture = 'en-US' | 'en-GB';
 export interface SourceTable {
   /** Query/table name used in Power BI (unique, friendly). */
   name: string;
+  /** Data file (or, for SQL Server tables, the local snapshot file). */
   file: string;
-  kind: 'csv' | 'excel';
+  kind: 'csv' | 'excel' | 'sql';
   sheet?: string;
   delimiter?: string;
   rowCount: number;
   headers: string[];
+  /** For kind 'sql': where the data comes from (no password is ever stored). */
+  sql?: SqlSource;
+}
+
+export interface SqlConnection {
+  server: string;
+  database: string;
+  auth: 'windows' | 'sql';
+  user?: string;
+}
+
+export interface SqlSource extends SqlConnection {
+  query: string;
+  fetchedAt: string;
+  truncated?: boolean;
+}
+
+/** Connection details found inside a SQL / Python script. */
+export interface ScriptConnection {
+  server?: string;
+  database?: string;
+  user?: string;
+  auth?: 'windows' | 'sql';
+  /** The script contains a password (it is never read into the form). */
+  hasPassword: boolean;
+  /** Source tables the script reads (e.g. dbo.Stg_Sales). */
+  tables: string[];
+  /** Files the script reads instead (e.g. sales.csv). */
+  files: string[];
+  /** Where each detail was found, for the UI. */
+  evidence: string[];
 }
 
 export interface Brief {
@@ -91,7 +123,23 @@ export type FilterOperator =
   | 'notContains'
   | 'isNotBlank';
 
-export type DatePart = 'year' | 'month' | 'monthName' | 'quarter' | 'day' | 'weekdayName' | 'age';
+export type DatePart = 'year' | 'month' | 'monthName' | 'quarter' | 'day' | 'weekdayName' | 'age' | 'yearMonth';
+
+/** A SQL or Python (pandas) transformation script uploaded as a reference for the cleaning steps. */
+export interface TransformScript {
+  fileName: string;
+  language: 'sql' | 'python';
+  text: string;
+  /** Table the script applies to (auto-detected from the columns it mentions). */
+  table?: string;
+}
+
+export interface ScriptTranslation {
+  table: string;
+  ops: CleaningOp[];
+  /** Parts of the script that could not be turned into cleaning steps. */
+  notes: string[];
+}
 
 export interface CaseRule {
   column: string;
@@ -321,6 +369,7 @@ export interface Project {
   updatedAt: string;
   tables: SourceTable[];
   brief: Brief;
+  scripts?: TransformScript[];
   profiles: TableProfile[];
   analysis?: Analysis;
   cleaning: TableCleaning[];
@@ -329,7 +378,13 @@ export interface Project {
   measures: MeasureSpec[];
   report?: ReportSpec;
   /** embedData (default true): data travels inside the model, so refresh works on any PC without files. */
-  export: { dataFolder: string; projectFileName: string; embedData?: boolean };
+  export: {
+    dataFolder: string;
+    projectFileName: string;
+    embedData?: boolean;
+    /** SQL Server tables stay connected live (default true); otherwise a snapshot is embedded. */
+    liveSql?: boolean;
+  };
 }
 
 export interface ProjectSummary {

@@ -6,6 +6,10 @@ Propose the Power Query cleaning steps for each table. Steps run in order, after
 ## Tables (profile + sample rows)
 {{profiles}}
 
+## Reference transformation scripts (SQL / Python)
+If scripts are given, reproduce THEIR logic for the table they apply to (same filters, de-duplication, fills, calculated columns and names) using the operations below.
+{{scripts}}
+
 ## Allowed operations (use ONLY these, exact field names)
 - {"op":"trim","columns":["A","B"]}                       remove leading/trailing spaces
 - {"op":"clean","columns":["A"]}                          remove non-printable characters

@@ -3,6 +3,7 @@ import path from 'node:path';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import mammoth from 'mammoth';
+import { readSnapshot } from './sqlserver.js';
 import type { Cell, SourceTable } from '../../../shared/types.js';
 
 export interface RawTable {
@@ -158,6 +159,7 @@ export function describeDataFile(filePath: string, existing: SourceTable[]): Sou
 
 export function loadRawTable(dataDir: string, table: SourceTable): RawTable {
   const filePath = path.join(dataDir, table.file);
+  if (table.kind === 'sql') return readSnapshot(filePath);
   if (table.kind === 'excel') {
     const sheet = readExcelSheets(filePath).find((s) => s.sheet === table.sheet);
     if (!sheet) throw new Error(`Sheet "${table.sheet}" not found in ${table.file}`);

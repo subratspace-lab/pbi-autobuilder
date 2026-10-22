@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CheckCircle2, ExternalLink, KeyRound, PlugZap, Save, XCircle } from 'lucide-react';
+import { CheckCircle2, ExternalLink, KeyRound, ListChecks, PlugZap, Save, XCircle } from 'lucide-react';
 import { api } from '../api/client';
 import { useStore } from '../store/projectStore';
 import { Notice, PageHeader, Spinner } from '../components/ui';
@@ -17,6 +17,7 @@ export function SettingsPage() {
   const [presets, setPresets] = useState<Record<string, { baseUrl: string; model: string }>>({});
   const [form, setForm] = useState({ provider: 'gemini', baseUrl: '', model: '', apiKey: '' });
   const [keyHint, setKeyHint] = useState<string | undefined>();
+  const [models, setModels] = useState<string[]>([]);
   const [test, setTest] = useState<{ ok: boolean; reply?: string; error?: string } | null>(null);
 
   useEffect(() => {
@@ -42,6 +43,33 @@ export function SettingsPage() {
       await loadSettings();
       toast('success', 'Settings saved');
     }
+  };
+
+  // Tests exactly what is in the form (a just-pasted key included) and saves it when it works.
+  const testNow = async () => {
+    setTest(null);
+    const res = await run('test', () => api.testSettings(form));
+    if (!res) return;
+    setTest(res);
+    if (res.models?.length) setModels(res.models);
+    if (res.ok && res.settings) {
+      setKeyHint(res.settings.apiKeyHint);
+      setForm((f) => ({ ...f, apiKey: '', model: res.settings!.model }));
+      await loadSettings();
+      if (res.note) toast('info', res.note);
+    }
+  };
+
+  const loadModels = async () => {
+    const res = await run('models', () => api.listModels(form));
+    if (!res) return;
+    if (!res.ok) {
+      setTest({ ok: false, error: res.error });
+      return;
+    }
+    setModels(res.models ?? []);
+    if (res.suggested && !(res.models ?? []).includes(form.model)) setForm((f) => ({ ...f, model: res.suggested! }));
+    toast('success', `${res.models?.length ?? 0} models available for this key`);
   };
 
   const current = PROVIDERS.find((p) => p.id === form.provider);
@@ -72,7 +100,18 @@ export function SettingsPage() {
           </div>
           <div>
             <label className="label">Model</label>
-            <input className="input font-mono text-xs" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} />
+            <div className="flex gap-2">
+              <input className="input font-mono text-xs" list="model-list" value={form.model} onChange={(e) => setForm({ ...form, model: e.target.value })} />
+              <button className="btn-secondary shrink-0 px-2.5 text-xs" disabled={busy.models} onClick={loadModels} title="List the models your key can use">
+                {busy.models ? <Spinner /> : <ListChecks className="h-4 w-4" />} Load models
+              </button>
+            </div>
+            <datalist id="model-list">
+              {models.map((m) => (
+                <option key={m} value={m} />
+              ))}
+            </datalist>
+            {models.length > 0 && <p className="mt-1 text-xs text-slate-500">{models.length} models available — pick one from the list.</p>}
           </div>
         </div>
         <div>
@@ -100,13 +139,13 @@ export function SettingsPage() {
           <button className="btn-primary" onClick={save} disabled={busy.save}>
             {busy.save ? <Spinner /> : <Save className="h-4 w-4" />} Save
           </button>
-          <button className="btn-secondary" disabled={busy.test} onClick={async () => setTest((await run('test', () => api.testSettings())) ?? null)}>
-            {busy.test ? <Spinner /> : <PlugZap className="h-4 w-4" />} Test connection
+          <button className="btn-secondary" disabled={busy.test} onClick={testNow}>
+            {busy.test ? <Spinner /> : <PlugZap className="h-4 w-4" />} {busy.test ? 'Testing… (up to a minute)' : 'Test connection'}
           </button>
           {test &&
             (test.ok ? (
               <span className="flex items-center gap-1 text-sm text-emerald-600">
-                <CheckCircle2 className="h-4 w-4" /> Connected — model replied “{test.reply}”
+                <CheckCircle2 className="h-4 w-4" /> Connected and saved — model replied “{test.reply}”
               </span>
             ) : (
               <span className="flex items-center gap-1 text-sm text-red-600">

@@ -189,7 +189,7 @@ export async function exportProject(project: Project): Promise<ExportResult> {
   // Copy the raw data next to the project so the whole folder is portable.
   const dataOut = path.join(folder, 'Data');
   fs.mkdirSync(dataOut, { recursive: true });
-  for (const f of new Set(project.tables.map((t) => t.file))) fs.copyFileSync(path.join(dataDir(project.id), f), path.join(dataOut, f));
+  for (const f of new Set(project.tables.filter((t) => t.kind !== 'sql').map((t) => t.file))) fs.copyFileSync(path.join(dataDir(project.id), f), path.join(dataOut, f));
   const dataFolder = project.export.dataFolder.trim() || dataOut;
 
   // Model sources plus every table merged into them (those become staging queries).
@@ -203,9 +203,11 @@ export async function exportProject(project: Project): Promise<ExportResult> {
   if (project.export.embedData !== false) {
     embedded = new Map();
     let size = 0;
-    for (const source of pipelines.keys()) {
+    for (const [source, pipe] of pipelines) {
       const table = project.tables.find((t) => t.name === source)!;
-      const steps = embeddedSourceSteps(getRaw(project.id, table));
+      // SQL Server tables stay live unless the user chose a snapshot.
+      if (table.kind === 'sql' && project.export.liveSql !== false) continue;
+      const steps = embeddedSourceSteps(getRaw(project.id, table), pipe.steps[pipe.sourceStepCount - 1].name);
       size += steps[0].expr.length;
       embedded.set(source, steps);
     }
@@ -257,6 +259,7 @@ export async function exportProject(project: Project): Promise<ExportResult> {
     generatedAt: new Date().toLocaleString(),
     dataFolder,
     embedded: Boolean(embedded),
+    sqlSources: [...new Set(project.tables.filter((t) => t.sql && !embedded?.has(t.name) && pipelines.has(t.name)).map((t) => `${t.sql!.server} / ${t.sql!.database}`))],
     analysis: project.analysis,
     tables: project.tables.map((t) => {
       const pipe = pipelines.get(t.name) ?? getPipeline(project, t.name);

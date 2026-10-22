@@ -6,6 +6,9 @@ Understand the business behind this Power BI project before any technical work.
 ## Data profile (column stats + sample rows of each table)
 {{profiles}}
 
+## Transformation scripts supplied with the project (SQL / Python)
+{{scripts}}
+
 ## Your task
 1. Explain in plain business language what this business/process is and what the data records (4-6 sentences).
 2. List the business questions the final dashboard must answer. If the brief lists required KPIs/visuals, include ALL of them.

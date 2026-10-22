@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
+  ArrowLeft,
   BarChart3,
   Brain,
   Check,
@@ -123,7 +124,10 @@ export function Layout() {
               <Spinner /> Loading project…
             </div>
           ) : (
-            <Outlet />
+            <>
+              <BackLink />
+              <Outlet />
+            </>
           )}
         </div>
       </main>
@@ -132,17 +136,57 @@ export function Layout() {
   );
 }
 
-/** "Next step" link shown at the bottom of each page. */
+/** Back / Next buttons shown at the bottom of each step page. */
 export function NextStep({ current }: { current: string }) {
   const { id } = useParams();
   const i = STEPS.findIndex((s) => s.path === current);
+  const prev = STEPS[i - 1];
   const next = STEPS[i + 1];
-  if (!next) return null;
   return (
-    <div className="mt-8 flex justify-end">
-      <Link to={`/p/${id}/${next.path}`} className="btn-primary">
-        Next: {next.label} →
-      </Link>
+    <div className="mt-8 flex items-center justify-between gap-3 border-t border-slate-200 pt-6">
+      {prev ? (
+        <Link to={`/p/${id}/${prev.path}`} className="btn-secondary">
+          <ArrowLeft className="h-4 w-4" /> Back: {prev.label}
+        </Link>
+      ) : (
+        <Link to="/" className="btn-secondary">
+          <ArrowLeft className="h-4 w-4" /> All projects
+        </Link>
+      )}
+      {next && (
+        <Link to={`/p/${id}/${next.path}`} className="btn-primary">
+          Next: {next.label} →
+        </Link>
+      )}
     </div>
+  );
+}
+
+/** "← Back" link at the top of every page except the home page. */
+function BackLink() {
+  const { id } = useParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  if (pathname === '/') return null;
+  let label = 'Back';
+  let to: string | null = null;
+  if (id) {
+    const step = pathname.split('/')[3];
+    const i = STEPS.findIndex((s) => s.path === step);
+    if (i > 0) {
+      to = `/p/${id}/${STEPS[i - 1].path}`;
+      label = `Back: ${STEPS[i - 1].label}`;
+    } else {
+      to = '/';
+      label = 'All projects';
+    }
+  }
+  return (
+    <button
+      className="mb-4 inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-slate-500 transition hover:text-brand-600"
+      onClick={() => (to ? navigate(to) : window.history.length > 1 ? navigate(-1) : navigate('/'))}
+    >
+      <ArrowLeft className="h-4 w-4" /> {label}
+    </button>
   );
 }

@@ -3,12 +3,14 @@ import { Download, ExternalLink, FolderOpen, PackageCheck } from 'lucide-react';
 import { api, type ExportResult, type ExportStatus } from '../api/client';
 import { useStore } from '../store/projectStore';
 import { Notice, PageHeader, Spinner, formatValue } from '../components/ui';
+import { NextStep } from '../components/Layout';
 
 export function ExportPage() {
   const { project, setProject, run, busy, toast } = useStore();
   const [fileName, setFileName] = useState('');
   const [dataFolder, setDataFolder] = useState('');
   const [embedData, setEmbedData] = useState(true);
+  const [liveSql, setLiveSql] = useState(true);
   const [result, setResult] = useState<ExportResult | null>(null);
   const [status, setStatus] = useState<ExportStatus | null>(null);
 
@@ -27,6 +29,7 @@ export function ExportPage() {
     setFileName(project?.export.projectFileName || project?.name || '');
     setDataFolder(project?.export.dataFolder ?? '');
     setEmbedData(project?.export.embedData !== false);
+    setLiveSql(project?.export.liveSql !== false);
   }, [project?.id, project?.export, project?.name]);
   if (!project) return null;
 
@@ -38,7 +41,7 @@ export function ExportPage() {
   ].filter(Boolean) as string[];
 
   const doExport = async () => {
-    const p = await run('patch', () => api.patchProject(project.id, { export: { projectFileName: fileName, dataFolder, embedData } }));
+    const p = await run('patch', () => api.patchProject(project.id, { export: { projectFileName: fileName, dataFolder, embedData, liveSql } }));
     if (p) setProject(p);
     const res = await run('export', () => api.export(project.id));
     if (res) setResult(res);
@@ -75,6 +78,18 @@ export function ExportPage() {
               </span>
             </span>
           </label>
+          {project.tables.some((t) => t.kind === 'sql') && (
+            <label className="flex items-start gap-3 rounded-lg border border-sky-200 bg-sky-50/60 p-3">
+              <input type="checkbox" className="mt-0.5 h-4 w-4 accent-brand-600" checked={liveSql} onChange={(e) => setLiveSql(e.target.checked)} />
+              <span className="text-sm">
+                <span className="font-medium text-slate-900">Keep SQL Server tables live</span>
+                <span className="block text-xs text-slate-500">
+                  Power BI connects to {[...new Set(project.tables.filter((t) => t.sql).map((t) => `${t.sql!.server} / ${t.sql!.database}`))].join(', ')} and
+                  always refreshes the latest data (it asks for the login once). Untick to embed today's snapshot instead — for sharing with someone who has no access to the server.
+                </span>
+              </span>
+            </label>
+          )}
           <div className={embedData ? 'hidden' : ''}>
             <label className="label">Data folder used by Power BI (parameter “DataFolder”)</label>
             <input
@@ -178,6 +193,7 @@ export function ExportPage() {
           </div>
         </div>
       )}
+      <NextStep current="export" />
     </>
   );
 }

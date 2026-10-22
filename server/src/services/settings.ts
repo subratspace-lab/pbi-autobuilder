@@ -11,7 +11,7 @@ export interface StoredSettings {
 }
 
 export const PROVIDER_PRESETS: Record<LlmSettings['provider'], { baseUrl: string; model: string }> = {
-  gemini: { baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/', model: 'gemini-2.5-flash' },
+  gemini: { baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai/', model: 'gemini-flash-latest' },
   groq: { baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile' },
   openrouter: { baseUrl: 'https://openrouter.ai/api/v1', model: 'meta-llama/llama-3.3-70b-instruct:free' },
   ollama: { baseUrl: 'http://localhost:11434/v1', model: 'qwen2.5-coder:7b' },

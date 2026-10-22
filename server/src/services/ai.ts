@@ -18,6 +18,15 @@ function brief(project: Project) {
   return text.length > MAX_BRIEF ? `${text.slice(0, MAX_BRIEF)}\n…(truncated)` : text;
 }
 
+/** Uploaded SQL / Python transformation scripts, given to the AI as the reference logic. */
+function scriptsText(project: Project) {
+  const scripts = project.scripts ?? [];
+  if (!scripts.length) return '(none)';
+  return scripts
+    .map((s) => `### ${s.fileName} (${s.language === 'sql' ? 'SQL' : 'Python / pandas'}${s.table ? `, applies to table "${s.table}"` : ''})\n${s.text.slice(0, 8000)}`)
+    .join('\n\n');
+}
+
 function analysisText(project: Project) {
   const a = project.analysis;
   if (!a) return '(not analysed yet)';
@@ -37,13 +46,13 @@ function distinctOf(rows: unknown[][], i: number) {
 }
 
 export async function aiAnalyze(project: Project): Promise<Analysis> {
-  const res = await askJson(loadPrompt('analyze', { brief: brief(project), profiles: profilesText(project) }), analysisSchema);
+  const res = await askJson(loadPrompt('analyze', { brief: brief(project), profiles: profilesText(project), scripts: scriptsText(project) }), analysisSchema);
   return { ...res, source: 'ai' };
 }
 
 export async function aiCleaning(project: Project): Promise<{ ops: Record<string, CleaningOp[]>; warnings: string[] }> {
   const res = await askJson(
-    loadPrompt('cleaning', { analysis: analysisText(project), profiles: profilesText(project) }),
+    loadPrompt('cleaning', { analysis: analysisText(project), profiles: profilesText(project), scripts: scriptsText(project) }),
     cleaningSuggestionSchema,
   );
   const warnings: string[] = [];

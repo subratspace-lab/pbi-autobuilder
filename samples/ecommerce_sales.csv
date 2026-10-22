@@ -1,0 +1,1552 @@
+OrderID,OrderDate,CustomerID,CustomerName,Product,Category,Quantity,UnitPrice,Discount,Region,Status
+ORD100001,2024-11-08,CUST0024,Meera Iyer,Charger,Accessories,2,949,0,West,Delivered
+ORD100002,N/A,CUST0183,Vivaan Reddy,Mixer Grinder,Home,4,3878,20,East,Delivered
+ORD100003,5/25/2025,CUST0154,Vivaan Patel,Charger,Accessories,1,855,10,West,
+ORD100004,2025-02-04,CUST0047,Rohan Nair,Backpack,Fashion,2,1829,0,South,Delivered
+ORD100005,2025-02-08,CUST0050,Neel Das,Smartphone,Electronics,4,20296,5,Central,Delivered
+ORD100006,2024-01-09,CUST0185,Ananya Mehta,Mixer Grinder,Home,2,3535,10,Central,Delivered
+ORD100007,2025-02-02,CUST0151,Isha Gupta,Headphones,Accessories,2,2259,0,East,Cancelled
+ORD100008,5/25/2025,CUST0137,Vivaan Singh,Sneakers,Fashion,3,3156,0,,Returned
+ORD100009,2025-07-19,CUST0143,  Vivaan Iyer ,LED Lamp,Home,3,1084,5,North,Delivered
+ORD100010,2025-05-27,CUST0144,Meera Patel,Headphones,Accessories,3,2370,20,Central,Returned
+ORD100011,2025-03-24,CUST0060,Vivaan Sharma,Sneakers,Fashion,3,3064,15,East,Shipped
+ORD100012,2024-05-21,CUST0035,Arjun Singh,LED Lamp,Home,2,1216,0,Central,Shipped
+ORD100013,2024-12-19,CUST0188,Aarav Iyer,Power Bank,Accessories,3,1593,5,South,Cancelled
+ ,4/3/2024,CUST0031,Arjun Nair,Smartwatch,Electronics,2,8707,15,East,Delivered
+ORD100015,2025-05-07,CUST0171,Kabir Khan,Phone Case,Accessories,3,427,0,Central,Delivered
+ORD100016,2025-01-23,CUST0062,Sara Mehta,Smartphone,Electronics,2,21740,0,North,Cancelled
+ORD100017,2024-11-15,CUST0013,Meera Patel,Air Fryer,Home,1,6810,10,West,Delivered
+ORD100018,9/6/2025,CUST0182,Kabir Iyer,Laptop,Electronics,3,52375,5,South,Delivered
+ORD100019,2025-05-25,CUST0217,Vivaan Khan,Phone Case,Accessories,2,416,10,Central,Delivered
+ORD100020,2024-12-04,CUST0132,Ananya Singh,Sneakers,Fashion,2,3084,15,North,
+ORD100021,2025-09-06,CUST0075,Sara Singh,Laptop,Electronics,4,-1,15,Central,Delivered
+ORD100022,2025-05-19,CUST0081,Isha Nair,Sneakers,Fashion,3,3503,5,South,Delivered
+ORD100023,2024-11-01,CUST0076,Kabir Sharma,Smartphone,Electronics,4,20016,0,West,Shipped
+ORD100023,2024-11-02,CUST0076,Kabir Sharma,Smartphone,Electronics,4,20016,0,West,Shipped
+ORD100024,12/11/2024,CUST0026,Rohan Patel,Sneakers,Fashion,2,3109,10,North,Cancelled
+ORD100025,2024-04-29,CUST0075,Sara Singh,Tablet,Electronics,2,18018,20,North,Delivered
+ORD100026,2025-06-17,CUST0019,Ananya Mehta,Sneakers,Fashion,1,3489,0,East,Shipped
+ORD100027,11/24/2024,CUST0153,Vivaan Mehta,Charger,Accessories,2,819,,North,Shipped
+ORD100028,2025-01-26,CUST0118,Rohan Reddy,Mixer Grinder,Home,4,3793,15,North,Delivered
+ORD100029,2025-07-26,CUST0126,Vivaan Sharma,Charger,Accessories,3,979,15,Central,Cancelled
+ORD100030,2024-07-14,CUST0128,Neel Mehta,Power Bank,Accessories,2,1475,0,South,Delivered
+ORD100031,2025-04-15,CUST0123,Sara Das,Tablet,Electronics,3,19776,0,North,Delivered
+ORD100032,7/18/2025,CUST0145,  Tara Patel ,Tablet,Electronics,2,19424,,West,Delivered
+ORD100033,N/A,CUST0046,Kabir Sharma,Charger,Accessories,2,906,15,North,Delivered
+ORD100034,2024-02-12,CUST0083,Kabir Reddy,Sunglasses,Fashion,3,1438,0,North,Cancelled
+ORD100035,2024-01-05,CUST0007,Sara Reddy,Sneakers,Fashion,3,3330,0,North,Cancelled
+ORD100036,2025-04-03,CUST0182,Kabir Iyer,Air Fryer,Home,4,5862,0,West,cancelled
+ORD100037,2024-08-13,CUST0113,Kabir Patel,Phone Case,Accessories,4,451,0,South,Returned
+ORD100037,2024-08-14,CUST0113,Kabir Patel,Phone Case,Accessories,4,451,0,South,Returned
+ORD100038,2025-01-22,CUST0144,Meera Patel,Phone Case,Accessories,1,435,20,South,Cancelled
+ORD100039,2025-09-13,CUST0041,Rohan Reddy,Smartwatch,Electronics,2,8210,0,Central,Returned
+ORD100040,2024-02-19,CUST0092,Meera Reddy,Charger,Accessories,2,831,20,Central,Cancelled
+ORD100041,2024-07-11,CUST0173,Rohan Iyer,Power Bank,Accessories,4,1719,15,West,Shipped
+ORD100042,7/20/2024,CUST0009,  Arjun Sharma ,Smartwatch,Electronics,3,9304,5,Central,Cancelled
+ORD100043,2025-01-12,CUST0017,  Diya Gupta ,Mixer Grinder,Home,1,3585,0,,Cancelled
+ORD100044,2024-05-16,CUST0092,Meera Reddy,Sneakers,,3,3192,15,South,Delivered
+ORD100045,2025-04-08,CUST0194,Aarav Nair,Power Bank,Accessories,4,1723,10,North,Delivered
+ORD100045,2025-04-09,CUST0194,Aarav Nair,Power Bank,Accessories,4,1723,10,North,Delivered
+ORD100046,2024-02-21,CUST0100,Meera Sharma,LED Lamp,Home,3,1198,0,West,Delivered
+ORD100047,2024-11-13,CUST0065,Neel Singh,Tablet,Electronics,4,19213,0,North,Cancelled
+ORD100048,2025-02-23,CUST0014,Aarav Iyer,Laptop,Electronics,2,50656,0,Central,Delivered
+ORD100049,2025-07-13,CUST0065,Neel Singh,Phone Case,Accessories,1,459,5,South,Delivered
+ORD100050,2024-04-29,CUST0003,Ananya Mehta,Sunglasses,Fashion,4,1509,5,North,Returned
+ORD100051,2024-04-22,CUST0014,Aarav Iyer,Mixer Grinder,Home,0,3742,0,North,Delivered
+ORD100052,2024-12-05,CUST0113,Kabir Patel,Power Bank,Accessories,4,1733,10,East,Cancelled
+ORD100053,2024-06-01,CUST0180,Kabir Mehta,Air Fryer,Home,4,6469,0,West,Delivered
+ORD100054,2024-12-10,CUST0004,  Sara Mehta ,Smartwatch,Electronics,3,8686,10,,Cancelled
+ORD100055,8/22/2025,CUST0207,Isha Khan,Power Bank,Accessories,4,1663,5,East,Shipped
+ORD100056,4/25/2024,CUST0138,Arjun Patel,LED Lamp,Home,2,1243,5,East,Delivered
+ORD100057,2025-03-11,CUST0161,Isha Iyer,LED Lamp,,2,1083,15,Central,Shipped
+ORD100058,2024-04-24,CUST0219,Arjun Patel,Air Fryer,Home,2,5984,,Central,Cancelled
+ORD100059,2025-04-02,CUST0009,Arjun Sharma,LED Lamp,Home,3,1088,5,South,
+ORD100060,2024-03-03,CUST0168,Vivaan Iyer,Air Fryer,Home,3,6304,0,South,Delivered
+ORD100061,2024-09-05,CUST0131,  Tara Gupta ,LED Lamp,Home,1,1199,5,Central,Shipped
+ORD100062,2024-04-02,CUST0170,Vivaan Nair,Sneakers,Fashion,3,3009,20,West,Delivered
+ORD100063,2025-03-08,CUST0187,  Kabir Sharma ,Backpack,Fashion,2,2086,0,North,Delivered
+ORD100064,2024-04-22,CUST0148,Kabir Iyer,Smartphone,Electronics,4,20029,,South,Delivered
+ORD100065,2/13/2025,CUST0126,Vivaan Sharma,LED Lamp,Home,3,1269,15,North,Cancelled
+ORD100066,2025-01-26,CUST0145,Tara Patel,Smartwatch,Electronics,3,8214,0,South,Delivered
+ORD100067,2025-02-08,CUST0128,Neel Mehta,Headphones,Accessories,3,2670,5,North,Delivered
+ORD100068,2024-06-23,CUST0097,Meera Khan,Power Bank,,4,1629,0,South,delivered
+ORD100069,2024-08-29,CUST0069,Vivaan Khan,Sneakers,Fashion,1,2982,5,West,Shipped
+ORD100070,2024-08-19,CUST0148,Kabir Iyer,Smartwatch,Electronics,1,9511,20,East,Returned
+ORD100071,2024-07-01,CUST0024,Meera Iyer,Tablet,Electronics,1,17047,0,West,Shipped
+ORD100072,2024-02-17,CUST0108,Ananya Nair,LED Lamp,Home,4,1209,0,North,Delivered
+ORD100073,2025-01-19,CUST0097,Meera Khan,Backpack,Fashion,1,1790,5,East,Delivered
+ORD100074,12/28/2024,CUST0181,Aarav Singh,Mixer Grinder,Home,1,3595,15,North,Returned
+ORD100075,6/15/2024,CUST0101,,Smartphone,Electronics,0,23682,0,Central,Cancelled
+ORD100076,7/3/2024,CUST0143,  Vivaan Iyer ,Sneakers,,1,3446,15,Central,Delivered
+ORD100076,2024-07-04,CUST0143,  Vivaan Iyer ,Sneakers,,1,3446,15,Central,Delivered
+ORD100077,2024-12-23,CUST0121,Neel Reddy,LED Lamp,Home,4,1284,0,East,Delivered
+ORD100078,2025-07-16,CUST0097,  Meera Khan ,Charger,Accessories,4,939,15,West,Delivered
+ORD100079,2025-09-13,CUST0187,Kabir Sharma,Smartwatch,Electronics,2,8646,10,Central,Delivered
+ORD100080,2024-04-01,CUST0064,,Smartwatch,Electronics,4,8523,10,West,Returned
+ORD100081,2025-05-09,CUST0179,Kabir Patel,Sneakers,Fashion,2,3086,15,West,Delivered
+ORD100082,2025-06-15,CUST0140,Neel Gupta,Sneakers,Fashion,2,3042,5,West,Delivered
+ORD100083,2024-06-30,CUST0074,Sara Mehta,Phone Case,Accessories,3,464,10,Central,Delivered
+ORD100084,2024-05-01,CUST0112,Kabir Nair,Headphones,Accessories,3,2548,0,,Delivered
+ORD100085,2025-07-04,CUST0021,Sara Nair,Power Bank,Accessories,3,1543,10,North,Delivered
+ORD100086,2024-12-21,CUST0158,Neel Sharma,Mixer Grinder,Home,4,3669,10,North,Delivered
+ORD100087,2024-01-03,CUST0209,Rohan Iyer,Sneakers,Fashion,2,3266,0,North,Returned
+ORD100088,2024-10-04,CUST0086,Sara Singh,Tablet,Electronics,2,18733,5,East,Returned
+ORD100089,2024-04-18,CUST0152,Aarav Khan,Sunglasses,Fashion,3,1392,20,Central,Returned
+ORD100090,N/A,CUST0171,  Kabir Khan ,LED Lamp,Home,4,1151,5,South,Cancelled
+ORD100091,2024-04-18,CUST0102,Tara Singh,Power Bank,Accessories,0,1529,0,South,Shipped
+ORD100092,2025-05-04,CUST0071,Aarav Patel,Smartphone,Electronics,3,23817,0,Central,Shipped
+ORD100093,2024-05-31,CUST0130,Rohan Reddy,Mixer Grinder,Home,3,4100,5,North,Returned
+ORD100094,2024-08-18,CUST0058,Diya Patel,Laptop,Electronics,2,52690,0,North,Returned
+ORD100095,2024-04-11,CUST0153,Vivaan Mehta,Mixer Grinder,Home,1,3627,5,East,Returned
+ORD100096,3/29/2025,CUST0085,Rohan Nair,Sneakers,Fashion,3,3307,0,North,Delivered
+ORD100097,2024-01-29,CUST0067,,Charger,Accessories,1,958,5,West,Returned
+ORD100098,2024-12-09,CUST0142,Neel Singh,Phone Case,,1,470,20,Central,Cancelled
+ORD100099,2025-01-26,CUST0078,Diya Patel,Smartphone,Electronics,4,22901,5,West,shipped
+ORD100100,2024-11-08,CUST0172,Rohan Singh,Smartwatch,Electronics,2,9027,0,South,Cancelled
+ORD100101,2024-03-05,CUST0058,  Diya Patel ,Power Bank,Accessories,1,1639,15,East,Delivered
+ORD100102,2024-07-13,CUST0032,Ananya Singh,LED Lamp,Home,1,1160,0,Central,Cancelled
+ORD100103,4/10/2024,CUST0108,Ananya Nair,Sunglasses,Fashion,3,1459,0,Central,Delivered
+ORD100104,2024-09-05,CUST0078,Diya Patel,Mixer Grinder,Home,1,3947,0,South,returned
+ORD100105,2024-07-26,CUST0172,,Tablet,Electronics,1,19328,20,North,Delivered
+ORD100106,2024-11-07,CUST0115,Vivaan Sharma,Sunglasses,Fashion,4,1591,0,Central,Shipped
+ORD100107,9/9/2025,CUST0104,Aarav Gupta,Phone Case,Accessories,2,485,20,East,delivered
+ORD100108,2024-10-18,CUST0032,Ananya Singh,Laptop,Electronics,2,52527,5,East,Delivered
+ORD100109,2025-04-28,CUST0127,Tara Gupta,Mixer Grinder,Home,3,3792,,Central,Delivered
+ORD100110,8/28/2024,CUST0203,Arjun Mehta,Charger,Accessories,4,977,0,Central,Delivered
+ORD100111,2024-03-02,CUST0119,Aarav Khan,Backpack,Fashion,2,1721,15,North,shipped
+ORD100111,2024-03-03,CUST0119,Aarav Khan,Backpack,Fashion,2,1721,15,North,shipped
+ORD100112,2024-11-04,CUST0009,Arjun Sharma,Backpack,Fashion,3,2044,20,West,Cancelled
+ORD100113,2024-02-04,CUST0187,Kabir Sharma,Tablet,Electronics,1,17283,0,East,Returned
+ORD100114,2/7/2025,CUST0173,Rohan Iyer,Smartphone,Electronics,1,21423,20,Central,Delivered
+ORD100115,2025-03-11,CUST0204,Vivaan Das,Headphones,Accessories,1,2738,20,East,Delivered
+ORD100116,2024-07-26,CUST0097,Meera Khan,Phone Case,Accessories,1,490,0,South,Delivered
+ORD100117,2025-06-22,CUST0207,Isha Khan,Backpack,Fashion,1,1940,,East,Delivered
+ORD100118,2024-11-09,CUST0183,Vivaan Reddy,Mixer Grinder,Home,1,4144,15,Central,Delivered
+ORD100119,2025-07-25,CUST0116,Diya Khan,Tablet,Electronics,4,18788,5,Central,Returned
+ORD100120,2024-12-01,CUST0009,Arjun Sharma,Laptop,Electronics,3,55500,10,Central,Delivered
+ORD100121,2025-06-14,CUST0115,Vivaan Sharma,LED Lamp,Home,2,1285,5,,Cancelled
+ORD100121,2025-06-15,CUST0115,Vivaan Sharma,LED Lamp,Home,2,1285,5,,Cancelled
+ORD100122,2024-07-19,CUST0020,Isha Iyer,Mixer Grinder,Home,1,3822,0,South,Delivered
+ORD100123,2025-04-24,CUST0033,Isha Das,Phone Case,Accessories,4,451,0,North,Delivered
+ORD100124,2024-06-05,CUST0140,Neel Gupta,LED Lamp,Home,4,1278,10,East,Returned
+ORD100125,2025-05-07,CUST0085,Rohan Nair,Charger,Accessories,4,877,5,Central,Delivered
+ORD100126,9/20/2024,CUST0218,Ananya Patel,Mixer Grinder,Home,4,3730,20,West,Shipped
+ORD100127,2025-04-03,CUST0069,Vivaan Khan,Sneakers,Fashion,2,3105,,East,Cancelled
+ORD100128,2024-11-28,CUST0219,Arjun Patel,Headphones,Accessories,4,2708,0,,Delivered
+ORD100129,2024-05-27,CUST0169,Tara Gupta,Sunglasses,Fashion,4,1398,20,West,Delivered
+ORD100130,5/14/2024,CUST0120,Vivaan Khan,Backpack,Fashion,2,1840,20,Central,Delivered
+ORD100130,2024-05-15,CUST0120,Vivaan Khan,Backpack,Fashion,2,1840,20,Central,Delivered
+ORD100131,2024-03-25,CUST0133,Isha Iyer,Smartphone,Electronics,3,22392,5,North,Cancelled
+ORD100132,2025-05-31,CUST0182,Kabir Iyer,Power Bank,Accessories,3,1596,0,,Delivered
+ORD100133,2024-04-10,CUST0057,Isha Nair,Tablet,Electronics,1,18740,0,Central,Delivered
+ORD100134,2025-03-26,CUST0123,Sara Das,Air Fryer,Home,4,5966,0,West,Delivered
+ORD100135,2024-10-03,CUST0136,Neel Singh,Smartwatch,Electronics,2,9030,0,West,cancelled
+ORD100136,2025-07-13,CUST0168,Vivaan Iyer,Laptop,Electronics,1,58450,0,North,Cancelled
+ORD100137,2024-06-22,CUST0052,Neel Iyer,Smartphone,Electronics,4,23931,15,Central,Shipped
+ORD100138,2024-06-10,CUST0202,Aarav Iyer,Sneakers,Fashion,2,3208,5,Central,Delivered
+ORD100139,2024-05-08,CUST0097,Meera Khan,Smartphone,Electronics,3,20174,20,Central,Cancelled
+ORD100140,2025-09-12,CUST0098,Isha Khan,Charger,Accessories,3,887,0,West,Delivered
+ORD100141,2024-06-20,CUST0200,Sara Sharma,Power Bank,Accessories,2,1498,0,East,Delivered
+ORD100142,2025-02-25,CUST0208,Tara Sharma,Tablet,Electronics,2,17192,5,South,Delivered
+ORD100143,2024-01-20,CUST0155,Isha Nair,Mixer Grinder,Home,3,3916,5,East,Cancelled
+ORD100144,2024-08-02,CUST0138,Arjun Patel,Mixer Grinder,Home,3,3678,,Central,Delivered
+ORD100145,2025-06-13,CUST0197,Neel Das,Mixer Grinder,Home,3,3563,5,West,Delivered
+ORD100146,2025-01-05,CUST0177,  Tara Reddy ,Backpack,Fashion,1,1736,20,Central,Shipped
+ORD100147,2024-04-25,CUST0046,Kabir Sharma,Air Fryer,Home,2,6900,15,South,delivered
+ORD100148,2024-01-02,CUST0091,Arjun Mehta,Smartwatch,Electronics,2,9505,0,,Returned
+ORD100149,2024-10-13,CUST0082,Meera Reddy,LED Lamp,Home,4,1141,5,West,Cancelled
+ORD100150,2024-06-01,CUST0217,  Vivaan Khan ,Air Fryer,Home,4,6398,0,North,Cancelled
+ORD100151,2024-02-17,CUST0019,Ananya Mehta,Sunglasses,Fashion,2,1423,20,South,Returned
+ORD100152,2025-08-16,CUST0103,Vivaan Patel,Headphones,Accessories,3,2533,0,South,Delivered
+ORD100153,2024-02-17,CUST0169,Tara Gupta,Laptop,Electronics,3,53511,,Central,delivered
+ORD100154,2024-10-21,CUST0182,Kabir Iyer,Sneakers,Fashion,1,2918,5,West,Returned
+ORD100155,2025-01-05,CUST0119,Aarav Khan,Backpack,Fashion,2,1977,15,East,Delivered
+ORD100156,2024-09-26,CUST0081,Isha Nair,Laptop,Electronics,1,60258,20,North,Delivered
+ORD100157,2024-12-26,CUST0013,  Meera Patel ,Air Fryer,Home,2,6411,0,Central,Returned
+ORD100158,2024-01-07,CUST0030,Rohan Khan,Charger,Accessories,3,961,0,South,Returned
+ORD100159,2024-03-22,CUST0039,Meera Khan,Power Bank,Accessories,4,1757,0,,Delivered
+ORD100160,2025-07-26,CUST0210,Rohan Singh,Sneakers,Fashion,3,3024,0,East,Returned
+ORD100161,2025-08-18,CUST0128,Neel Mehta,Smartwatch,Electronics,3,9132,20,South,
+ORD100162,2024-06-05,CUST0182,Kabir Iyer,Charger,Accessories,0,852,5,Central,Delivered
+ORD100163,2025-02-05,CUST0183,Vivaan Reddy,Power Bank,Accessories,3,1451,0,North,Delivered
+ORD100164,2025-08-15,CUST0179,  Kabir Patel ,Tablet,Electronics,3,17870,15,South,cancelled
+ORD100165,2024-10-08,CUST0098,Isha Khan,Phone Case,Accessories,3,447,20,North,Shipped
+ORD100166,2024-02-24,CUST0146,Meera Singh,LED Lamp,Home,1,1174,20,East,Returned
+ORD100167,N/A,CUST0004,Sara Mehta,Smartwatch,,1,8137,0,North,Shipped
+ORD100168,2025-02-06,CUST0163,Arjun Khan,LED Lamp,Home,4,1173,10,West,Returned
+ORD100169,2024-11-07,CUST0105,Meera Gupta,Sneakers,Fashion,2,3365,0,West,returned
+ORD100170,2024-07-06,CUST0008,Diya Singh,Laptop,Electronics,4,57633,15,Central,Returned
+ORD100171,2025-04-04,CUST0204,Vivaan Das,Charger,Accessories,3,915,,East,Returned
+ORD100172,2024-08-05,CUST0074,Sara Mehta,Sneakers,Fashion,2,3116,0,Central,Delivered
+ORD100173,2024-07-09,CUST0167,Isha Mehta,Sunglasses,Fashion,2,1512,0,East,Delivered
+ORD100174,2024-02-08,CUST0180,Kabir Mehta,Sunglasses,,4,1402,0,North,Returned
+ORD100175,2024-04-22,CUST0209,Rohan Iyer,Backpack,Fashion,2,1732,15,East,Returned
+ORD100176,2025-01-29,CUST0140,Neel Gupta,Sneakers,Fashion,1,2985,10,North,Cancelled
+ORD100177,2024-10-14,CUST0152,Aarav Khan,LED Lamp,Home,2,1293,0,Central,Cancelled
+ORD100178,2025-08-09,CUST0061,Neel Khan,Backpack,Fashion,4,2012,10,South,Delivered
+ORD100179,2025-06-24,CUST0180,Kabir Mehta,Sunglasses,Fashion,2,1595,5,North,Returned
+ORD100180,2024-12-15,CUST0172,Rohan Singh,Smartwatch,Electronics,1,8453,,West,Delivered
+ORD100181,2024-05-02,CUST0145,Tara Patel,Tablet,Electronics,4,17833,0,North,Cancelled
+ORD100182,2025-08-28,CUST0009,Arjun Sharma,LED Lamp,Home,4,1130,0,East,Cancelled
+ORD100183,2024-06-17,CUST0062,Sara Mehta,Phone Case,Accessories,3,461,0,Central,Cancelled
+ORD100184,2024-08-25,CUST0177,Tara Reddy,Mixer Grinder,Home,0,3708,5,Central,Returned
+ORD100185,1/6/2025,CUST0052,Neel Iyer,Smartwatch,Electronics,2,8350,5,South,Delivered
+ ,2024-07-20,CUST0032,Ananya Singh,Sunglasses,Fashion,4,1467,20,East,Delivered
+ORD100187,2024-01-22,CUST0072,Kabir Patel,Mixer Grinder,Home,2,3489,10,North,Shipped
+ORD100188,9/27/2024,CUST0095,Vivaan Nair,Laptop,Electronics,4,55186,,North,Delivered
+ORD100189,2024-10-10,CUST0208,Tara Sharma,Tablet,Electronics,3,19121,0,South,delivered
+ORD100190,2024-03-12,CUST0029,Tara Iyer,LED Lamp,Home,2,1109,20,South,Shipped
+ORD100191,2024-09-26,CUST0002,Arjun Das,Sunglasses,Fashion,1,1409,15,West,delivered
+ORD100192,2024-08-26,CUST0212,Isha Gupta,Smartwatch,Electronics,3,8578,5,West,Shipped
+ORD100192,2024-08-27,CUST0212,Isha Gupta,Smartwatch,Electronics,3,8578,5,West,Shipped
+ORD100193,3/22/2024,CUST0133,  Isha Iyer ,Smartwatch,Electronics,4,8268,0,North,Cancelled
+ORD100194,11/21/2024,CUST0045,Diya Gupta,Smartphone,Electronics,2,24049,,North,
+ORD100195,5/18/2025,CUST0174,Arjun Das,Phone Case,Accessories,4,480,0,East,returned
+ORD100196,2025-05-18,CUST0047,Rohan Nair,Air Fryer,Home,4,6696,0,Central,Shipped
+ORD100197,2024-02-25,CUST0047,Rohan Nair,Backpack,Fashion,1,1791,5,West,Delivered
+ORD100198,2024-05-21,CUST0100,Meera Sharma,Smartwatch,Electronics,1,9611,20,South,
+ORD100199,2025-05-28,CUST0107,Sara Gupta,Charger,Accessories,2,891,0,Central,Delivered
+ORD100200,2024-01-03,CUST0118,Rohan Reddy,Smartphone,Electronics,3,-1,,West,Cancelled
+ORD100201,6/18/2024,CUST0095,Vivaan Nair,Backpack,Fashion,3,2058,15,East,Cancelled
+ORD100202,2024-07-02,CUST0034,Diya Mehta,Sneakers,Fashion,2,2950,10,South,Returned
+ORD100203,2024-11-25,CUST0164,  Aarav Patel ,Smartphone,Electronics,3,23021,0,South,Cancelled
+ORD100204,2024-07-24,CUST0191,Kabir Patel,Sneakers,Fashion,4,3108,0,South,Delivered
+ORD100205,2024-07-09,CUST0127,Tara Gupta,Backpack,Fashion,3,1877,15,West,Returned
+ORD100206,2024-04-16,CUST0023,Isha Reddy,Air Fryer,Home,4,6215,10,West,delivered
+ORD100207,2024-05-01,CUST0025,Kabir Iyer,Mixer Grinder,Home,3,3711,0,South,Returned
+ORD100208,2024-11-08,CUST0193,Arjun Iyer,Charger,Accessories,4,838,10,,Shipped
+ORD100209,2024-12-05,CUST0048,Vivaan Gupta,LED Lamp,Home,2,1211,0,East,Shipped
+ORD100210,3/28/2024,CUST0010,Arjun Patel,Tablet,Electronics,2,17044,10,West,Delivered
+ORD100211,2025-09-21,CUST0138,Arjun Patel,Backpack,Fashion,2,2058,5,West,Cancelled
+ORD100212,11/30/2024,CUST0033,Isha Das,Phone Case,Accessories,2,452,20,South,Delivered
+ORD100213,2025-06-20,CUST0071,Aarav Patel,Laptop,Electronics,3,56501,0,South,Delivered
+ORD100214,2024-01-09,CUST0027,Tara Patel,Backpack,Fashion,0,1721,15,North,Delivered
+ORD100215,2024-10-02,CUST0005,Diya Singh,Sneakers,Fashion,0,3233,5,Central,Cancelled
+ORD100216,2025-06-14,CUST0097,Meera Khan,Charger,Accessories,2,962,0,,Cancelled
+ORD100217,2024-06-20,CUST0214,Rohan Khan,Charger,Accessories,4,970,0,North,Shipped
+ORD100218,2024-04-25,CUST0098,Isha Khan,Power Bank,Accessories,3,1526,5,Central,Returned
+ORD100219,2025-04-15,CUST0099,Meera Reddy,Smartwatch,Electronics,3,8375,0,North,Cancelled
+ORD100220,2025-02-10,CUST0220,  Vivaan Patel ,Sneakers,Fashion,3,3414,5,North,Shipped
+ORD100221,2024-11-08,CUST0137,Vivaan Singh,Air Fryer,Home,3,6512,20,North,Delivered
+ORD100222,8/18/2025,CUST0145,Tara Patel,Phone Case,Accessories,1,408,0,North,Delivered
+ORD100223,2025-07-17,CUST0171,Kabir Khan,Mixer Grinder,Home,1,3598,,West,Delivered
+ORD100224,2025-04-19,CUST0211,Sara Sharma,Backpack,Fashion,4,2077,0,North,Returned
+ORD100225,2024-02-05,CUST0208,Tara Sharma,Sunglasses,Fashion,4,1649,0,West,Shipped
+ORD100226,2024-03-16,CUST0140,Neel Gupta,Air Fryer,Home,1,6306,,East,Cancelled
+ORD100227,2024-12-14,CUST0106,Tara Mehta,Phone Case,Accessories,4,408,0,East,Shipped
+ORD100228,2025-01-08,CUST0167,Isha Mehta,Mixer Grinder,Home,3,3803,0,East,Returned
+ORD100229,2024-11-07,CUST0047,Rohan Nair,Power Bank,Accessories,2,1601,15,Central,Cancelled
+ORD100230,2024-03-25,CUST0038,Diya Nair,Power Bank,Accessories,3,1530,10,Central,Shipped
+ORD100231,6/19/2025,CUST0010,Arjun Patel,Smartwatch,Electronics,4,9219,15,Central,Delivered
+ORD100232,2025-01-18,CUST0146,Meera Singh,Headphones,Accessories,3,2299,10,West,Cancelled
+ORD100233,2024-04-07,CUST0061,Neel Khan,Phone Case,Accessories,1,428,,West,delivered
+ORD100234,2024-04-14,CUST0175,Neel Iyer,Headphones,Accessories,2,2501,0,North,Shipped
+ORD100235,2025-06-22,CUST0212,  Isha Gupta ,Backpack,Fashion,3,1763,10,West,Cancelled
+ORD100236,2025-08-11,CUST0072,Kabir Patel,Air Fryer,Home,4,7039,10,West,Shipped
+ORD100237,2025-09-12,CUST0016,Meera Mehta,Sunglasses,Fashion,1,1649,0,West,Returned
+ORD100238,2025-06-03,CUST0134,Isha Gupta,Phone Case,Accessories,4,451,10,Central,Delivered
+ORD100239,2025-09-16,CUST0065,Neel Singh,Sunglasses,Fashion,4,1353,10,Central,Cancelled
+ORD100240,8/21/2024,CUST0095,Vivaan Nair,Backpack,Fashion,4,1846,15,North,Delivered
+ORD100241,8/16/2025,CUST0157,Vivaan Reddy,Air Fryer,Home,2,6594,0,East,Delivered
+ORD100242,2025-09-17,CUST0043,Neel Nair,Air Fryer,Home,4,6279,5,Central,Cancelled
+ORD100243,4/11/2024,CUST0169,Tara Gupta,Smartphone,,1,21022,0,East,Delivered
+ORD100244,2025-04-26,CUST0081,Isha Nair,Mixer Grinder,Home,4,3670,20,South,cancelled
+ORD100244,2025-04-27,CUST0081,Isha Nair,Mixer Grinder,Home,4,3670,20,South,cancelled
+ORD100245,9/14/2024,CUST0028,  Vivaan Gupta ,Phone Case,Accessories,1,449,10,East,Cancelled
+ORD100246,2024-02-24,CUST0133,Isha Iyer,Laptop,Electronics,1,58978,10,Central,Delivered
+ORD100247,2025-05-21,CUST0104,Aarav Gupta,Sunglasses,Fashion,0,1646,0,South,Shipped
+ORD100248,2024-12-02,CUST0001,Aarav Singh,Sneakers,Fashion,3,2929,15,South,Delivered
+ORD100249,2024-07-14,CUST0062,Sara Mehta,Mixer Grinder,Home,3,3862,20,West,Delivered
+ORD100250,2025-01-26,CUST0083,,Tablet,,2,18740,20,East,Cancelled
+ORD100251,2024-12-24,CUST0021,Sara Nair,Charger,Accessories,2,921,20,East,Returned
+ORD100252,2025-03-15,CUST0108,,LED Lamp,Home,2,1218,0,East,returned
+ORD100253,2024-01-17,CUST0204,Vivaan Das,Sunglasses,Fashion,1,1581,10,West,Cancelled
+ORD100254,2025-08-14,CUST0144,Meera Patel,Mixer Grinder,Home,3,3883,10,East,Cancelled
+ORD100254,2025-08-15,CUST0144,Meera Patel,Mixer Grinder,Home,3,3883,10,East,Cancelled
+ORD100255,1/22/2024,CUST0156,Rohan Mehta,Sunglasses,Fashion,3,1533,0,North,Delivered
+ORD100256,2024-01-27,CUST0034,Diya Mehta,Smartphone,Electronics,2,21990,10,Central,Cancelled
+ORD100257,5/6/2024,CUST0213,Ananya Nair,Charger,Accessories,2,955,10,South,Delivered
+ORD100258,2024-10-08,CUST0075,Sara Singh,Tablet,Electronics,2,17836,5,North,Cancelled
+ORD100259,2/26/2024,CUST0036,Rohan Reddy,Laptop,Electronics,1,59519,0,North,Cancelled
+ORD100260,2025-05-03,CUST0095,  Vivaan Nair ,Mixer Grinder,Home,3,3975,0,East,Delivered
+ORD100261,2024-06-29,CUST0073,Diya Patel,Laptop,Electronics,3,51082,5,East,Delivered
+ORD100262,2024-02-27,CUST0070,Sara Nair,Mixer Grinder,Home,4,4035,,West,Shipped
+ORD100263,4/1/2024,CUST0217,Vivaan Khan,Phone Case,Accessories,4,460,0,West,Cancelled
+ORD100264,2024-06-20,CUST0195,Isha Patel,Smartwatch,Electronics,1,8924,,South,Delivered
+ORD100265,8/27/2025,CUST0095,Vivaan Nair,Sneakers,Fashion,4,3426,5,West,Delivered
+ORD100266,2024-03-05,CUST0163,Arjun Khan,Smartphone,Electronics,2,19995,,North,Shipped
+ORD100267,2024-05-05,CUST0198,  Rohan Khan ,Sunglasses,Fashion,3,1548,0,West,Returned
+ORD100268,2024-09-09,CUST0057,,Sneakers,Fashion,1,3399,5,Central,Cancelled
+ORD100269,2024-06-19,CUST0045,Diya Gupta,Backpack,Fashion,4,1932,10,West,Delivered
+ORD100270,2024-02-22,CUST0085,Rohan Nair,Smartphone,,1,19837,10,,cancelled
+ORD100271,3/17/2025,CUST0185,Ananya Mehta,Air Fryer,Home,4,6600,0,Central,delivered
+ORD100272,2025-08-04,CUST0137,,Sneakers,Fashion,3,2928,5,North,Delivered
+ORD100273,2025-04-24,CUST0147,Diya Das,Tablet,Electronics,1,18400,,,Returned
+ORD100274,10/3/2024,CUST0015,Meera Das,Tablet,Electronics,4,17177,0,North,Shipped
+ORD100275,2024-04-25,CUST0135,Arjun Khan,Sneakers,Fashion,2,3082,15,West,Delivered
+ORD100276,2024-07-13,CUST0121,Neel Reddy,Backpack,Fashion,2,1885,0,South,returned
+ORD100277,2024-04-06,CUST0021,  Sara Nair ,Air Fryer,Home,1,7062,0,North,Returned
+ORD100278,2024-02-09,CUST0022,Kabir Reddy,Phone Case,Accessories,2,488,20,East,Shipped
+ORD100279,2025-06-05,CUST0009,Arjun Sharma,Smartwatch,Electronics,2,8315,15,Central,Shipped
+ORD100280,2025-08-24,CUST0085,Rohan Nair,LED Lamp,Home,2,1185,15,North,Cancelled
+ORD100281,2024-03-14,CUST0155,Isha Nair,Sunglasses,Fashion,1,1478,20,East,
+ORD100282,2024-09-20,CUST0185,Ananya Mehta,Backpack,Fashion,2,2070,20,West,Delivered
+ORD100283,2025-02-07,CUST0155,Isha Nair,Air Fryer,Home,4,6459,10,North,Delivered
+ORD100284,2024-10-21,CUST0124,Sara Reddy,LED Lamp,Home,3,1232,5,East,Delivered
+ORD100285,2/7/2025,CUST0206,Neel Iyer,Phone Case,,1,413,10,West,Delivered
+ORD100286,2025-05-28,CUST0065,Neel Singh,Backpack,Fashion,2,1762,15,East,Delivered
+ORD100287,2025-02-27,CUST0060,Vivaan Sharma,Power Bank,Accessories,3,1469,5,West,shipped
+ORD100288,2024-12-22,CUST0217,Vivaan Khan,Headphones,Accessories,1,2394,5,South,Cancelled
+ ,2024-07-03,CUST0063,  Ananya Reddy ,Phone Case,Accessories,1,432,10,West,Shipped
+ORD100290,2024-02-26,CUST0171,Kabir Khan,Sunglasses,Fashion,3,1528,0,North,Returned
+ORD100291,2025-07-01,CUST0073,Diya Patel,Backpack,Fashion,1,1718,10,South,Delivered
+ORD100292,2024-01-12,CUST0101,Tara Mehta,Air Fryer,Home,3,6220,0,East,Cancelled
+ORD100293,2024-08-18,CUST0157,Vivaan Reddy,Power Bank,Accessories,1,1502,0,North,Cancelled
+ORD100294,1/31/2025,CUST0139,Diya Khan,Smartphone,Electronics,1,23208,0,East,Returned
+ORD100295,2025-06-04,CUST0186,Kabir Patel,Air Fryer,Home,0,6826,5,North,Returned
+ORD100296,2024-03-10,CUST0047,Rohan Nair,Laptop,,2,57429,5,East,Cancelled
+ORD100297,2025-03-17,CUST0127,Tara Gupta,Backpack,Fashion,4,1732,0,South,Cancelled
+ORD100298,2024-12-03,CUST0003,Ananya Mehta,Charger,Accessories,3,831,15,South,Returned
+ORD100299,2024-07-28,CUST0025,Kabir Iyer,Charger,Accessories,4,881,0,East,Delivered
+ORD100300,2024-06-10,CUST0101,  Tara Mehta ,Phone Case,Accessories,1,411,20,North,Delivered
+ORD100301,2024-09-05,CUST0038,Diya Nair,Sunglasses,Fashion,3,1596,15,East,Shipped
+ORD100302,2024-07-17,CUST0165,Aarav Patel,Phone Case,Accessories,0,423,0,North,Delivered
+ORD100303,2025-04-17,CUST0077,  Meera Das ,Laptop,Electronics,4,60163,0,Central,Cancelled
+ORD100304,2024-01-21,CUST0005,Diya Singh,Phone Case,Accessories,1,482,5,North,Delivered
+ORD100305,2024-08-14,CUST0180,Kabir Mehta,Backpack,Fashion,4,1925,0,West,delivered
+ORD100306,2025-04-19,CUST0056,Kabir Khan,LED Lamp,Home,1,1200,0,Central,Delivered
+ORD100307,2024-03-13,CUST0175,  Neel Iyer ,Sneakers,Fashion,4,3327,0,East,Cancelled
+ORD100308,2024-11-14,CUST0009,Arjun Sharma,Backpack,Fashion,4,2086,0,West,Delivered
+ORD100309,2025-01-15,CUST0108,Ananya Nair,LED Lamp,Home,1,1118,5,South,Delivered
+ORD100310,2/26/2024,CUST0106,Tara Mehta,Charger,Accessories,1,934,0,West,Returned
+ORD100311,2024-05-20,CUST0084,Tara Patel,Laptop,Electronics,0,53912,20,South,Returned
+ORD100312,2025-05-23,CUST0158,Neel Sharma,Power Bank,Accessories,1,1612,20,West,Cancelled
+ORD100313,2024-08-23,CUST0010,Arjun Patel,Tablet,Electronics,1,19409,20,Central,Shipped
+ORD100314,2/10/2025,CUST0217,Vivaan Khan,Phone Case,Accessories,4,450,0,Central,Cancelled
+ORD100315,2024-07-25,CUST0214,Rohan Khan,Laptop,Electronics,1,59726,20,West,delivered
+ORD100316,2024-02-27,CUST0031,Arjun Nair,Laptop,,4,51126,20,South,Shipped
+ORD100317,2024-03-26,CUST0215,Isha Mehta,Mixer Grinder,Home,4,3579,20,South,Delivered
+ORD100318,2024-12-03,CUST0004,Sara Mehta,Mixer Grinder,Home,4,3535,0,South,Shipped
+ORD100319,2025-05-23,CUST0042,  Aarav Patel ,Backpack,Fashion,1,1968,20,North,Delivered
+ORD100320,6/14/2025,CUST0034,Diya Mehta,Smartwatch,Electronics,2,8120,0,,Returned
+ORD100321,2024-07-17,CUST0168,Vivaan Iyer,Air Fryer,Home,2,6504,15,East,
+ORD100322,8/19/2025,CUST0147,Diya Das,Sunglasses,,4,1450,0,South,
+ORD100323,2024-12-06,CUST0164,  Aarav Patel ,Backpack,Fashion,1,1769,20,West,Shipped
+ORD100324,2024-07-06,CUST0070,Sara Nair,LED Lamp,Home,4,1170,0,South,Delivered
+ORD100325,2025-07-06,CUST0166,Isha Mehta,Air Fryer,Home,2,7095,0,East,Delivered
+ORD100326,2024-11-11,CUST0024,Meera Iyer,Laptop,Electronics,4,57991,,North,
+ORD100327,2024-05-03,CUST0088,Diya Patel,Mixer Grinder,Home,4,3878,0,West,Delivered
+ORD100328,2024-10-28,CUST0199,Neel Gupta,Sunglasses,Fashion,2,1537,0,Central,Delivered
+ORD100329,3/12/2025,CUST0139,Diya Khan,Sunglasses,Fashion,2,-1,5,South,Delivered
+ORD100330,2024-03-19,CUST0195,Isha Patel,Sunglasses,Fashion,1,1452,0,West,Cancelled
+ORD100331,5/29/2024,CUST0093,Meera Patel,Phone Case,Accessories,3,468,10,East,Shipped
+ORD100332,2024-06-07,CUST0211,Sara Sharma,Smartphone,Electronics,4,23942,15,East,Shipped
+ORD100333,2025-05-20,CUST0096,  Ananya Nair ,Headphones,Accessories,1,2538,0,East,Delivered
+ORD100334,2024-02-23,CUST0056,Kabir Khan,Smartwatch,Electronics,2,9416,20,Central,
+ORD100335,2025-05-11,CUST0147,Diya Das,Sneakers,Fashion,3,3086,10,West,Cancelled
+ORD100336,2025-07-29,CUST0099,Meera Reddy,Mixer Grinder,Home,2,3801,10,East,Delivered
+ORD100337,2024-08-12,CUST0033,Isha Das,Power Bank,Accessories,3,1629,0,Central,Shipped
+ORD100337,2024-08-13,CUST0033,Isha Das,Power Bank,Accessories,3,1629,0,Central,Shipped
+ORD100338,2024-09-11,CUST0129,Isha Nair,Air Fryer,Home,4,6765,20,Central,Delivered
+ORD100338,2024-09-12,CUST0129,Isha Nair,Air Fryer,Home,4,6765,20,Central,Delivered
+ORD100339,2024-06-20,CUST0042,,Sneakers,Fashion,3,3099,0,East,Delivered
+ORD100340,7/31/2025,CUST0100,Meera Sharma,Headphones,Accessories,2,2376,15,West,Delivered
+ORD100341,2024-11-16,CUST0184,Isha Das,Backpack,Fashion,0,1938,0,Central,Delivered
+ORD100342,2024-12-26,CUST0192,  Meera Khan ,Tablet,Electronics,4,19373,10,South,Returned
+ORD100342,2024-12-27,CUST0192,  Meera Khan ,Tablet,Electronics,4,19373,10,South,Returned
+ORD100343,9/13/2025,CUST0090,Isha Khan,Mixer Grinder,Home,4,3822,0,West,Delivered
+ORD100344,2024-02-12,CUST0087,Kabir Iyer,Power Bank,Accessories,4,1517,20,West,Delivered
+ORD100345,2025-09-23,CUST0079,Diya Nair,Smartphone,Electronics,4,22825,10,East,Delivered
+ORD100346,2025-01-08,CUST0049,  Tara Patel ,Smartphone,Electronics,2,20326,15,South,Returned
+ORD100347,2024-06-14,CUST0185,Ananya Mehta,Laptop,Electronics,4,54816,10,South,Cancelled
+ORD100348,2025-09-02,CUST0086,Sara Singh,Backpack,,4,1906,0,East,Delivered
+ORD100349,2025-01-24,CUST0141,  Rohan Das ,Backpack,Fashion,1,1759,0,East,Shipped
+ORD100350,2024-07-15,CUST0111,Kabir Singh,Smartwatch,Electronics,2,8881,0,West,Returned
+ORD100351,2025-03-31,CUST0095,Vivaan Nair,Sunglasses,Fashion,2,1543,0,West,Returned
+ORD100352,2025-02-16,CUST0135,Arjun Khan,Smartwatch,Electronics,3,9165,20,South,Shipped
+ORD100353,11/13/2024,CUST0113,,Mixer Grinder,Home,4,3948,0,East,
+ORD100354,2/23/2024,CUST0213,Ananya Nair,Sunglasses,Fashion,4,1496,15,South,Cancelled
+ORD100355,2024-02-04,CUST0090,  Isha Khan ,Mixer Grinder,Home,2,3687,0,East,Delivered
+ORD100356,2025-05-15,CUST0164,Aarav Patel,Headphones,Accessories,1,2477,20,Central,Cancelled
+ORD100356,2025-05-16,CUST0164,Aarav Patel,Headphones,Accessories,1,2477,20,Central,Cancelled
+ORD100357,2024-04-23,CUST0021,Sara Nair,Backpack,Fashion,2,2088,0,South,Delivered
+ORD100358,2025-04-13,CUST0220,,Headphones,Accessories,1,2574,5,South,Delivered
+ORD100359,2025-07-12,CUST0151,Isha Gupta,Smartwatch,Electronics,1,9890,,West,Shipped
+ORD100360,9/4/2025,CUST0103,Vivaan Patel,LED Lamp,Home,1,1117,0,East,Returned
+ORD100361,2024-10-25,CUST0170,  Vivaan Nair ,Mixer Grinder,Home,1,4098,15,East,Delivered
+ORD100362,2025-06-05,CUST0197,,Sunglasses,Fashion,2,1530,0,East,Shipped
+ORD100363,2024-04-16,CUST0196,Diya Patel,Backpack,Fashion,1,1780,10,North,Returned
+ORD100364,N/A,CUST0013,Meera Patel,Phone Case,Accessories,2,492,5,Central,Delivered
+ORD100365,2024-04-19,CUST0155,  Isha Nair ,Headphones,Accessories,1,2735,0,West,Delivered
+ORD100366,2024-05-30,CUST0155,Isha Nair,Laptop,Electronics,1,55224,10,South,Delivered
+ORD100367,2025-03-28,CUST0197,Neel Das,Mixer Grinder,Home,1,3437,20,West,shipped
+ORD100368,2025-08-12,CUST0217,Vivaan Khan,Laptop,Electronics,1,50170,20,West,Delivered
+ORD100369,2025-01-17,CUST0198,Rohan Khan,Backpack,Fashion,1,1741,0,North,Shipped
+ORD100370,2024-03-30,CUST0035,Arjun Singh,Smartphone,Electronics,1,23432,20,North,Delivered
+ORD100371,2024-05-10,CUST0205,Ananya Khan,Tablet,Electronics,2,17692,5,Central,Cancelled
+ORD100372,2024-08-04,CUST0140,  Neel Gupta ,Air Fryer,Home,2,6923,5,East,Cancelled
+ORD100373,2025-07-19,CUST0198,Rohan Khan,Sneakers,Fashion,1,3481,20,East,Delivered
+ORD100374,2024-03-26,CUST0140,Neel Gupta,Backpack,Fashion,3,1888,0,East,Delivered
+ORD100375,2024-07-04,CUST0061,Neel Khan,Air Fryer,Home,1,6438,0,North,
+ORD100376,2025-09-19,CUST0009,Arjun Sharma,Sneakers,Fashion,1,3301,15,North,Delivered
+ORD100377,2024-03-29,CUST0206,Neel Iyer,LED Lamp,Home,4,1267,20,North,Delivered
+ORD100378,2025-06-04,CUST0043,Neel Nair,Phone Case,Accessories,2,477,10,North,Returned
+ORD100379,2024-07-18,CUST0109,Sara Gupta,Smartphone,Electronics,3,23576,10,North,Delivered
+ORD100380,3/15/2025,CUST0160,Vivaan Nair,Air Fryer,Home,2,6348,,Central,Returned
+ORD100381,2024-09-02,CUST0165,Aarav Patel,Air Fryer,Home,2,5969,5,West,Cancelled
+ORD100382,2025-01-20,CUST0151,  Isha Gupta ,Backpack,Fashion,1,1717,15,South,Delivered
+ORD100383,8/28/2025,CUST0049,Tara Patel,Smartphone,Electronics,2,21949,20,East,Delivered
+ORD100384,2024-01-27,CUST0122,Isha Reddy,Phone Case,Accessories,3,423,20,North,Delivered
+ORD100385,2024-07-30,CUST0196,Diya Patel,Backpack,Fashion,1,1862,0,West,Shipped
+ORD100386,8/7/2025,CUST0198,Rohan Khan,LED Lamp,Home,3,1110,0,South,delivered
+ORD100387,2025-01-24,CUST0125,Neel Khan,Sneakers,Fashion,1,3458,20,North,Returned
+ORD100388,2025-08-18,CUST0156,Rohan Mehta,LED Lamp,Home,4,1135,20,West,Shipped
+ORD100389,2025-08-27,CUST0139,  Diya Khan ,Headphones,Accessories,2,2308,0,East,Delivered
+ORD100390,2025-01-24,CUST0176,Aarav Khan,Mixer Grinder,Home,2,3800,10,West,Delivered
+ORD100391,2025-03-20,CUST0218,Ananya Patel,LED Lamp,Home,4,1320,10,East,Delivered
+ORD100392,N/A,CUST0148,Kabir Iyer,Sneakers,Fashion,4,3233,0,South,Shipped
+ORD100393,2025-06-22,CUST0094,  Isha Iyer ,Phone Case,Accessories,1,445,10,West,Cancelled
+ORD100394,5/15/2025,CUST0178,Arjun Nair,Phone Case,Accessories,1,407,20,West,Delivered
+ORD100395,2025-02-02,CUST0184,Isha Das,Sunglasses,Fashion,0,1559,20,East,Delivered
+ORD100396,2025-08-20,CUST0065,Neel Singh,Air Fryer,Home,1,7016,0,South,Returned
+ORD100397,2024-11-06,CUST0204,Vivaan Das,Tablet,Electronics,1,17551,10,Central,Delivered
+ORD100398,2025-06-28,CUST0036,Rohan Reddy,Backpack,Fashion,4,1985,0,North,Returned
+ORD100399,2025-03-16,CUST0081,Isha Nair,Power Bank,Accessories,4,1666,0,South,Cancelled
+ORD100400,2025-05-04,CUST0209,  Rohan Iyer ,Phone Case,Accessories,1,480,20,North,Returned
+ORD100401,5/9/2024,CUST0123,  Sara Das ,Air Fryer,Home,1,6752,10,West,Cancelled
+ORD100402,2025-09-06,CUST0068,  Kabir Singh ,Power Bank,Accessories,2,1458,,East,Cancelled
+ORD100403,2025-04-15,CUST0085,Rohan Nair,Sunglasses,Fashion,2,1450,5,South,Delivered
+ORD100404,2025-07-12,CUST0153,  Vivaan Mehta ,Backpack,Fashion,3,1916,5,East,Delivered
+ORD100405,1/6/2024,CUST0153,Vivaan Mehta,Tablet,Electronics,2,16577,20,West,Delivered
+ORD100405,2024-01-07,CUST0153,Vivaan Mehta,Tablet,Electronics,2,16577,20,West,Delivered
+ORD100406,2025-03-22,CUST0088,Diya Patel,Laptop,Electronics,2,56893,0,Central,Delivered
+ORD100407,2025-02-13,CUST0088,Diya Patel,LED Lamp,Home,4,1168,5,North,Shipped
+ORD100408,2024-01-08,CUST0121,Neel Reddy,Sneakers,Fashion,3,2979,10,South,Delivered
+ORD100409,2024-06-06,CUST0074,Sara Mehta,Smartwatch,Electronics,2,8786,0,North,Cancelled
+ORD100410,3/21/2024,CUST0178,Arjun Nair,Sunglasses,Fashion,3,1592,10,South,Cancelled
+ORD100411,2025-01-24,CUST0082,Meera Reddy,Air Fryer,Home,2,5895,0,East,Delivered
+ORD100412,2024-04-18,CUST0179,Kabir Patel,Sneakers,Fashion,1,3289,0,East,Returned
+ORD100413,2024-01-24,CUST0085,,Backpack,Fashion,4,1935,5,East,Delivered
+ORD100414,2024-03-19,CUST0164,Aarav Patel,Sneakers,Fashion,1,3003,15,North,Cancelled
+ORD100415,2024-06-24,CUST0008,  Diya Singh ,Sneakers,Fashion,2,3506,0,South,Delivered
+ORD100415,2024-06-25,CUST0008,  Diya Singh ,Sneakers,Fashion,2,3506,0,South,Delivered
+ORD100416,2024-07-16,CUST0095,Vivaan Nair,Headphones,Accessories,3,2387,20,Central,Delivered
+ORD100417,2024-12-15,CUST0113,Kabir Patel,Sneakers,Fashion,4,3133,10,North,Delivered
+ORD100418,2024-01-23,CUST0202,Aarav Iyer,Charger,Accessories,2,910,0,West,
+ORD100419,2025-02-07,CUST0160,  Vivaan Nair ,Backpack,Fashion,3,1844,10,Central,shipped
+ORD100420,2024-10-02,CUST0099,Meera Reddy,Charger,Accessories,1,929,0,South,Returned
+ORD100421,2/4/2024,CUST0112,Kabir Nair,Power Bank,Accessories,2,1560,15,South,Delivered
+ORD100422,2025-02-17,CUST0054,Rohan Sharma,LED Lamp,Home,3,1242,15,Central,Returned
+ORD100423,2025-04-27,CUST0186,Kabir Patel,Headphones,Accessories,1,2719,15,West,Delivered
+ORD100423,2025-04-28,CUST0186,Kabir Patel,Headphones,Accessories,1,2719,15,West,Delivered
+ORD100424,2025-09-02,CUST0115,Vivaan Sharma,Headphones,Accessories,4,2400,,West,Delivered
+ORD100425,6/28/2025,CUST0059,Sara Nair,Sunglasses,Fashion,4,1488,0,South,delivered
+ORD100426,2024-10-17,CUST0144,Meera Patel,Sneakers,Fashion,3,3508,0,West,Returned
+ORD100427,2024-08-13,CUST0181,Aarav Singh,Smartphone,Electronics,1,21313,0,West,Delivered
+ORD100428,2024-09-04,CUST0103,Vivaan Patel,LED Lamp,Home,3,1263,20,East,Delivered
+ORD100429,8/20/2025,CUST0069,Vivaan Khan,LED Lamp,Home,3,1178,20,East,Delivered
+ORD100430,2024-06-19,CUST0205,Ananya Khan,Mixer Grinder,Home,3,3989,0,East,Delivered
+ORD100431,2024-03-19,CUST0153,Vivaan Mehta,Phone Case,Accessories,4,428,15,North,Returned
+ORD100432,2024-08-05,CUST0201,Diya Das,LED Lamp,Home,4,1169,0,Central,Delivered
+ORD100433,2024-12-01,CUST0190,Diya Das,Headphones,Accessories,4,2414,,West,Delivered
+ORD100434,2024-03-04,CUST0138,Arjun Patel,Laptop,Electronics,3,58657,0,West,Returned
+ORD100435,2025-08-12,CUST0042,Aarav Patel,Smartphone,Electronics,4,23148,15,East,Delivered
+ORD100436,2025-06-12,CUST0217,Vivaan Khan,LED Lamp,Home,1,1196,0,South,Delivered
+ORD100437,2024-09-05,CUST0110,Kabir Gupta,Backpack,Fashion,3,1817,15,North,Shipped
+ORD100438,9/14/2024,CUST0006,  Diya Gupta ,Backpack,Fashion,3,2077,10,South,Delivered
+ORD100439,N/A,CUST0095,Vivaan Nair,Sneakers,Fashion,2,3345,20,South,delivered
+ORD100440,7/22/2025,CUST0013,Meera Patel,Sneakers,Fashion,1,3097,20,East,Returned
+ORD100441,2025-09-19,CUST0077,Meera Das,Mixer Grinder,Home,4,4147,0,West,Shipped
+ORD100442,1/4/2025,CUST0046,Kabir Sharma,Air Fryer,Home,1,6671,20,Central,Returned
+ORD100443,2024-11-29,CUST0038,Diya Nair,Sneakers,Fashion,2,3034,10,West,Delivered
+ORD100444,2024-12-07,CUST0127,Tara Gupta,LED Lamp,Home,3,1183,0,South,Delivered
+ORD100445,9/9/2024,CUST0195,Isha Patel,Smartwatch,Electronics,3,8781,0,North,Returned
+ORD100446,6/14/2025,CUST0026,Rohan Patel,Tablet,Electronics,3,17949,5,South,Returned
+ ,2025-04-11,CUST0129,Isha Nair,Mixer Grinder,Home,1,3514,10,West,Delivered
+ORD100448,9/20/2025,CUST0207,Isha Khan,Sunglasses,Fashion,2,1493,0,West,Delivered
+ORD100449,2024-03-21,CUST0054,Rohan Sharma,Phone Case,Accessories,3,469,0,South,Cancelled
+ORD100450,7/21/2024,CUST0163,Arjun Khan,Sneakers,Fashion,1,3105,15,West,Delivered
+ORD100451,2025-06-01,CUST0141,  Rohan Das ,LED Lamp,Home,3,1198,0,Central,Delivered
+ORD100452,2024-05-26,CUST0097,Meera Khan,LED Lamp,Home,3,1307,10,East,Shipped
+ORD100453,2025-02-16,CUST0025,Kabir Iyer,Phone Case,Accessories,1,412,0,East,Cancelled
+ORD100454,1/29/2025,CUST0074,Sara Mehta,Laptop,Electronics,4,57951,,East,Delivered
+ORD100455,9/7/2024,CUST0008,Diya Singh,Laptop,Electronics,3,53768,5,South,Delivered
+ORD100456,2025-08-07,CUST0061,Neel Khan,Sneakers,Fashion,1,2969,10,South,Returned
+ORD100457,2025-05-20,CUST0048,Vivaan Gupta,Headphones,Accessories,2,2513,5,Central,Delivered
+ORD100458,2024-11-22,CUST0157,Vivaan Reddy,Mixer Grinder,Home,2,3503,,North,Delivered
+ORD100459,2024-08-14,CUST0147,Diya Das,LED Lamp,,4,1195,20,East,Delivered
+ORD100460,2024-11-20,CUST0134,Isha Gupta,Sunglasses,Fashion,1,1598,5,South,Returned
+ORD100461,2025-09-12,CUST0070,Sara Nair,Mixer Grinder,Home,4,4137,20,Central,Cancelled
+ORD100462,2024-02-11,CUST0127,Tara Gupta,Headphones,Accessories,4,2379,0,Central,Delivered
+ORD100463,2025-03-03,CUST0157,Vivaan Reddy,Charger,Accessories,1,956,5,North,Delivered
+ORD100464,6/2/2025,CUST0154,Vivaan Patel,Air Fryer,Home,3,6459,20,South,Cancelled
+ORD100465,2024-04-19,CUST0176,Aarav Khan,LED Lamp,Home,2,1112,0,West,Cancelled
+ORD100466,2024-02-02,CUST0209,Rohan Iyer,LED Lamp,Home,4,1284,20,South,Cancelled
+ORD100467,2024-02-17,CUST0048,Vivaan Gupta,LED Lamp,Home,3,1229,5,,Delivered
+ORD100468,2025-05-06,CUST0024,Meera Iyer,Sneakers,Fashion,2,3509,20,North,Returned
+ORD100469,5/19/2025,CUST0181,Aarav Singh,Charger,Accessories,1,973,15,North,Returned
+ORD100470,2025-02-16,CUST0142,Neel Singh,Headphones,Accessories,1,2285,15,South,Shipped
+ORD100471,2024-12-27,CUST0064,Arjun Mehta,LED Lamp,Home,2,1133,0,Central,Shipped
+ORD100472,2025-01-07,CUST0208,Tara Sharma,Smartphone,Electronics,4,20140,5,East,Delivered
+ORD100473,6/17/2024,CUST0007,Sara Reddy,Charger,Accessories,3,849,0,East,Cancelled
+ORD100474,2024-10-27,CUST0177,  Tara Reddy ,Sunglasses,Fashion,3,1359,15,North,Delivered
+ORD100475,3/7/2025,CUST0183,Vivaan Reddy,Air Fryer,Home,4,7094,20,South,Cancelled
+ORD100476,2024-04-12,CUST0039,Meera Khan,Tablet,Electronics,2,16730,0,South,delivered
+ORD100477,2024-12-08,CUST0182,Kabir Iyer,Sunglasses,Fashion,3,1483,10,East,Shipped
+ORD100478,2025-08-18,CUST0106,Tara Mehta,Phone Case,Accessories,2,467,5,West,Delivered
+ ,2025-01-13,CUST0187,Kabir Sharma,Mixer Grinder,Home,3,3560,0,Central,Cancelled
+ORD100480,6/29/2025,CUST0006,Diya Gupta,Tablet,Electronics,1,18844,10,Central,Returned
+ORD100481,2024-07-13,CUST0042,Aarav Patel,Smartphone,Electronics,3,22484,15,Central,Cancelled
+ORD100482,2025-07-11,CUST0074,Sara Mehta,Tablet,Electronics,4,17366,15,South,Cancelled
+ORD100483,2024-02-20,CUST0069,Vivaan Khan,LED Lamp,Home,1,1167,0,North,Shipped
+ORD100484,2024-11-28,CUST0092,Meera Reddy,Power Bank,Accessories,1,1616,20,North,Shipped
+ORD100485,2024-03-09,CUST0022,Kabir Reddy,Headphones,Accessories,3,2644,0,East,Cancelled
+ORD100486,2024-12-13,CUST0071,Aarav Patel,Smartphone,Electronics,1,22561,0,Central,Cancelled
+ORD100487,2024-05-08,CUST0131,Tara Gupta,Mixer Grinder,Home,2,3549,10,South,Delivered
+ORD100488,2025-07-29,CUST0100,Meera Sharma,Charger,Accessories,3,820,15,North,delivered
+ORD100489,2024-05-12,CUST0101,Tara Mehta,Sneakers,Fashion,4,3186,20,South,Cancelled
+ORD100490,2025-07-15,CUST0111,Kabir Singh,Sunglasses,Fashion,2,1435,0,Central,Cancelled
+ORD100491,2025-07-15,CUST0096,Ananya Nair,Backpack,Fashion,2,1979,0,Central,Delivered
+ORD100491,2025-07-16,CUST0096,Ananya Nair,Backpack,Fashion,2,1979,0,Central,Delivered
+ORD100492,2024-07-10,CUST0004,Sara Mehta,Laptop,Electronics,0,56183,0,Central,Delivered
+ORD100493,2024-07-07,CUST0143,Vivaan Iyer,Tablet,Electronics,3,16554,5,East,Delivered
+ORD100494,2024-02-23,CUST0197,Neel Das,Sneakers,Fashion,1,2981,10,Central,Cancelled
+ORD100495,2024-05-26,CUST0116,Diya Khan,Air Fryer,Home,3,6831,15,East,Delivered
+ORD100496,2025-01-12,CUST0086,Sara Singh,Power Bank,Accessories,3,1498,15,South,delivered
+ORD100497,1/1/2024,CUST0133,Isha Iyer,Smartphone,Electronics,3,22074,5,Central,Cancelled
+ORD100498,2024-12-19,CUST0081,  Isha Nair ,Smartwatch,Electronics,1,8178,,South,Cancelled
+ORD100499,2025-04-29,CUST0132,Ananya Singh,Phone Case,Accessories,3,412,10,North,Delivered
+ORD100500,2024-11-26,CUST0204,  Vivaan Das ,Smartwatch,Electronics,2,9211,0,West,Delivered
+ORD100501,5/22/2024,CUST0096,  Ananya Nair ,Air Fryer,Home,3,6697,0,Central,Delivered
+ORD100502,2024-02-16,CUST0137,,Headphones,Accessories,4,2729,0,East,Returned
+ORD100503,2024-07-25,CUST0027,Tara Patel,LED Lamp,Home,4,1274,0,South,cancelled
+ORD100504,2024-07-25,CUST0187,Kabir Sharma,Sunglasses,Fashion,4,1494,0,South,Delivered
+ORD100505,2024-06-17,CUST0150,Diya Gupta,Power Bank,Accessories,1,1483,10,East,Delivered
+ORD100506,2024-08-15,CUST0053,Diya Khan,Smartwatch,Electronics,1,8118,10,South,Shipped
+ORD100507,2025-08-25,CUST0118,Rohan Reddy,Smartwatch,Electronics,4,9743,20,Central,Shipped
+ORD100508,2025-03-13,CUST0007,Sara Reddy,Mixer Grinder,Home,4,3751,20,West,Shipped
+ORD100509,2025-05-16,CUST0009,Arjun Sharma,LED Lamp,Home,2,1087,0,North,Shipped
+ORD100510,2025-07-21,CUST0170,Vivaan Nair,Mixer Grinder,Home,3,4047,20,Central,Shipped
+ORD100511,2024-09-05,CUST0010,Arjun Patel,Phone Case,Accessories,2,465,15,North,Returned
+ORD100512,2025-09-04,CUST0197,Neel Das,Backpack,Fashion,2,1795,5,North,Delivered
+ORD100513,2024-12-26,CUST0159,Vivaan Singh,Air Fryer,Home,3,6672,15,North,delivered
+ORD100514,2024-02-13,CUST0200,Sara Sharma,Air Fryer,Home,2,6551,10,,Delivered
+ORD100515,2025-02-04,CUST0220,Vivaan Patel,Tablet,Electronics,2,17117,0,Central,Shipped
+ORD100516,N/A,CUST0077,Meera Das,Mixer Grinder,Home,3,3551,15,Central,Delivered
+ORD100517,2024-02-21,CUST0077,Meera Das,Charger,Accessories,4,865,5,East,Cancelled
+ORD100517,2024-02-22,CUST0077,Meera Das,Charger,Accessories,4,865,5,East,Cancelled
+ORD100518,2025-03-21,CUST0152,Aarav Khan,LED Lamp,Home,2,1164,10,South,Delivered
+ORD100519,2024-01-17,CUST0178,Arjun Nair,Charger,Accessories,1,874,0,South,Delivered
+ORD100520,2025-05-02,CUST0178,Arjun Nair,Phone Case,Accessories,2,430,10,Central,Cancelled
+ORD100521,2025-07-28,CUST0090,Isha Khan,Backpack,Fashion,1,1865,0,South,Shipped
+ORD100522,4/14/2025,CUST0179,Kabir Patel,Smartwatch,,1,9232,5,Central,Delivered
+ORD100523,2024-09-25,CUST0097,Meera Khan,Headphones,Accessories,4,2693,5,South,Cancelled
+ORD100524,1/15/2024,CUST0052,Neel Iyer,Tablet,Electronics,1,19354,15,East,Delivered
+ORD100525,2025-07-05,CUST0058,Diya Patel,Tablet,Electronics,4,17074,0,South,Delivered
+ORD100526,2024-09-16,CUST0210,  Rohan Singh ,LED Lamp,Home,2,1226,20,East,shipped
+ORD100527,2025-09-05,CUST0105,Meera Gupta,Mixer Grinder,Home,3,3971,0,West,Delivered
+ORD100528,2024-08-06,CUST0065,Neel Singh,Headphones,Accessories,2,2652,5,North,Delivered
+ORD100529,2024-03-19,CUST0168,Vivaan Iyer,Headphones,Accessories,4,2312,,Central,Delivered
+ORD100530,1/17/2025,CUST0048,Vivaan Gupta,Smartwatch,Electronics,4,9194,20,Central,Cancelled
+ORD100531,2025-05-13,CUST0157,Vivaan Reddy,Sneakers,Fashion,4,3227,15,North,Delivered
+ORD100532,2024-04-01,CUST0119,Aarav Khan,Sneakers,Fashion,4,3020,5,Central,Cancelled
+ORD100533,2025-09-04,CUST0080,Vivaan Khan,Laptop,Electronics,2,54548,5,South,Delivered
+ORD100534,2025-01-08,CUST0126,,Sunglasses,Fashion,3,1605,0,South,Delivered
+ORD100535,2024-11-06,CUST0077,Meera Das,LED Lamp,Home,2,1243,0,East,Delivered
+ORD100536,2025-01-07,CUST0145,Tara Patel,Mixer Grinder,Home,1,4110,0,South,Delivered
+ORD100537,2024-09-15,CUST0187,Kabir Sharma,Headphones,,4,2706,10,Central,Delivered
+ORD100538,2024-01-27,CUST0092,,Backpack,Fashion,4,2021,0,South,Returned
+ORD100539,10/12/2024,CUST0161,Isha Iyer,Charger,Accessories,1,826,20,West,Delivered
+ORD100540,9/21/2025,CUST0178,Arjun Nair,Air Fryer,Home,3,6095,0,Central,Delivered
+ORD100541,2025-04-04,CUST0133,Isha Iyer,Backpack,Fashion,4,1952,0,West,Delivered
+ORD100542,2024-09-17,CUST0038,Diya Nair,Smartphone,Electronics,4,20629,20,North,Delivered
+ORD100543,2025-08-01,CUST0143,Vivaan Iyer,Charger,Accessories,3,872,0,North,Shipped
+ORD100544,1/9/2025,CUST0217,Vivaan Khan,Backpack,Fashion,2,1851,0,Central,Cancelled
+ORD100545,2025-02-12,CUST0098,Isha Khan,Laptop,Electronics,3,55554,0,Central,Delivered
+ORD100546,2024-11-30,CUST0205,Ananya Khan,Backpack,Fashion,3,1829,15,Central,Returned
+ORD100547,2025-07-22,CUST0043,Neel Nair,LED Lamp,Home,2,1251,0,Central,Delivered
+ORD100548,2025-01-20,CUST0105,Meera Gupta,Sunglasses,Fashion,4,1582,0,North,Delivered
+ORD100549,2024-10-18,CUST0003,Ananya Mehta,Smartphone,Electronics,1,22870,20,South,Cancelled
+ORD100550,2025-01-19,CUST0042,Aarav Patel,Sneakers,,1,3059,5,North,Shipped
+ORD100551,2025-09-04,CUST0046,Kabir Sharma,LED Lamp,Home,2,1145,0,East,Shipped
+ORD100552,2025-01-19,CUST0078,Diya Patel,Air Fryer,Home,2,6258,0,South,Delivered
+ORD100553,2025-08-02,CUST0163,Arjun Khan,Mixer Grinder,Home,3,3916,0,South,Delivered
+ORD100554,2024-11-23,CUST0144,Meera Patel,Mixer Grinder,Home,3,3820,0,Central,Delivered
+ORD100555,4/13/2025,CUST0055,Kabir Singh,Sneakers,Fashion,4,2954,20,West,Returned
+ORD100556,2024-04-26,CUST0012,Tara Reddy,Air Fryer,Home,1,6694,10,North,Shipped
+ORD100557,2025-07-11,CUST0080,Vivaan Khan,Charger,Accessories,3,990,10,West,Cancelled
+ORD100558,2024-08-22,CUST0012,Tara Reddy,Sunglasses,Fashion,2,1355,0,Central,Returned
+ORD100559,2024-06-19,CUST0036,Rohan Reddy,Charger,Accessories,3,919,0,East,Shipped
+ORD100560,2025-09-18,CUST0220,Vivaan Patel,Power Bank,Accessories,4,1725,10,North,Returned
+ORD100561,2025-07-27,CUST0004,Sara Mehta,LED Lamp,Home,4,1286,15,South,Cancelled
+ORD100562,2024-09-30,CUST0019,Ananya Mehta,Headphones,Accessories,2,2741,0,South,Returned
+ORD100563,2024-05-10,CUST0040,Tara Gupta,Smartwatch,Electronics,4,9341,0,South,Shipped
+ORD100564,2025-09-10,CUST0066,Ananya Nair,Headphones,Accessories,1,2685,0,North,Shipped
+ ,2024-11-19,CUST0191,Kabir Patel,Smartphone,Electronics,4,22035,20,Central,Shipped
+ORD100566,2024-07-26,CUST0082,Meera Reddy,Phone Case,Accessories,2,425,5,North,Delivered
+ORD100567,2025-05-08,CUST0137,Vivaan Singh,Power Bank,Accessories,3,1530,0,West,Shipped
+ORD100568,2024-02-26,CUST0111,Kabir Singh,Mixer Grinder,Home,3,4161,,Central,Cancelled
+ORD100569,8/14/2024,CUST0073,Diya Patel,Air Fryer,Home,4,5878,15,Central,Shipped
+ORD100570,2025-01-05,CUST0109,Sara Gupta,Headphones,Accessories,4,2731,20,North,returned
+ORD100571,2024-12-27,CUST0024,Meera Iyer,Backpack,Fashion,1,1980,0,Central,Delivered
+ORD100572,2024-05-02,CUST0093,Meera Patel,Sneakers,Fashion,4,3232,0,North,Delivered
+ORD100573,4/16/2024,CUST0188,Aarav Iyer,Phone Case,Accessories,2,406,15,Central,Cancelled
+ORD100574,2024-10-17,CUST0026,Rohan Patel,Smartphone,Electronics,1,21164,15,North,Shipped
+ORD100575,2024-04-16,CUST0084,Tara Patel,Charger,Accessories,2,849,15,South,Shipped
+ORD100576,2024-06-22,CUST0001,Aarav Singh,Tablet,Electronics,3,19252,15,West,Returned
+ORD100577,2024-11-23,CUST0050,Neel Das,Laptop,Electronics,4,53788,0,West,Returned
+ORD100578,2024-03-05,CUST0025,Kabir Iyer,Phone Case,Accessories,1,424,0,Central,Delivered
+ORD100579,2024-12-19,CUST0146,Meera Singh,Air Fryer,Home,3,6538,0,North,delivered
+ORD100580,2024-01-22,CUST0060,Vivaan Sharma,Smartwatch,Electronics,1,9103,15,West,Delivered
+ORD100581,8/24/2024,CUST0107,Sara Gupta,Air Fryer,Home,1,6194,10,Central,Delivered
+ORD100582,2024-01-19,CUST0181,Aarav Singh,Tablet,Electronics,3,16258,0,East,Shipped
+ ,8/4/2024,CUST0129,  Isha Nair ,Tablet,Electronics,2,17966,0,North,Shipped
+ORD100584,2025-05-06,CUST0077,Meera Das,Sunglasses,Fashion,3,1615,10,Central,Cancelled
+ORD100585,2024-12-03,CUST0085,Rohan Nair,Air Fryer,Home,2,6894,20,West,Delivered
+ORD100586,2025-07-21,CUST0069,Vivaan Khan,Laptop,Electronics,4,56144,15,North,Shipped
+ORD100587,2025-06-04,CUST0150,Diya Gupta,Mixer Grinder,Home,2,3992,10,West,Delivered
+ORD100588,12/9/2024,CUST0112,Kabir Nair,Sunglasses,Fashion,3,1409,20,South,Returned
+ORD100589,2025-05-12,CUST0090,  Isha Khan ,Sneakers,Fashion,2,3029,0,South,Returned
+ORD100590,2024-12-18,CUST0167,,Charger,Accessories,4,818,0,South,Cancelled
+ORD100591,2025-05-29,CUST0095,Vivaan Nair,Headphones,Accessories,2,2517,10,West,Shipped
+ORD100592,2025-02-28,CUST0070,Sara Nair,Air Fryer,Home,4,6162,0,Central,Delivered
+ORD100593,2025-08-16,CUST0077,Meera Das,Laptop,Electronics,2,59096,0,East,Returned
+ORD100594,2024-12-06,CUST0181,Aarav Singh,Mixer Grinder,Home,1,4071,20,East,Delivered
+ORD100595,2024-08-06,CUST0196,,Phone Case,Accessories,2,444,15,West,Cancelled
+ORD100596,2024-12-20,CUST0179,Kabir Patel,Tablet,Electronics,2,19441,15,West,Delivered
+ORD100597,2/9/2025,CUST0103,,Phone Case,Accessories,4,426,0,Central,Delivered
+ORD100598,2025-03-19,CUST0031,  Arjun Nair ,Charger,Accessories,1,951,10,South,delivered
+ORD100599,4/3/2024,CUST0188,Aarav Iyer,Air Fryer,Home,4,6266,10,,Returned
+ORD100600,2025-06-06,CUST0171,Kabir Khan,Sunglasses,Fashion,2,1513,10,East,Cancelled
+ORD100601,2024-01-23,CUST0040,Tara Gupta,Sunglasses,Fashion,1,1402,20,South,Delivered
+ORD100602,2024-06-24,CUST0192,Meera Khan,Air Fryer,Home,2,6101,15,Central,Delivered
+ORD100603,2025-08-11,CUST0133,  Isha Iyer ,Power Bank,Accessories,4,1524,0,North,Delivered
+ORD100604,2025-03-18,CUST0010,Arjun Patel,Charger,Accessories,3,974,15,West,Delivered
+ORD100605,2024-05-11,CUST0082,  Meera Reddy ,Mixer Grinder,Home,3,3524,20,,Delivered
+ORD100606,2024-05-30,CUST0062,  Sara Mehta ,Mixer Grinder,Home,4,4160,0,Central,shipped
+ORD100607,2024-10-18,CUST0046,Kabir Sharma,Sunglasses,Fashion,0,1514,5,South,Delivered
+ORD100608,5/31/2025,CUST0197,Neel Das,Power Bank,Accessories,4,1626,15,South,Delivered
+ORD100609,2024-09-23,CUST0038,Diya Nair,Laptop,Electronics,3,54200,5,East,Delivered
+ORD100610,8/10/2025,CUST0092,Meera Reddy,Headphones,Accessories,4,2273,0,North,Cancelled
+ORD100611,2024-12-20,CUST0087,Kabir Iyer,Backpack,Fashion,2,1993,0,South,Shipped
+ORD100612,2024-05-29,CUST0103,Vivaan Patel,Smartwatch,Electronics,1,9863,10,Central,delivered
+ORD100613,2024-05-17,CUST0090,Isha Khan,Smartwatch,Electronics,3,9118,0,West,Cancelled
+ORD100614,2024-01-01,CUST0180,Kabir Mehta,Backpack,Fashion,4,1864,0,South,Shipped
+ORD100615,2025-05-02,CUST0212,Isha Gupta,Backpack,Fashion,3,2027,20,South,delivered
+ORD100616,2025-07-06,CUST0068,Kabir Singh,Headphones,,1,2740,0,South,Delivered
+ORD100617,2024-07-18,CUST0114,Tara Nair,Charger,Accessories,4,935,0,East,Delivered
+ORD100618,2025-05-19,CUST0070,Sara Nair,Sunglasses,Fashion,4,1571,5,West,delivered
+ORD100619,2025-08-05,CUST0174,Arjun Das,Smartwatch,,1,8821,15,East,Returned
+ORD100619,2025-08-06,CUST0174,Arjun Das,Smartwatch,,1,8821,15,East,Returned
+ORD100620,2024-02-27,CUST0199,Neel Gupta,Sunglasses,Fashion,2,1361,15,South,Shipped
+ORD100621,6/28/2024,CUST0023,Isha Reddy,Sneakers,Fashion,3,2924,5,West,Shipped
+ORD100622,2025-05-23,CUST0192,Meera Khan,Headphones,Accessories,1,2552,0,East,
+ORD100623,2024-11-01,CUST0083,Kabir Reddy,Phone Case,Accessories,4,485,0,West,Delivered
+ORD100624,2025-06-01,CUST0072,Kabir Patel,Backpack,Fashion,1,2052,20,West,Delivered
+ORD100625,2024-02-18,CUST0001,  Aarav Singh ,Mixer Grinder,Home,2,3850,5,East,Returned
+ORD100626,2025-02-22,CUST0111,Kabir Singh,Smartwatch,Electronics,3,8408,15,South,Delivered
+ORD100627,2025-04-27,CUST0212,Isha Gupta,Headphones,Accessories,4,2722,,North,delivered
+ORD100628,2025-04-10,CUST0206,,Sunglasses,Fashion,3,1617,5,South,delivered
+ORD100629,2024-08-15,CUST0205,Ananya Khan,Power Bank,Accessories,1,1540,0,Central,Delivered
+ORD100630,2024-08-04,CUST0054,Rohan Sharma,Sneakers,Fashion,2,3213,0,West,Cancelled
+ORD100631,2025-06-14,CUST0045,Diya Gupta,Mixer Grinder,Home,2,3980,15,North,Delivered
+ORD100632,9/26/2025,CUST0024,Meera Iyer,Sunglasses,Fashion,4,1568,10,East,Delivered
+ORD100633,2025-01-31,CUST0154,Vivaan Patel,Air Fryer,Home,4,6280,20,Central,Cancelled
+ORD100634,2025-03-09,CUST0042,Aarav Patel,Laptop,Electronics,4,55145,0,South,shipped
+ORD100635,2024-09-03,CUST0091,Arjun Mehta,Sneakers,,3,3181,20,North,Shipped
+ORD100636,2024-03-13,CUST0020,Isha Iyer,Air Fryer,Home,1,7047,0,East,Delivered
+ORD100637,2024-04-13,CUST0217,Vivaan Khan,Power Bank,Accessories,1,1526,0,North,Returned
+ORD100638,2024-05-15,CUST0133,Isha Iyer,LED Lamp,Home,0,1131,10,South,Shipped
+ORD100639,2024-07-12,CUST0080,Vivaan Khan,Backpack,Fashion,3,2032,10,Central,Returned
+ORD100640,2024-05-26,CUST0188,Aarav Iyer,Power Bank,Accessories,3,1678,0,West,Delivered
+ORD100641,2025-06-19,CUST0144,Meera Patel,Backpack,Fashion,3,1782,0,Central,Delivered
+ORD100642,2024-08-06,CUST0014,Aarav Iyer,Tablet,Electronics,1,19394,20,West,Shipped
+ORD100643,2024-02-21,CUST0143,Vivaan Iyer,Sunglasses,Fashion,4,1546,0,North,Cancelled
+ORD100644,2025-02-18,CUST0009,Arjun Sharma,Smartphone,Electronics,2,23089,0,West,Returned
+ORD100645,2025-02-06,CUST0148,Kabir Iyer,LED Lamp,Home,4,1178,0,North,Delivered
+ORD100646,2025-05-21,CUST0151,Isha Gupta,Mixer Grinder,Home,4,3833,15,North,Cancelled
+ORD100647,2024-02-15,CUST0140,Neel Gupta,Tablet,Electronics,1,17552,0,North,Delivered
+ ,2025-04-16,CUST0217,Vivaan Khan,Air Fryer,Home,4,6940,0,,Shipped
+ORD100649,2024-02-02,CUST0123,Sara Das,Smartphone,Electronics,2,21661,0,East,returned
+ORD100650,2024-09-09,CUST0096,,LED Lamp,Home,4,1094,5,West,Delivered
+ORD100651,2024-12-01,CUST0199,Neel Gupta,LED Lamp,Home,3,1300,0,East,Delivered
+ORD100652,2024-03-05,CUST0169,Tara Gupta,Power Bank,Accessories,3,1739,,South,Delivered
+ORD100653,2024-08-01,CUST0089,Diya Nair,Air Fryer,Home,2,6987,0,East,Cancelled
+ORD100654,2024-04-25,CUST0099,Meera Reddy,Sunglasses,Fashion,2,1605,0,South,Shipped
+ORD100655,2024-10-10,CUST0077,Meera Das,LED Lamp,Home,1,1158,0,East,Delivered
+ORD100656,2024-02-20,CUST0077,Meera Das,Mixer Grinder,Home,3,3552,10,North,Delivered
+ORD100657,N/A,CUST0101,Tara Mehta,Sunglasses,Fashion,1,1527,0,South,shipped
+ORD100658,5/16/2025,CUST0104,Aarav Gupta,Sunglasses,Fashion,2,1385,20,West,Delivered
+ORD100659,2024-06-10,CUST0172,Rohan Singh,Phone Case,Accessories,4,462,,East,Cancelled
+ORD100660,2024-12-21,CUST0169,  Tara Gupta ,Laptop,Electronics,1,56923,0,Central,Returned
+ORD100661,8/21/2025,CUST0062,Sara Mehta,Headphones,Accessories,2,2591,0,North,Returned
+ORD100661,2025-08-22,CUST0062,Sara Mehta,Headphones,Accessories,2,2591,0,North,Returned
+ORD100662,4/9/2024,CUST0068,Kabir Singh,Charger,Accessories,1,927,0,North,Shipped
+ORD100663,2024-07-03,CUST0017,Diya Gupta,Phone Case,Accessories,3,471,5,Central,Returned
+ORD100664,2024-02-27,CUST0086,Sara Singh,Charger,Accessories,1,969,0,North,Shipped
+ORD100665,2024-12-02,CUST0096,Ananya Nair,Backpack,,2,1980,0,Central,Returned
+ORD100666,2025-01-15,CUST0080,Vivaan Khan,Mixer Grinder,Home,2,3554,0,North,Shipped
+ORD100667,2024-02-24,CUST0213,Ananya Nair,Headphones,Accessories,4,2408,0,Central,Delivered
+ORD100668,2024-08-06,CUST0050,Neel Das,Charger,Accessories,2,894,15,East,Returned
+ORD100669,2025-01-27,CUST0170,Vivaan Nair,Headphones,Accessories,2,2702,0,North,Delivered
+ORD100670,2024-03-01,CUST0059,Sara Nair,LED Lamp,Home,4,1156,5,Central,Shipped
+ORD100671,11/7/2024,CUST0067,Kabir Sharma,Phone Case,Accessories,4,484,0,North,Delivered
+ORD100672,2025-06-11,CUST0074,Sara Mehta,Backpack,Fashion,4,2000,10,South,Delivered
+ORD100673,2024-11-18,CUST0060,  Vivaan Sharma ,Smartphone,Electronics,4,21787,15,,Cancelled
+ORD100674,2025-09-24,CUST0112,Kabir Nair,Power Bank,Accessories,2,1455,15,Central,Delivered
+ORD100675,2024-12-29,CUST0205,Ananya Khan,Mixer Grinder,Home,1,4022,0,Central,shipped
+ORD100676,2025-09-12,CUST0050,  Neel Das ,Sunglasses,Fashion,4,1595,0,Central,Delivered
+ORD100677,2024-11-17,CUST0093,Meera Patel,Air Fryer,Home,1,6957,0,Central,Delivered
+ORD100678,2025-08-13,CUST0036,Rohan Reddy,Tablet,Electronics,0,18996,10,South,Delivered
+ORD100679,2024-08-17,CUST0028,Vivaan Gupta,Smartwatch,Electronics,2,8891,0,East,Cancelled
+ORD100680,2024-11-09,CUST0088,Diya Patel,Backpack,Fashion,3,2071,0,Central,Returned
+ORD100681,2025-05-22,CUST0041,  Rohan Reddy ,Power Bank,Accessories,3,1543,20,,Shipped
+ORD100682,2024-03-27,CUST0154,Vivaan Patel,Charger,Accessories,4,979,0,,delivered
+ORD100683,2024-09-15,CUST0128,  Neel Mehta ,Headphones,Accessories,3,2450,0,South,Delivered
+ORD100684,2024-02-18,CUST0199,Neel Gupta,Tablet,Electronics,1,19494,10,East,Shipped
+ORD100685,2024-03-30,CUST0114,Tara Nair,Sunglasses,Fashion,1,1431,15,North,Returned
+ORD100686,2024-01-31,CUST0177,Tara Reddy,Air Fryer,Home,2,6097,0,Central,Cancelled
+ORD100687,2024-03-07,CUST0208,Tara Sharma,Laptop,Electronics,4,57274,5,,Delivered
+ORD100688,2024-09-03,CUST0212,Isha Gupta,Air Fryer,Home,4,6641,15,,Delivered
+ORD100689,2024-09-18,CUST0102,Tara Singh,Sunglasses,Fashion,2,1604,15,East,Cancelled
+ORD100690,2024-04-14,CUST0071,Aarav Patel,Charger,Accessories,4,834,,East,Delivered
+ORD100691,2025-07-29,CUST0212,  Isha Gupta ,Smartwatch,Electronics,2,8409,0,South,Cancelled
+ORD100692,2024-08-16,CUST0147,Diya Das,Sunglasses,Fashion,3,1449,20,Central,Delivered
+ORD100693,2025-07-22,CUST0172,Rohan Singh,Sunglasses,Fashion,2,1507,20,West,Shipped
+ORD100694,7/6/2024,CUST0044,Rohan Nair,Backpack,Fashion,4,1952,0,Central,Delivered
+ORD100695,6/3/2024,CUST0031,  Arjun Nair ,Sneakers,Fashion,2,3365,0,North,Returned
+ORD100696,2025-06-18,CUST0165,Aarav Patel,Smartphone,Electronics,3,22577,0,East,Shipped
+ORD100697,2024-09-29,CUST0040,Tara Gupta,Backpack,Fashion,3,2004,0,West,Delivered
+ORD100698,2024-02-20,CUST0118,Rohan Reddy,Headphones,Accessories,4,2592,20,North,Returned
+ORD100699,N/A,CUST0213,Ananya Nair,Sneakers,Fashion,4,2898,0,,Shipped
+ORD100700,2024-11-18,CUST0082,Meera Reddy,Power Bank,Accessories,2,1663,5,North,Cancelled
+ORD100701,2024-09-03,CUST0016,Meera Mehta,Air Fryer,Home,1,6866,0,North,Delivered
+ORD100702,2025-06-21,CUST0155,Isha Nair,Smartwatch,Electronics,2,9561,15,South,Delivered
+ORD100703,2024-01-26,CUST0168,Vivaan Iyer,Backpack,Fashion,2,1956,5,East,Returned
+ORD100704,2024-03-26,CUST0007,Sara Reddy,Power Bank,Accessories,2,1540,10,East,Delivered
+ORD100705,2024-09-15,CUST0198,Rohan Khan,Power Bank,Accessories,3,1517,0,North,Cancelled
+ORD100706,2025-04-07,CUST0103,  Vivaan Patel ,Headphones,Accessories,1,2297,0,East,Delivered
+ORD100707,2025-03-24,CUST0219,Arjun Patel,Air Fryer,Home,4,7095,20,East,Delivered
+ORD100708,2024-04-01,CUST0109,Sara Gupta,LED Lamp,Home,2,1174,0,North,Delivered
+ORD100709,2025-09-16,CUST0012,Tara Reddy,Backpack,Fashion,3,1787,0,Central,Cancelled
+ORD100710,2024-04-16,CUST0054,Rohan Sharma,Sunglasses,Fashion,2,1561,15,West,Shipped
+ORD100711,2025-09-11,CUST0051,Sara Nair,Headphones,Accessories,2,2549,15,South,Delivered
+ORD100712,2024-10-29,CUST0177,Tara Reddy,Tablet,Electronics,1,16369,0,Central,Cancelled
+ORD100713,2025-06-16,CUST0071,Aarav Patel,Smartphone,Electronics,4,24106,10,Central,Delivered
+ORD100714,2025-03-17,CUST0084,Tara Patel,Smartphone,Electronics,1,19856,20,East,Delivered
+ORD100715,2024-12-16,CUST0140,Neel Gupta,Smartphone,Electronics,4,20717,15,North,Delivered
+ORD100716,2025-05-09,CUST0077,Meera Das,Tablet,Electronics,3,17071,0,North,Shipped
+ORD100717,2024-04-05,CUST0198,Rohan Khan,Air Fryer,,3,6017,0,Central,Delivered
+ORD100718,9/17/2025,CUST0108,Ananya Nair,Smartwatch,Electronics,4,8616,5,West,Shipped
+ORD100719,2024-03-17,CUST0002,Arjun Das,Headphones,Accessories,4,2340,15,West,Delivered
+ORD100720,7/25/2025,CUST0217,Vivaan Khan,Charger,Accessories,1,811,0,South,Cancelled
+ORD100721,2024-12-24,CUST0218,Ananya Patel,Tablet,Electronics,4,17959,5,North,Cancelled
+ORD100722,2024-06-29,CUST0195,Isha Patel,LED Lamp,Home,3,1299,5,North,Shipped
+ORD100723,2024-01-04,CUST0088,Diya Patel,Smartwatch,Electronics,3,8955,20,East,Cancelled
+ORD100724,2025-03-24,CUST0053,Diya Khan,Smartwatch,Electronics,2,8444,15,South,Cancelled
+ORD100725,2025-09-18,CUST0210,Rohan Singh,Sunglasses,Fashion,2,1432,20,West,Delivered
+ORD100726,4/4/2024,CUST0008,Diya Singh,Headphones,Accessories,4,2356,10,South,Delivered
+ORD100727,2025-02-22,CUST0065,Neel Singh,Mixer Grinder,Home,4,3806,0,East,Delivered
+ORD100728,2024-05-11,CUST0127,Tara Gupta,Power Bank,Accessories,4,1705,15,West,Cancelled
+ORD100729,2024-06-03,CUST0220,Vivaan Patel,Charger,Accessories,3,852,10,Central,Delivered
+ORD100730,2024-10-05,CUST0025,Kabir Iyer,Tablet,Electronics,3,19050,0,West,returned
+ORD100731,2025-08-21,CUST0077,Meera Das,Power Bank,Accessories,3,1467,0,North,Cancelled
+ORD100732,2025-09-22,CUST0152,Aarav Khan,Sneakers,Fashion,4,2881,15,West,Returned
+ORD100733,2024-12-22,CUST0102,Tara Singh,Backpack,Fashion,2,2052,10,South,Shipped
+ORD100734,2025-02-27,CUST0131,Tara Gupta,Laptop,,4,54855,,North,Shipped
+ORD100735,6/3/2024,CUST0156,Rohan Mehta,Air Fryer,Home,3,6397,15,North,Returned
+ORD100736,2025-08-25,CUST0197,Neel Das,Power Bank,Accessories,2,1542,,South,Shipped
+ORD100737,2025-05-07,CUST0142,Neel Singh,Mixer Grinder,Home,1,4054,10,Central,Returned
+ORD100738,2/27/2025,CUST0200,Sara Sharma,LED Lamp,Home,3,1282,5,North,Cancelled
+ORD100739,2024-09-25,CUST0184,Isha Das,Headphones,Accessories,4,2345,,South,Delivered
+ORD100740,2024-08-19,CUST0129,Isha Nair,Backpack,Fashion,3,2064,5,West,Delivered
+ORD100741,2024-10-06,CUST0047,Rohan Nair,LED Lamp,,4,1084,0,East,Delivered
+ORD100742,2024-12-14,CUST0040,Tara Gupta,Air Fryer,Home,2,6069,5,East,Returned
+ORD100743,2024-11-10,CUST0215,Isha Mehta,Power Bank,Accessories,1,1656,0,East,Delivered
+ORD100744,2024-07-02,CUST0158,Neel Sharma,Sneakers,Fashion,1,2957,10,Central,Shipped
+ORD100745,4/2/2025,CUST0031,Arjun Nair,Phone Case,Accessories,1,426,20,South,Delivered
+ORD100746,2025-09-22,CUST0003,Ananya Mehta,Smartwatch,Electronics,1,8378,0,Central,Delivered
+ORD100747,N/A,CUST0031,Arjun Nair,Tablet,Electronics,2,19609,10,West,Delivered
+ORD100748,2024-05-05,CUST0087,Kabir Iyer,LED Lamp,Home,1,1185,0,West,Cancelled
+ORD100748,2024-05-06,CUST0087,Kabir Iyer,LED Lamp,Home,1,1185,0,West,Cancelled
+ORD100749,2/11/2024,CUST0056,Kabir Khan,Smartphone,,1,22297,15,North,Shipped
+ORD100750,5/30/2025,CUST0070,Sara Nair,Air Fryer,Home,1,5913,0,East,Cancelled
+ORD100751,2024-09-06,CUST0141,Rohan Das,Power Bank,Accessories,4,1481,10,North,Returned
+ORD100752,2024-01-09,CUST0108,Ananya Nair,Phone Case,Accessories,3,442,5,South,Delivered
+ORD100753,2025-05-02,CUST0064,Arjun Mehta,Smartphone,Electronics,3,23827,0,East,Returned
+ORD100754,7/18/2025,CUST0056,Kabir Khan,LED Lamp,Home,3,1175,0,East,Cancelled
+ORD100755,2024-03-25,CUST0046,Kabir Sharma,Backpack,Fashion,1,1980,0,South,Delivered
+ORD100756,2024-09-18,CUST0075,Sara Singh,Sunglasses,Fashion,3,1601,20,South,delivered
+ORD100757,2024-05-21,CUST0125,Neel Khan,Tablet,Electronics,1,18387,0,East,shipped
+ORD100758,8/23/2024,CUST0043,Neel Nair,Smartwatch,Electronics,3,8716,0,East,Returned
+ORD100759,2025-04-23,CUST0155,Isha Nair,Sneakers,Fashion,4,3475,15,West,Cancelled
+ORD100760,2024-09-28,CUST0113,Kabir Patel,Air Fryer,Home,2,6614,0,East,Delivered
+ORD100761,2024-04-01,CUST0040,Tara Gupta,Air Fryer,Home,4,5928,10,East,Delivered
+ORD100762,2024-05-17,CUST0164,Aarav Patel,LED Lamp,Home,2,1200,0,South,Shipped
+ORD100763,2025-01-07,CUST0067,Kabir Sharma,Air Fryer,Home,1,6135,0,Central,Returned
+ORD100764,2024-09-23,CUST0132,Ananya Singh,Charger,Accessories,4,814,5,Central,Shipped
+ ,10/18/2024,CUST0170,Vivaan Nair,Headphones,Accessories,3,2501,5,North,Delivered
+ORD100766,1/12/2024,CUST0192,Meera Khan,Mixer Grinder,Home,1,3705,0,West,Shipped
+ORD100767,2025-02-02,CUST0079,Diya Nair,Laptop,Electronics,0,57253,0,South,Returned
+ORD100768,2024-07-04,CUST0027,Tara Patel,Laptop,Electronics,1,59984,,East,Delivered
+ORD100769,2024-02-24,CUST0191,Kabir Patel,Smartwatch,Electronics,1,9463,0,Central,Delivered
+ORD100770,2024-04-19,CUST0009,,Tablet,Electronics,1,17482,5,Central,Cancelled
+ORD100771,2025-08-04,CUST0156,Rohan Mehta,Mixer Grinder,Home,1,4015,0,East,Delivered
+ORD100772,2024-02-16,CUST0104,,Air Fryer,Home,3,6033,10,West,Shipped
+ORD100773,2024-12-03,CUST0173,Rohan Iyer,LED Lamp,Home,3,1105,0,North,Delivered
+ORD100774,2024-07-31,CUST0103,Vivaan Patel,Charger,Accessories,3,859,15,Central,Returned
+ORD100775,2025-05-08,CUST0144,Meera Patel,Smartphone,Electronics,1,23071,15,East,Cancelled
+ORD100776,2025-05-14,CUST0197,  Neel Das ,Smartphone,Electronics,2,21590,5,Central,Shipped
+ORD100777,2024-06-01,CUST0016,Meera Mehta,Power Bank,Accessories,1,1498,0,West,Delivered
+ORD100778,2024-05-08,CUST0081,Isha Nair,Sneakers,Fashion,2,3196,5,East,Delivered
+ORD100779,7/13/2025,CUST0090,Isha Khan,Power Bank,Accessories,3,1590,,Central,Cancelled
+ORD100780,2025-01-22,CUST0128,Neel Mehta,Phone Case,Accessories,2,429,10,East,Delivered
+ORD100781,2025-06-21,CUST0118,Rohan Reddy,Headphones,Accessories,2,2729,0,North,Returned
+ORD100782,2025-01-29,CUST0075,Sara Singh,Tablet,Electronics,1,18484,0,Central,Returned
+ORD100783,2024-02-17,CUST0040,Tara Gupta,Sneakers,Fashion,2,3001,,Central,Delivered
+ORD100784,2024-09-19,CUST0176,Aarav Khan,Smartphone,Electronics,4,20370,10,East,Cancelled
+ORD100785,3/18/2024,CUST0186,Kabir Patel,LED Lamp,Home,1,1267,10,East,Cancelled
+ORD100786,2025-09-03,CUST0170,Vivaan Nair,Sunglasses,Fashion,2,1581,5,Central,Cancelled
+ORD100787,2024-02-28,CUST0171,Kabir Khan,Sneakers,Fashion,1,3069,0,East,Delivered
+ORD100788,2024-12-15,CUST0016,Meera Mehta,Laptop,Electronics,2,50578,5,South,Delivered
+ORD100789,2025-07-17,CUST0141,Rohan Das,Backpack,Fashion,1,1886,5,West,Delivered
+ORD100790,6/28/2025,CUST0064,Arjun Mehta,Sneakers,Fashion,4,3041,0,Central,Returned
+ORD100791,2025-09-23,CUST0171,Kabir Khan,Mixer Grinder,Home,4,3591,15,North,Shipped
+ORD100792,2025-09-12,CUST0095,Vivaan Nair,Mixer Grinder,,2,3627,20,North,cancelled
+ORD100793,2024-12-18,CUST0061,Neel Khan,Sneakers,Fashion,4,3175,5,,Delivered
+ORD100794,2024-05-22,CUST0073,Diya Patel,Phone Case,Accessories,3,411,0,West,Delivered
+ORD100795,2024-10-21,CUST0060,Vivaan Sharma,Laptop,Electronics,3,53976,10,South,Delivered
+ORD100796,2025-03-10,CUST0169,  Tara Gupta ,Mixer Grinder,Home,4,3923,15,North,Delivered
+ORD100797,2025-02-24,CUST0018,Ananya Khan,Laptop,Electronics,1,50415,5,North,Cancelled
+ORD100798,2025-01-31,CUST0158,Neel Sharma,Charger,Accessories,4,947,0,East,Delivered
+ORD100799,2025-09-07,CUST0042,Aarav Patel,Backpack,Fashion,2,1810,15,West,Shipped
+ORD100800,2024-10-24,CUST0036,Rohan Reddy,Tablet,Electronics,2,18513,10,East,Returned
+ORD100801,2024-02-21,CUST0041,  Rohan Reddy ,Phone Case,Accessories,4,476,15,South,Returned
+ORD100802,2025-07-09,CUST0073,Diya Patel,LED Lamp,Home,3,1308,20,North,Returned
+ORD100803,2025-01-21,CUST0027,Tara Patel,Power Bank,Accessories,4,1528,0,West,Cancelled
+ORD100804,2025-09-12,CUST0084,Tara Patel,Tablet,Electronics,1,19711,5,North,Delivered
+ORD100805,2024-03-27,CUST0203,Arjun Mehta,Sunglasses,Fashion,1,1507,0,East,Delivered
+ORD100806,2024-01-31,CUST0185,Ananya Mehta,Laptop,Electronics,3,53387,10,West,Shipped
+ORD100807,2025-07-29,CUST0173,Rohan Iyer,Sunglasses,Fashion,1,1388,5,Central,Delivered
+ORD100808,2024-02-06,CUST0076,Kabir Sharma,Air Fryer,Home,3,6361,10,South,delivered
+ORD100809,2024-10-13,CUST0173,Rohan Iyer,Tablet,Electronics,2,16750,0,South,Shipped
+ORD100810,2025-05-04,CUST0104,Aarav Gupta,Headphones,Accessories,1,2453,15,North,Returned
+ORD100811,2024-07-13,CUST0220,Vivaan Patel,Air Fryer,Home,4,6994,5,Central,Delivered
+ORD100812,11/19/2024,CUST0156,Rohan Mehta,Tablet,Electronics,4,18884,,South,Delivered
+ORD100813,2025-03-07,CUST0211,Sara Sharma,Mixer Grinder,Home,2,4118,,North,Delivered
+ORD100814,2025-04-23,CUST0192,Meera Khan,Smartphone,Electronics,4,21796,20,South,Shipped
+ORD100814,2025-04-24,CUST0192,Meera Khan,Smartphone,Electronics,4,21796,20,South,Shipped
+ ,2025-01-04,CUST0051,Sara Nair,Tablet,Electronics,4,17087,5,West,Shipped
+ORD100816,2025-09-30,CUST0109,Sara Gupta,Power Bank,Accessories,3,1667,0,South,Cancelled
+ORD100817,2025-10-01,CUST0085,,Sneakers,Fashion,3,3507,0,East,Shipped
+ORD100818,2025-04-20,CUST0004,Sara Mehta,Sneakers,Fashion,3,3186,10,Central,
+ORD100819,2025-08-27,CUST0159,Vivaan Singh,Mixer Grinder,Home,4,4100,5,South,Cancelled
+ORD100820,2024-10-05,CUST0173,Rohan Iyer,Phone Case,Accessories,3,410,0,South,Delivered
+ORD100821,2024-10-28,CUST0096,Ananya Nair,LED Lamp,Home,2,1085,15,Central,Delivered
+ORD100822,2025-04-21,CUST0043,Neel Nair,Tablet,Electronics,2,17673,10,South,Delivered
+ORD100823,2024-02-28,CUST0037,Isha Mehta,Smartphone,Electronics,4,23496,0,North,Cancelled
+ORD100824,2024-12-27,CUST0106,Tara Mehta,Backpack,Fashion,3,1898,20,South,Delivered
+ORD100825,2024-03-27,CUST0020,,Charger,Accessories,3,972,15,South,Cancelled
+ORD100826,11/24/2024,CUST0005,Diya Singh,Sneakers,Fashion,4,3510,,West,Returned
+ORD100826,2024-11-25,CUST0005,Diya Singh,Sneakers,Fashion,4,3510,,West,Returned
+ORD100827,8/27/2025,CUST0208,Tara Sharma,Sunglasses,Fashion,3,1614,0,North,Returned
+ORD100828,8/2/2025,CUST0024,Meera Iyer,Laptop,Electronics,2,50112,20,North,delivered
+ORD100829,2025-09-24,CUST0160,Vivaan Nair,Mixer Grinder,,3,3717,15,East,Returned
+ORD100830,2024-09-29,CUST0125,Neel Khan,Charger,Accessories,3,842,20,West,Cancelled
+ORD100831,2024-07-05,CUST0203,Arjun Mehta,Backpack,Fashion,3,1749,10,North,Delivered
+ORD100832,2024-01-03,CUST0157,Vivaan Reddy,Sunglasses,Fashion,2,1368,10,Central,Shipped
+ORD100833,4/20/2025,CUST0100,Meera Sharma,Smartwatch,Electronics,1,9807,20,South,Shipped
+ORD100834,2025-01-30,CUST0109,Sara Gupta,LED Lamp,Home,2,1127,0,South,cancelled
+ORD100835,2024-05-03,CUST0181,Aarav Singh,Tablet,Electronics,4,17865,5,East,Cancelled
+ORD100836,2025-09-28,CUST0176,Aarav Khan,Headphones,,1,2571,5,North,Cancelled
+ORD100837,2024-09-12,CUST0002,Arjun Das,Charger,,1,914,5,East,Delivered
+ORD100838,2024-10-26,CUST0067,Kabir Sharma,Charger,Accessories,4,813,0,East,Returned
+ORD100839,2024-05-21,CUST0037,Isha Mehta,Phone Case,Accessories,1,441,,Central,Returned
+ORD100840,2024-10-24,CUST0074,Sara Mehta,Power Bank,Accessories,2,1701,0,East,shipped
+ORD100841,2025-02-13,CUST0046,Kabir Sharma,Headphones,Accessories,1,2620,10,,Cancelled
+ORD100842,2024-08-17,CUST0132,Ananya Singh,Sneakers,Fashion,2,3214,0,Central,shipped
+ORD100843,2024-11-13,CUST0161,Isha Iyer,Sneakers,Fashion,2,3222,0,North,Delivered
+ORD100844,2025-02-22,CUST0178,Arjun Nair,Air Fryer,Home,3,6044,5,East,Delivered
+ORD100845,2024-01-15,CUST0214,Rohan Khan,Charger,Accessories,3,868,5,West,Returned
+ORD100846,2025-05-14,CUST0102,Tara Singh,LED Lamp,Home,1,1120,10,North,Delivered
+ORD100847,2024-12-19,CUST0140,Neel Gupta,Backpack,Fashion,4,1876,20,East,Delivered
+ORD100848,2025-08-22,CUST0086,Sara Singh,Sunglasses,Fashion,2,1635,5,North,Returned
+ORD100849,2024-01-03,CUST0201,  Diya Das ,Laptop,Electronics,2,56883,5,,Delivered
+ORD100850,4/15/2025,CUST0184,Isha Das,Sunglasses,Fashion,3,1413,20,Central,delivered
+ORD100851,2024-01-03,CUST0205,Ananya Khan,Sunglasses,Fashion,2,1479,0,North,Shipped
+ORD100852,2/16/2025,CUST0020,Isha Iyer,Power Bank,Accessories,1,1454,5,West,Shipped
+ORD100853,2025-04-30,CUST0106,Tara Mehta,Charger,Accessories,1,938,0,West,Cancelled
+ORD100854,10/12/2024,CUST0006,Diya Gupta,Laptop,Electronics,2,55425,0,East,Delivered
+ORD100855,1/18/2024,CUST0175,Neel Iyer,Headphones,Accessories,2,2487,0,South,Delivered
+ORD100856,2024-04-29,CUST0009,Arjun Sharma,Headphones,Accessories,4,2308,0,,Delivered
+ORD100857,2025-06-07,CUST0147,Diya Das,Headphones,Accessories,1,2298,0,West,Delivered
+ORD100858,2024-09-06,CUST0049,Tara Patel,Mixer Grinder,Home,2,3431,15,Central,
+ORD100858,2024-09-07,CUST0049,Tara Patel,Mixer Grinder,Home,2,3431,15,Central,
+ORD100859,2025-02-23,CUST0057,Isha Nair,Mixer Grinder,Home,1,3508,15,South,Returned
+ORD100860,2024-11-01,CUST0175,Neel Iyer,LED Lamp,Home,1,1224,15,Central,Delivered
+ORD100861,2024-12-04,CUST0063,Ananya Reddy,Sneakers,Fashion,2,3147,15,South,Shipped
+ORD100862,2025-02-17,CUST0022,Kabir Reddy,Backpack,Fashion,3,1866,15,East,Shipped
+ORD100863,2025-07-23,CUST0116,Diya Khan,Power Bank,Accessories,3,1597,10,East,Delivered
+ORD100863,2025-07-24,CUST0116,Diya Khan,Power Bank,Accessories,3,1597,10,East,Delivered
+ORD100864,2025-03-22,CUST0159,Vivaan Singh,Tablet,Electronics,4,16685,0,East,Delivered
+ORD100865,2024-07-13,CUST0175,Neel Iyer,Headphones,Accessories,3,2510,20,Central,Shipped
+ORD100866,12/10/2024,CUST0108,Ananya Nair,Phone Case,Accessories,2,486,20,South,Shipped
+ORD100867,2025-01-26,CUST0180,Kabir Mehta,Sneakers,Fashion,2,3126,0,East,Delivered
+ORD100868,2024-08-07,CUST0100,Meera Sharma,LED Lamp,Home,1,1223,20,South,Delivered
+ORD100869,2025-03-31,CUST0154,Vivaan Patel,Headphones,Accessories,3,2665,20,West,Cancelled
+ ,2025-01-26,CUST0022,Kabir Reddy,Tablet,Electronics,1,16579,0,West,Cancelled
+ORD100871,7/27/2024,CUST0182,Kabir Iyer,LED Lamp,Home,1,1171,0,North,delivered
+ORD100872,1/23/2025,CUST0081,Isha Nair,LED Lamp,Home,4,1240,15,East,Delivered
+ORD100873,8/17/2024,CUST0113,Kabir Patel,Mixer Grinder,Home,2,4015,0,Central,Cancelled
+ORD100874,8/3/2025,CUST0062,Sara Mehta,Phone Case,Accessories,4,470,0,North,returned
+ORD100875,2025-03-21,CUST0149,  Neel Mehta ,Air Fryer,Home,4,5896,15,South,returned
+ORD100876,2024-02-06,CUST0040,Tara Gupta,Power Bank,Accessories,3,1758,0,Central,Delivered
+ORD100877,2025-01-09,CUST0062,Sara Mehta,Laptop,Electronics,4,52618,10,East,delivered
+ORD100877,2025-01-10,CUST0062,Sara Mehta,Laptop,Electronics,4,52618,10,East,delivered
+ORD100878,2024-12-20,CUST0203,Arjun Mehta,Headphones,Accessories,4,2589,10,West,Delivered
+ORD100879,2025-08-03,CUST0109,Sara Gupta,LED Lamp,Home,2,1115,0,South,Shipped
+ORD100880,2/14/2025,CUST0124,Sara Reddy,LED Lamp,Home,4,1296,0,North,Shipped
+ORD100881,2025-09-27,CUST0144,Meera Patel,Sunglasses,Fashion,1,1426,,North,
+ORD100882,2025-03-07,CUST0069,Vivaan Khan,Mixer Grinder,Home,1,4108,0,Central,Cancelled
+ORD100883,6/15/2025,CUST0116,Diya Khan,Tablet,Electronics,1,16424,10,Central,Shipped
+ORD100884,2025-09-28,CUST0185,Ananya Mehta,Laptop,Electronics,1,56535,15,North,Cancelled
+ORD100885,2025-04-28,CUST0118,Rohan Reddy,Headphones,,4,2363,20,North,Cancelled
+ORD100886,N/A,CUST0035,Arjun Singh,Headphones,Accessories,1,2556,15,Central,Cancelled
+ORD100887,2024-01-09,CUST0178,Arjun Nair,Sneakers,Fashion,1,2927,0,East,Delivered
+ORD100888,2024-02-08,CUST0164,Aarav Patel,Air Fryer,Home,1,6175,15,West,Cancelled
+ORD100889,5/8/2025,CUST0068,Kabir Singh,Laptop,Electronics,2,49588,20,East,Delivered
+ORD100890,2024-09-16,CUST0128,  Neel Mehta ,Mixer Grinder,Home,2,3541,5,East,Shipped
+ORD100891,2024-10-27,CUST0090,Isha Khan,Backpack,Fashion,1,2031,5,East,Delivered
+ORD100892,2024-01-18,CUST0052,Neel Iyer,Sneakers,Fashion,4,3479,,West,Shipped
+ORD100893,2025-01-20,CUST0129,Isha Nair,Phone Case,Accessories,4,442,0,,Delivered
+ORD100894,4/19/2025,CUST0056,Kabir Khan,Sunglasses,Fashion,3,1498,15,North,Delivered
+ORD100895,2024-07-02,CUST0049,Tara Patel,Power Bank,Accessories,4,1738,0,South,Delivered
+ORD100896,2025-01-06,CUST0086,Sara Singh,Sneakers,Fashion,2,2904,0,North,Delivered
+ORD100896,2025-01-07,CUST0086,Sara Singh,Sneakers,Fashion,2,2904,0,North,Delivered
+ORD100897,2024-06-07,CUST0123,  Sara Das ,Smartphone,Electronics,4,19910,,West,Shipped
+ORD100898,2025-09-27,CUST0119,Aarav Khan,Smartwatch,Electronics,1,8340,0,South,Delivered
+ORD100899,2024-01-31,CUST0079,Diya Nair,Smartphone,,4,21270,0,East,Returned
+ORD100900,2024-10-21,CUST0071,Aarav Patel,Headphones,Accessories,3,2521,5,Central,Returned
+ORD100901,2025-03-31,CUST0193,Arjun Iyer,Air Fryer,Home,2,5960,5,South,Delivered
+ORD100902,2025-04-27,CUST0159,Vivaan Singh,Sneakers,Fashion,3,3339,0,South,Returned
+ORD100903,2024-02-08,CUST0011,Ananya Gupta,Backpack,Fashion,3,1766,0,South,Returned
+ORD100904,7/30/2024,CUST0047,Rohan Nair,Headphones,Accessories,2,2337,10,West,Returned
+ORD100905,2024-09-12,CUST0029,Tara Iyer,Laptop,Electronics,4,53554,0,Central,Delivered
+ORD100906,2025-01-12,CUST0065,,Air Fryer,Home,3,6011,20,South,Cancelled
+ORD100907,2024-09-16,CUST0031,Arjun Nair,Smartwatch,Electronics,1,8529,0,Central,Cancelled
+ORD100908,2025-09-14,CUST0080,Vivaan Khan,Tablet,Electronics,1,16370,15,East,Cancelled
+ORD100909,2024-07-20,CUST0186,Kabir Patel,Backpack,Fashion,4,1778,0,West,Delivered
+ORD100910,2024-04-05,CUST0069,Vivaan Khan,Mixer Grinder,Home,3,3536,10,South,Returned
+ORD100911,2025-05-23,CUST0033,Isha Das,Mixer Grinder,Home,4,3427,20,Central,Shipped
+ORD100912,2025-05-11,CUST0074,Sara Mehta,LED Lamp,Home,1,1286,0,,Shipped
+ORD100913,2024-02-17,CUST0021,  Sara Nair ,Smartphone,Electronics,1,21460,20,East,Shipped
+ORD100914,2024-12-18,CUST0175,Neel Iyer,Sunglasses,Fashion,1,1577,0,North,Delivered
+ORD100915,2024-05-30,CUST0196,Diya Patel,Mixer Grinder,Home,2,3582,15,South,Delivered
+ORD100916,2024-12-19,CUST0030,  Rohan Khan ,Power Bank,Accessories,3,1656,0,Central,Delivered
+ORD100917,2025-04-11,CUST0138,Arjun Patel,Sunglasses,Fashion,2,1496,15,Central,delivered
+ORD100917,2025-04-12,CUST0138,Arjun Patel,Sunglasses,Fashion,2,1496,15,Central,delivered
+ORD100918,2024-03-11,CUST0046,Kabir Sharma,Sunglasses,Fashion,3,1604,0,West,Cancelled
+ORD100919,2024-11-27,CUST0137,Vivaan Singh,Sneakers,Fashion,2,3416,5,South,Delivered
+ORD100920,2025-02-26,CUST0106,Tara Mehta,Air Fryer,Home,4,6185,10,South,Shipped
+ORD100921,2024-09-22,CUST0125,Neel Khan,Smartphone,Electronics,4,23548,20,West,Delivered
+ORD100922,8/21/2024,CUST0220,Vivaan Patel,Tablet,Electronics,4,18609,20,,Delivered
+ORD100923,2024-11-23,CUST0183,Vivaan Reddy,Smartwatch,Electronics,2,8186,0,Central,Delivered
+ORD100924,2024-10-05,CUST0024,Meera Iyer,Phone Case,Accessories,2,491,5,North,Shipped
+ORD100925,2025-05-19,CUST0158,Neel Sharma,Phone Case,Accessories,1,483,0,Central,Delivered
+ORD100926,2024-09-26,CUST0045,Diya Gupta,Smartphone,Electronics,4,22930,0,East,Delivered
+ORD100927,2024-06-19,CUST0107,Sara Gupta,Sneakers,Fashion,3,3000,0,North,Delivered
+ORD100928,8/26/2025,CUST0036,Rohan Reddy,Backpack,Fashion,4,1783,15,South,Shipped
+ORD100928,2025-08-27,CUST0036,Rohan Reddy,Backpack,Fashion,4,1783,15,South,Shipped
+ORD100929,2024-07-14,CUST0081,Isha Nair,Sneakers,Fashion,4,3035,20,South,returned
+ORD100930,2025-01-19,CUST0022,Kabir Reddy,Air Fryer,Home,4,6123,0,South,Returned
+ORD100931,2025-08-22,CUST0209,Rohan Iyer,Headphones,Accessories,2,2676,0,East,Shipped
+ORD100932,2024-01-26,CUST0140,Neel Gupta,Sunglasses,Fashion,2,1481,0,South,Cancelled
+ORD100933,7/2/2024,CUST0153,  Vivaan Mehta ,Laptop,Electronics,1,53899,0,North,Returned
+ORD100934,2024-09-22,CUST0202,Aarav Iyer,Sneakers,Fashion,2,3006,0,North,Returned
+ORD100935,2024-11-25,CUST0082,Meera Reddy,Mixer Grinder,Home,2,3437,0,Central,Shipped
+ORD100936,2025-04-18,CUST0193,Arjun Iyer,Phone Case,Accessories,2,480,10,Central,Delivered
+ORD100937,2025-06-03,CUST0160,Vivaan Nair,Tablet,Electronics,1,19212,5,West,Delivered
+ORD100938,6/20/2025,CUST0146,Meera Singh,Headphones,Accessories,2,2308,0,West,Delivered
+ORD100939,2024-08-26,CUST0153,Vivaan Mehta,Air Fryer,Home,1,6172,0,West,Shipped
+ORD100940,2025-08-03,CUST0033,Isha Das,Power Bank,Accessories,2,1545,0,North,Shipped
+ORD100941,2024-09-22,CUST0192,  Meera Khan ,LED Lamp,Home,0,1230,0,West,Delivered
+ORD100942,8/1/2025,CUST0206,Neel Iyer,Smartphone,Electronics,4,24183,0,Central,Returned
+ORD100943,2025-02-01,CUST0045,Diya Gupta,Smartphone,Electronics,4,23812,0,,Shipped
+ORD100944,2024-06-10,CUST0062,Sara Mehta,LED Lamp,Home,2,1171,10,,Delivered
+ORD100945,2025-01-22,CUST0216,Neel Reddy,Backpack,Fashion,2,2069,0,West,Delivered
+ORD100946,2025-01-22,CUST0189,Sara Nair,Sneakers,Fashion,2,3008,15,North,Delivered
+ORD100947,2024-06-27,CUST0142,Neel Singh,Laptop,Electronics,3,55522,,Central,cancelled
+ORD100948,N/A,CUST0074,Sara Mehta,Headphones,Accessories,4,2367,5,Central,Delivered
+ORD100949,2024-05-03,CUST0003,Ananya Mehta,Air Fryer,Home,3,6737,,West,Delivered
+ORD100950,2024-03-16,CUST0010,Arjun Patel,Laptop,Electronics,3,-1,15,Central,Cancelled
+ORD100951,6/13/2024,CUST0198,Rohan Khan,Smartwatch,Electronics,3,8489,0,East,Shipped
+ORD100952,2025-04-01,CUST0085,Rohan Nair,Sneakers,Fashion,4,3362,0,West,Shipped
+ORD100953,2024-09-24,CUST0053,Diya Khan,Power Bank,Accessories,0,1469,20,North,Delivered
+ORD100954,7/24/2024,CUST0139,Diya Khan,Mixer Grinder,Home,1,3457,0,West,Shipped
+ORD100955,2024-04-07,CUST0048,Vivaan Gupta,Backpack,Fashion,0,2072,0,East,returned
+ORD100956,2025-06-18,CUST0071,Aarav Patel,Smartphone,Electronics,4,23391,0,Central,Delivered
+ORD100957,2025-08-07,CUST0001,Aarav Singh,Laptop,Electronics,2,55227,15,East,Delivered
+ORD100958,2025-02-17,CUST0086,  Sara Singh ,Air Fryer,Home,1,6626,5,West,Delivered
+ORD100959,2025-06-30,CUST0009,Arjun Sharma,LED Lamp,Home,2,1145,0,East,Shipped
+ORD100960,2024-07-26,CUST0162,Sara Iyer,Laptop,Electronics,1,52563,0,East,Delivered
+ORD100961,2024-10-24,CUST0017,Diya Gupta,Charger,Accessories,1,846,0,Central,Delivered
+ORD100962,2024-05-25,CUST0194,Aarav Nair,Smartphone,Electronics,2,22862,10,North,Shipped
+ORD100963,9/9/2025,CUST0075,Sara Singh,Smartwatch,Electronics,3,9418,0,South,Delivered
+ORD100964,2024-01-17,CUST0192,Meera Khan,Charger,Accessories,3,898,20,East,Delivered
+ORD100965,2025-01-05,CUST0118,Rohan Reddy,LED Lamp,Home,1,1100,20,North,Shipped
+ORD100966,2024-08-24,CUST0150,Diya Gupta,Sneakers,Fashion,1,2972,0,North,Delivered
+ORD100967,2024-01-21,CUST0127,Tara Gupta,Smartphone,Electronics,1,22341,5,North,Delivered
+ORD100968,2024-04-26,CUST0136,Neel Singh,LED Lamp,Home,0,1171,20,North,Cancelled
+ORD100969,2025-07-22,CUST0052,Neel Iyer,Backpack,Fashion,2,2005,,East,Delivered
+ORD100970,2024-07-29,CUST0145,Tara Patel,Sneakers,Fashion,4,3085,0,Central,cancelled
+ORD100971,2025-01-16,CUST0034,Diya Mehta,Sunglasses,Fashion,1,1475,0,West,Delivered
+ORD100972,2025-01-30,CUST0128,Neel Mehta,Power Bank,,3,1474,5,South,Cancelled
+ORD100973,8/2/2024,CUST0179,Kabir Patel,Charger,Accessories,2,899,0,Central,Returned
+ORD100973,2024-08-03,CUST0179,Kabir Patel,Charger,Accessories,2,899,0,Central,Returned
+ORD100974,2024-09-13,CUST0078,Diya Patel,Air Fryer,Home,2,6980,5,West,Delivered
+ORD100975,2024-01-27,CUST0110,Kabir Gupta,Phone Case,Accessories,4,494,20,Central,Delivered
+ORD100976,2024-05-29,CUST0049,Tara Patel,Sunglasses,Fashion,2,1428,10,Central,Cancelled
+ORD100977,2024-05-06,CUST0065,Neel Singh,Charger,Accessories,1,829,5,South,Delivered
+ORD100978,7/30/2024,CUST0078,Diya Patel,Smartphone,Electronics,3,23896,15,South,Returned
+ORD100979,2024-06-25,CUST0148,Kabir Iyer,Charger,Accessories,3,987,0,West,Delivered
+ORD100980,2025-06-11,CUST0009,Arjun Sharma,Laptop,Electronics,1,56586,0,West,Delivered
+ORD100981,2025-08-05,CUST0049,Tara Patel,Backpack,Fashion,3,1802,0,Central,Cancelled
+ORD100982,1/16/2024,CUST0175,Neel Iyer,Air Fryer,Home,2,7089,,East,Delivered
+ORD100983,2024-05-08,CUST0119,Aarav Khan,Tablet,Electronics,4,19459,0,North,Delivered
+ORD100984,2024-05-05,CUST0186,Kabir Patel,Backpack,Fashion,4,1937,10,East,Delivered
+ORD100985,2025-03-26,CUST0083,Kabir Reddy,Charger,Accessories,4,889,15,Central,Delivered
+ORD100986,1/4/2025,CUST0194,Aarav Nair,LED Lamp,Home,2,1092,10,South,Delivered
+ORD100987,2024-01-13,CUST0113,Kabir Patel,Sneakers,Fashion,1,2905,0,North,Delivered
+ORD100988,1/23/2025,CUST0010,Arjun Patel,Smartphone,Electronics,2,23741,0,Central,Shipped
+ORD100989,2024-02-05,CUST0006,Diya Gupta,Headphones,Accessories,2,2440,0,West,Returned
+ORD100990,2025-02-04,CUST0109,Sara Gupta,Sunglasses,Fashion,2,1630,0,South,Cancelled
+ORD100991,2024-08-01,CUST0188,Aarav Iyer,Mixer Grinder,Home,1,3756,0,West,Delivered
+ORD100992,11/21/2024,CUST0014,Aarav Iyer,Mixer Grinder,Home,1,3585,5,East,Delivered
+ORD100993,2025-09-02,CUST0177,Tara Reddy,Mixer Grinder,Home,3,3548,0,South,Delivered
+ORD100994,2025-09-23,CUST0189,Sara Nair,Laptop,Electronics,3,53967,0,South,delivered
+ORD100995,2024-02-14,CUST0119,Aarav Khan,Sunglasses,Fashion,1,1355,15,West,cancelled
+ORD100996,2025-01-27,CUST0168,Vivaan Iyer,Sunglasses,Fashion,3,1396,0,West,Shipped
+ORD100997,2025-09-17,CUST0012,Tara Reddy,Backpack,Fashion,2,1973,0,East,Returned
+ORD100998,2025-02-12,CUST0056,Kabir Khan,Laptop,Electronics,3,53932,0,Central,shipped
+ORD100999,2024-05-11,CUST0153,Vivaan Mehta,Backpack,Fashion,2,1952,5,East,Delivered
+ORD101000,2024-06-15,CUST0210,Rohan Singh,Headphones,Accessories,3,2650,20,Central,Returned
+ORD101001,2024-04-22,CUST0182,  Kabir Iyer ,Headphones,Accessories,4,2263,10,East,Delivered
+ORD101002,2025-09-25,CUST0180,Kabir Mehta,Air Fryer,Home,4,6655,20,Central,Cancelled
+ORD101003,2024-07-26,CUST0128,Neel Mehta,Headphones,Accessories,1,2426,15,Central,Delivered
+ORD101004,2024-03-11,CUST0210,  Rohan Singh ,Smartwatch,Electronics,2,9717,15,West,Shipped
+ORD101005,2025-05-13,CUST0084,,Tablet,Electronics,1,19454,15,North,shipped
+ORD101006,2024-11-01,CUST0082,Meera Reddy,Sunglasses,Fashion,3,1554,15,Central,Returned
+ORD101007,2025-09-07,CUST0029,Tara Iyer,Laptop,Electronics,4,56450,0,South,Delivered
+ORD101008,2024-03-25,CUST0052,Neel Iyer,Sunglasses,Fashion,4,1515,5,West,Returned
+ORD101009,3/29/2025,CUST0061,Neel Khan,Phone Case,Accessories,4,429,0,North,Delivered
+ORD101010,2024-10-25,CUST0080,Vivaan Khan,Smartphone,Electronics,1,23704,0,Central,Delivered
+ORD101011,2025-05-16,CUST0023,Isha Reddy,Air Fryer,Home,1,6743,10,Central,Delivered
+ORD101012,2025-08-15,CUST0025,  Kabir Iyer ,Air Fryer,,3,6484,10,West,Delivered
+ORD101013,2025-07-28,CUST0005,Diya Singh,Laptop,Electronics,1,58879,0,West,Returned
+ORD101014,2024-10-30,CUST0181,Aarav Singh,Tablet,Electronics,1,18050,5,South,Shipped
+ORD101015,2024-12-27,CUST0156,,Tablet,Electronics,2,19274,0,South,Returned
+ORD101016,2024-08-01,CUST0108,Ananya Nair,Smartwatch,Electronics,1,9722,0,Central,Delivered
+ORD101017,2024-10-10,CUST0061,Neel Khan,Sneakers,Fashion,0,3432,5,North,Delivered
+ ,2025-03-16,CUST0086,Sara Singh,LED Lamp,Home,4,1242,15,Central,Delivered
+ORD101019,2025-09-22,CUST0199,Neel Gupta,Laptop,Electronics,4,49905,20,North,Returned
+ORD101020,2024-09-02,CUST0153,Vivaan Mehta,Headphones,Accessories,1,2671,5,West,Delivered
+ORD101021,2024-12-11,CUST0137,Vivaan Singh,Phone Case,Accessories,2,467,10,Central,Returned
+ORD101022,2025-06-08,CUST0098,,Phone Case,,2,473,0,South,Delivered
+ORD101023,2024-05-29,CUST0032,Ananya Singh,Phone Case,Accessories,4,424,5,North,Cancelled
+ORD101024,2024-12-10,CUST0075,Sara Singh,Mixer Grinder,Home,3,3560,0,South,Delivered
+ORD101025,2024-06-16,CUST0200,Sara Sharma,Backpack,Fashion,1,1968,0,South,returned
+ORD101025,2024-06-17,CUST0200,Sara Sharma,Backpack,Fashion,1,1968,0,South,returned
+ORD101026,2024-06-07,CUST0053,Diya Khan,Air Fryer,Home,1,6378,20,South,Delivered
+ORD101027,2024-10-06,CUST0175,Neel Iyer,Air Fryer,Home,2,7142,0,East,Delivered
+ORD101028,2024-06-06,CUST0064,Arjun Mehta,Backpack,Fashion,1,1761,0,West,Delivered
+ORD101029,3/18/2024,CUST0030,Rohan Khan,Smartwatch,Electronics,4,8164,20,Central,Delivered
+ORD101030,2024-11-12,CUST0031,Arjun Nair,Sunglasses,Fashion,4,1371,20,North,delivered
+ORD101031,2025-07-16,CUST0004,Sara Mehta,Sneakers,Fashion,1,3056,15,Central,Delivered
+ORD101032,2025-06-11,CUST0140,Neel Gupta,Backpack,Fashion,1,1835,0,West,Cancelled
+ORD101033,2024-10-28,CUST0203,Arjun Mehta,Sneakers,Fashion,1,3311,15,South,Delivered
+ORD101034,2024-01-01,CUST0200,Sara Sharma,Mixer Grinder,,3,3524,0,West,Returned
+ORD101035,2024-02-06,CUST0064,Arjun Mehta,Sneakers,Fashion,2,3461,0,West,Cancelled
+ORD101036,2025-02-14,CUST0176,  Aarav Khan ,Phone Case,Accessories,1,448,5,North,Shipped
+ORD101037,3/23/2025,CUST0115,Vivaan Sharma,Headphones,Accessories,3,2363,0,East,Delivered
+ORD101038,5/18/2024,CUST0011,Ananya Gupta,Smartphone,Electronics,2,22394,15,Central,Shipped
+ORD101039,2024-12-09,CUST0100,Meera Sharma,Sunglasses,Fashion,2,1491,,West,Delivered
+ORD101040,2025-01-27,CUST0141,Rohan Das,Phone Case,Accessories,4,455,0,West,Cancelled
+ORD101041,6/5/2024,CUST0090,Isha Khan,LED Lamp,Home,4,1098,0,South,Delivered
+ORD101041,2024-06-06,CUST0090,Isha Khan,LED Lamp,Home,4,1098,0,South,Delivered
+ORD101042,2024-01-04,CUST0051,Sara Nair,Mixer Grinder,Home,3,3617,15,Central,Delivered
+ORD101043,1/30/2025,CUST0068,Kabir Singh,Headphones,Accessories,1,2288,20,North,Cancelled
+ORD101044,2024-01-09,CUST0143,Vivaan Iyer,Air Fryer,Home,2,6625,20,South,Returned
+ORD101045,9/25/2024,CUST0094,Isha Iyer,Sunglasses,Fashion,3,1483,10,Central,Shipped
+ORD101046,2024-08-22,CUST0165,Aarav Patel,Sneakers,Fashion,3,3281,0,North,Cancelled
+ORD101047,2025-06-08,CUST0180,Kabir Mehta,Phone Case,Accessories,4,428,0,West,Shipped
+ORD101048,1/18/2025,CUST0047,Rohan Nair,Sunglasses,Fashion,3,1359,20,North,Returned
+ORD101049,2024-02-05,CUST0108,Ananya Nair,Backpack,Fashion,4,1927,0,Central,Delivered
+ORD101050,2024-10-19,CUST0015,Meera Das,Phone Case,Accessories,4,421,5,South,Cancelled
+ORD101051,2024-04-21,CUST0182,Kabir Iyer,LED Lamp,Home,1,1302,0,North,Returned
+ORD101052,2024-01-31,CUST0207,Isha Khan,Mixer Grinder,Home,2,3839,0,South,Returned
+ORD101053,2025-08-28,CUST0191,Kabir Patel,Sunglasses,Fashion,1,1629,5,West,Returned
+ORD101054,2025-08-22,CUST0093,Meera Patel,Laptop,,3,53403,,East,Delivered
+ORD101055,2024-08-02,CUST0086,Sara Singh,Power Bank,Accessories,1,1549,20,South,Delivered
+ORD101056,2025-03-22,CUST0004,  Sara Mehta ,Mixer Grinder,Home,4,3879,5,East,Cancelled
+ORD101057,2024-03-15,CUST0001,Aarav Singh,Headphones,Accessories,4,2504,0,South,Delivered
+ORD101058,2/3/2025,CUST0107,Sara Gupta,Headphones,Accessories,3,2256,15,Central,Returned
+ORD101059,2024-11-17,CUST0134,Isha Gupta,Backpack,Fashion,4,1790,20,Central,Delivered
+ORD101060,2025-01-30,CUST0149,Neel Mehta,Backpack,Fashion,3,1858,0,West,Cancelled
+ORD101061,2025-07-29,CUST0205,  Ananya Khan ,Mixer Grinder,Home,1,3549,10,Central,Shipped
+ORD101062,2024-10-22,CUST0017,Diya Gupta,Headphones,Accessories,1,2498,0,East,Shipped
+ORD101063,2024-04-01,CUST0016,Meera Mehta,Air Fryer,Home,2,6907,0,West,Cancelled
+ORD101064,2025-09-15,CUST0150,Diya Gupta,Air Fryer,Home,3,6447,0,West,Delivered
+ORD101065,2025-06-08,CUST0045,Diya Gupta,Smartphone,Electronics,3,20062,0,East,Cancelled
+ORD101066,2025-05-21,CUST0211,Sara Sharma,Charger,Accessories,3,856,0,East,Delivered
+ORD101067,2024-12-14,CUST0188,Aarav Iyer,Smartphone,Electronics,3,20626,5,Central,Returned
+ORD101068,4/5/2025,CUST0203,Arjun Mehta,Smartwatch,Electronics,2,9633,10,West,Delivered
+ORD101069,2024-07-09,CUST0099,Meera Reddy,Sunglasses,Fashion,2,1374,10,North,Shipped
+ORD101070,2025-09-02,CUST0152,Aarav Khan,Sneakers,,4,2883,0,,Delivered
+ORD101071,2024-04-20,CUST0012,Tara Reddy,Charger,Accessories,3,880,15,West,Delivered
+ORD101072,2025-01-10,CUST0002,Arjun Das,Smartwatch,Electronics,4,9559,0,Central,Returned
+ORD101073,2024-04-15,CUST0095,Vivaan Nair,Tablet,Electronics,3,17746,5,North,Returned
+ORD101074,2024-04-30,CUST0119,Aarav Khan,Headphones,Accessories,4,2494,0,Central,Shipped
+ORD101075,2025-06-20,CUST0202,Aarav Iyer,Tablet,,2,19138,0,Central,Delivered
+ORD101076,2024-09-16,CUST0001,Aarav Singh,Smartphone,Electronics,2,20022,10,South,Delivered
+ORD101077,9/25/2025,CUST0155,Isha Nair,Headphones,Accessories,2,2349,15,North,Delivered
+ORD101078,6/27/2025,CUST0098,Isha Khan,Air Fryer,Home,4,6840,0,,Delivered
+ORD101079,2025-03-10,CUST0114,Tara Nair,Mixer Grinder,Home,1,3856,0,North,Delivered
+ORD101080,2025-04-06,CUST0033,Isha Das,Power Bank,Accessories,2,1630,10,East,Delivered
+ORD101081,2024-05-15,CUST0180,Kabir Mehta,Headphones,Accessories,2,2266,5,Central,Delivered
+ORD101082,2025-08-23,CUST0014,Aarav Iyer,Headphones,Accessories,2,2283,5,East,Delivered
+ORD101082,2025-08-24,CUST0014,Aarav Iyer,Headphones,Accessories,2,2283,5,East,Delivered
+ORD101083,2025-09-05,CUST0216,Neel Reddy,Laptop,Electronics,2,59780,20,Central,Cancelled
+ORD101084,2025-04-11,CUST0153,Vivaan Mehta,Charger,Accessories,3,840,0,North,Delivered
+ORD101085,2024-03-04,CUST0020,  Isha Iyer ,Mixer Grinder,Home,2,4074,0,South,Delivered
+ORD101086,2025-08-24,CUST0191,Kabir Patel,Laptop,Electronics,3,52309,0,North,Cancelled
+ORD101087,3/4/2025,CUST0068,Kabir Singh,Sunglasses,Fashion,2,1601,15,Central,Delivered
+ORD101088,2024-12-03,CUST0174,Arjun Das,Mixer Grinder,Home,2,3536,0,North,Returned
+ORD101089,2024-11-19,CUST0210,Rohan Singh,Tablet,Electronics,4,18644,0,West,Returned
+ORD101089,2024-11-20,CUST0210,Rohan Singh,Tablet,Electronics,4,18644,0,West,Returned
+ORD101090,2025-09-22,CUST0070,Sara Nair,Backpack,Fashion,3,2009,5,South,Cancelled
+ORD101091,9/2/2025,CUST0162,Sara Iyer,Headphones,Accessories,4,2477,15,West,Cancelled
+ORD101092,3/7/2025,CUST0089,Diya Nair,Smartphone,Electronics,4,20353,15,North,Delivered
+ORD101093,2024-10-16,CUST0182,Kabir Iyer,Tablet,Electronics,3,17647,5,,Delivered
+ORD101094,2024-07-17,CUST0014,Aarav Iyer,Sneakers,Fashion,1,3055,0,West,Shipped
+ORD101095,2024-08-06,CUST0142,Neel Singh,LED Lamp,Home,4,1278,0,North,Cancelled
+ORD101095,2024-08-07,CUST0142,Neel Singh,LED Lamp,Home,4,1278,0,North,Cancelled
+ORD101096,2024-02-09,CUST0078,  Diya Patel ,Sunglasses,Fashion,3,1627,10,South,Returned
+ORD101097,2024-11-25,CUST0131,,Sneakers,Fashion,3,3374,20,East,Cancelled
+ORD101098,2024-01-25,CUST0054,Rohan Sharma,LED Lamp,Home,3,1223,0,East,Delivered
+ORD101099,2025-05-16,CUST0018,Ananya Khan,Power Bank,Accessories,3,1615,10,South,Delivered
+ ,2024-03-05,CUST0078,Diya Patel,Smartwatch,Electronics,4,8639,20,North,Delivered
+ORD101101,2024-01-16,CUST0136,Neel Singh,Smartphone,Electronics,3,21283,0,Central,Cancelled
+ORD101102,2024-06-24,CUST0189,Sara Nair,Tablet,Electronics,3,18311,0,West,Returned
+ORD101103,2024-12-01,CUST0173,Rohan Iyer,Laptop,Electronics,2,55341,0,South,Shipped
+ORD101104,2024-05-20,CUST0038,Diya Nair,LED Lamp,Home,1,-1,5,East,Delivered
+ORD101105,2024-02-20,CUST0074,Sara Mehta,LED Lamp,Home,4,1197,0,North,Delivered
+ORD101106,11/19/2024,CUST0029,Tara Iyer,Laptop,Electronics,3,52415,0,East,Delivered
+ORD101107,4/28/2025,CUST0179,Kabir Patel,Air Fryer,Home,1,6923,0,South,Cancelled
+ORD101108,2025-03-07,CUST0173,Rohan Iyer,Power Bank,Accessories,3,1498,10,West,Shipped
+ORD101109,2024-08-27,CUST0083,Kabir Reddy,Tablet,Electronics,2,18173,20,West,Shipped
+ORD101110,2024-07-23,CUST0007,Sara Reddy,Backpack,Fashion,4,1954,0,West,Returned
+ORD101111,2024-03-14,CUST0159,Vivaan Singh,Charger,Accessories,1,898,0,South,Delivered
+ORD101112,2025-03-07,CUST0150,Diya Gupta,Backpack,Fashion,1,1883,0,West,Delivered
+ORD101113,2025-06-18,CUST0068,Kabir Singh,Power Bank,Accessories,3,1746,0,East,Delivered
+ORD101114,10/4/2024,CUST0171,Kabir Khan,LED Lamp,Home,3,1100,5,East,Delivered
+ORD101115,2025-09-09,CUST0066,Ananya Nair,Smartwatch,Electronics,4,9078,,East,delivered
+ORD101116,2025-06-03,CUST0029,Tara Iyer,Sneakers,Fashion,1,2929,0,East,Delivered
+ORD101117,2024-02-19,CUST0194,  Aarav Nair ,Phone Case,Accessories,2,447,0,West,Shipped
+ORD101118,2024-01-24,CUST0101,Tara Mehta,Mixer Grinder,Home,4,3606,10,Central,Delivered
+ORD101119,N/A,CUST0193,Arjun Iyer,Mixer Grinder,Home,2,4154,0,,Delivered
+ORD101120,2025-06-05,CUST0134,Isha Gupta,Sunglasses,Fashion,1,1576,0,South,Returned
+ORD101120,2025-06-06,CUST0134,Isha Gupta,Sunglasses,Fashion,1,1576,0,South,Returned
+ORD101121,2025-02-26,CUST0191,Kabir Patel,Sunglasses,Fashion,2,1491,15,South,Returned
+ORD101121,2025-02-27,CUST0191,Kabir Patel,Sunglasses,Fashion,2,1491,15,South,Returned
+ORD101122,2024-10-11,CUST0152,Aarav Khan,Headphones,Accessories,4,2524,0,West,Delivered
+ORD101123,2025-04-10,CUST0040,Tara Gupta,Mixer Grinder,Home,4,4006,15,East,Cancelled
+ORD101124,2025-01-25,CUST0045,Diya Gupta,Smartwatch,Electronics,2,9534,0,North,Returned
+ORD101125,2024-04-18,CUST0103,Vivaan Patel,Charger,Accessories,2,862,5,South,Shipped
+ORD101126,2024-02-10,CUST0075,Sara Singh,Sunglasses,Fashion,2,1425,5,West,Cancelled
+ORD101127,2024-02-12,CUST0170,Vivaan Nair,Sneakers,Fashion,4,2966,15,West,Delivered
+ORD101128,2025-03-15,CUST0034,Diya Mehta,Charger,Accessories,3,938,5,West,Delivered
+ORD101129,2024-03-09,CUST0058,Diya Patel,Tablet,Electronics,0,18541,0,North,Shipped
+ORD101130,2025-03-05,CUST0066,Ananya Nair,Mixer Grinder,Home,3,3452,0,Central,Cancelled
+ORD101131,2024-01-16,CUST0009,Arjun Sharma,Mixer Grinder,Home,2,3867,20,Central,Delivered
+ORD101132,2025-05-21,CUST0087,,LED Lamp,Home,4,1161,10,East,Cancelled
+ORD101133,2025-01-09,CUST0162,Sara Iyer,Smartphone,Electronics,1,20311,0,North,Delivered
+ORD101134,2024-01-09,CUST0078,Diya Patel,LED Lamp,Home,4,1138,0,East,Returned
+ORD101135,11/12/2024,CUST0163,Arjun Khan,Laptop,Electronics,4,52531,5,East,Cancelled
+ORD101136,8/12/2025,CUST0043,Neel Nair,Tablet,Electronics,3,18201,10,West,Shipped
+ORD101137,2025-06-25,CUST0077,Meera Das,Smartphone,Electronics,4,22633,0,North,Shipped
+ORD101138,2025-03-23,CUST0021,Sara Nair,Backpack,Fashion,2,1911,5,East,shipped
+ORD101139,2025-08-19,CUST0027,  Tara Patel ,LED Lamp,Home,3,1145,0,West,Shipped
+ORD101139,2025-08-20,CUST0027,  Tara Patel ,LED Lamp,Home,3,1145,0,West,Shipped
+ORD101140,2025-02-11,CUST0187,Kabir Sharma,Headphones,Accessories,3,2535,20,East,Delivered
+ORD101141,2025-01-09,CUST0047,Rohan Nair,Smartphone,Electronics,1,20581,5,West,Returned
+ORD101141,2025-01-10,CUST0047,Rohan Nair,Smartphone,Electronics,1,20581,5,West,Returned
+ORD101142,9/28/2024,CUST0192,Meera Khan,LED Lamp,Home,2,1137,15,West,Shipped
+ORD101143,2024-08-06,CUST0130,Rohan Reddy,Sunglasses,Fashion,1,1638,0,West,Delivered
+ORD101144,2025-03-13,CUST0098,Isha Khan,Mixer Grinder,Home,1,3974,10,North,Shipped
+ORD101145,3/1/2024,CUST0058,Diya Patel,Headphones,Accessories,1,2405,0,East,Delivered
+ORD101146,2024-11-15,CUST0189,Sara Nair,Sneakers,Fashion,1,3034,10,North,Delivered
+ORD101147,2024-02-11,CUST0215,Isha Mehta,Sneakers,Fashion,3,3188,15,North,Returned
+ORD101148,2025-08-15,CUST0145,  Tara Patel ,Headphones,Accessories,3,2716,15,North,Shipped
+ORD101149,5/12/2024,CUST0014,Aarav Iyer,Smartwatch,Electronics,4,8119,0,South,Delivered
+ORD101150,3/17/2025,CUST0028,Vivaan Gupta,Mixer Grinder,Home,1,3692,0,West,Delivered
+ORD101151,2024-09-13,CUST0068,Kabir Singh,Smartwatch,Electronics,3,8523,15,North,Returned
+ORD101152,2025-01-18,CUST0147,Diya Das,Headphones,Accessories,2,2541,0,Central,Delivered
+ORD101153,2024-02-10,CUST0024,Meera Iyer,Sunglasses,Fashion,0,1472,0,Central,Delivered
+ORD101154,2024-08-24,CUST0182,,Smartphone,Electronics,1,21393,5,East,Returned
+ORD101155,2024-01-07,CUST0043,Neel Nair,Phone Case,Accessories,4,445,0,North,Cancelled
+ORD101156,2025-07-09,CUST0012,Tara Reddy,Backpack,Fashion,2,1752,0,North,Cancelled
+ORD101157,3/18/2025,CUST0165,Aarav Patel,Headphones,Accessories,2,2572,10,South,Delivered
+ORD101158,2025-09-27,CUST0089,Diya Nair,Sneakers,Fashion,1,3214,20,North,Delivered
+ORD101159,2024-04-13,CUST0163,Arjun Khan,LED Lamp,Home,4,1275,20,East,Delivered
+ORD101160,2025-03-23,CUST0187,Kabir Sharma,LED Lamp,Home,2,1094,0,Central,delivered
+ORD101161,N/A,CUST0141,Rohan Das,Mixer Grinder,Home,2,4015,0,South,Returned
+ORD101162,2025-07-10,CUST0196,Diya Patel,Phone Case,Accessories,2,470,5,South,Delivered
+ORD101163,5/5/2025,CUST0011,Ananya Gupta,Mixer Grinder,Home,1,3547,0,East,Delivered
+ORD101164,2024-02-01,CUST0128,Neel Mehta,Headphones,Accessories,1,2616,5,North,Shipped
+ORD101165,8/17/2025,CUST0166,Isha Mehta,Charger,Accessories,4,952,0,East,Cancelled
+ORD101166,2024-06-12,CUST0053,Diya Khan,Sunglasses,Fashion,4,1390,0,East,Delivered
+ORD101167,2024-06-04,CUST0060,Vivaan Sharma,Headphones,Accessories,1,2380,0,West,Delivered
+ORD101168,2024-08-17,CUST0088,  Diya Patel ,Smartphone,Electronics,3,21523,20,South,returned
+ORD101169,2024-12-31,CUST0213,Ananya Nair,LED Lamp,Home,3,1213,20,South,Shipped
+ORD101170,2025-05-01,CUST0169,Tara Gupta,Mixer Grinder,Home,3,3778,0,,cancelled
+ORD101171,2024-04-25,CUST0048,Vivaan Gupta,Smartwatch,Electronics,4,9126,5,South,Delivered
+ORD101172,2024-08-20,CUST0065,Neel Singh,Mixer Grinder,Home,0,3455,15,South,Delivered
+ORD101173,7/23/2025,CUST0051,Sara Nair,Laptop,Electronics,2,49703,0,North,delivered
+ORD101174,2024-02-09,CUST0132,Ananya Singh,Charger,Accessories,3,949,20,Central,Cancelled
+ORD101175,6/14/2025,CUST0118,Rohan Reddy,Air Fryer,Home,4,6085,0,West,Delivered
+ORD101176,2024-05-23,CUST0072,Kabir Patel,Smartphone,Electronics,2,23206,0,South,Delivered
+ORD101177,9/20/2024,CUST0051,Sara Nair,Sneakers,Fashion,3,3076,,South,Delivered
+ORD101178,2025-08-22,CUST0047,Rohan Nair,Laptop,Electronics,4,58142,0,Central,Delivered
+ORD101179,2024-09-03,CUST0100,Meera Sharma,Laptop,Electronics,2,57512,0,North,Cancelled
+ORD101180,2025-09-01,CUST0209,Rohan Iyer,Smartwatch,Electronics,2,9218,,South,Cancelled
+ORD101181,2/12/2024,CUST0158,Neel Sharma,Mixer Grinder,Home,3,4157,20,West,Delivered
+ORD101182,1/22/2025,CUST0013,Meera Patel,Backpack,Fashion,1,2044,0,North,Returned
+ORD101183,2024-03-11,CUST0018,Ananya Khan,Laptop,Electronics,1,53974,5,East,Delivered
+ORD101184,2024-04-15,CUST0092,Meera Reddy,LED Lamp,Home,4,1095,,East,Returned
+ORD101185,10/15/2024,CUST0063,  Ananya Reddy ,Air Fryer,Home,4,6199,0,West,Cancelled
+ORD101186,2024-08-28,CUST0041,Rohan Reddy,Mixer Grinder,Home,3,3832,5,North,Delivered
+ORD101187,2024-06-01,CUST0062,Sara Mehta,Air Fryer,Home,1,-1,20,East,Delivered
+ORD101188,N/A,CUST0041,Rohan Reddy,Smartwatch,Electronics,1,8139,10,East,Shipped
+ORD101189,2025-08-03,CUST0180,Kabir Mehta,Sunglasses,Fashion,4,1506,20,East,Cancelled
+ORD101190,2025-02-03,CUST0002,Arjun Das,Phone Case,Accessories,4,444,0,South,Cancelled
+ORD101191,2025-04-05,CUST0016,Meera Mehta,Headphones,Accessories,3,2343,0,East,Returned
+ORD101192,2024-05-08,CUST0100,Meera Sharma,Air Fryer,Home,3,6443,0,North,Delivered
+ORD101193,2024-09-18,CUST0088,Diya Patel,Backpack,Fashion,1,1903,0,South,Delivered
+ORD101194,2/9/2024,CUST0011,Ananya Gupta,Power Bank,Accessories,4,1443,0,West,Delivered
+ORD101195,2025-04-30,CUST0147,Diya Das,Smartwatch,Electronics,4,8800,0,,Delivered
+ORD101196,8/31/2024,CUST0156,Rohan Mehta,Laptop,Electronics,3,-1,20,Central,Delivered
+ORD101196,2024-09-01,CUST0156,Rohan Mehta,Laptop,Electronics,3,-1,20,Central,Delivered
+ORD101197,2024-06-15,CUST0194,Aarav Nair,Charger,Accessories,4,985,0,West,Delivered
+ORD101198,2024-08-02,CUST0182,Kabir Iyer,Smartphone,Electronics,1,22738,15,West,Delivered
+ORD101199,2024-04-19,CUST0213,Ananya Nair,Laptop,Electronics,2,53583,20,Central,Delivered
+ORD101200,2024-10-08,CUST0081,Isha Nair,Tablet,Electronics,1,16870,0,North,Returned
+ORD101201,2025-01-28,CUST0204,Vivaan Das,LED Lamp,,1,1109,0,Central,Delivered
+ORD101202,2025-08-17,CUST0164,Aarav Patel,Smartwatch,Electronics,1,9055,0,North,Delivered
+ORD101203,2024-12-24,CUST0161,Isha Iyer,Backpack,Fashion,1,1858,20,Central,Cancelled
+ORD101204,2024-04-20,CUST0106,Tara Mehta,Phone Case,Accessories,1,467,15,West,Delivered
+ORD101205,2025-05-27,CUST0153,  Vivaan Mehta ,LED Lamp,Home,1,1141,10,East,Returned
+ORD101206,2024-08-29,CUST0016,,Sunglasses,Fashion,4,1565,5,,Delivered
+ORD101207,7/6/2024,CUST0046,Kabir Sharma,Sunglasses,Fashion,3,1530,20,North,Delivered
+ORD101208,2024-01-16,CUST0101,  Tara Mehta ,Backpack,Fashion,4,1788,0,East,Shipped
+ORD101209,2024-10-18,CUST0003,Ananya Mehta,Sunglasses,Fashion,4,1473,0,North,Shipped
+ORD101210,2025-05-28,CUST0219,Arjun Patel,Charger,Accessories,3,850,5,Central,cancelled
+ORD101211,2024-07-09,CUST0092,Meera Reddy,Sneakers,Fashion,2,3209,5,West,Shipped
+ORD101212,2024-01-17,CUST0203,Arjun Mehta,Sunglasses,Fashion,3,1437,5,South,
+ORD101213,2024-11-03,CUST0039,Meera Khan,Smartwatch,Electronics,3,8273,15,North,Shipped
+ORD101214,2025-04-22,CUST0150,Diya Gupta,Power Bank,Accessories,2,1549,20,Central,Delivered
+ORD101215,2025-03-05,CUST0202,Aarav Iyer,Phone Case,Accessories,4,449,15,South,Delivered
+ORD101216,2/4/2024,CUST0123,Sara Das,Mixer Grinder,Home,3,4082,20,South,Returned
+ORD101217,2025-05-29,CUST0060,Vivaan Sharma,Backpack,Fashion,0,1739,10,South,
+ORD101218,2024-07-30,CUST0107,Sara Gupta,Sneakers,Fashion,3,3299,0,West,Cancelled
+ORD101219,2024-03-03,CUST0042,  Aarav Patel ,Phone Case,Accessories,1,433,0,South,Delivered
+ORD101220,2024-08-30,CUST0017,Diya Gupta,Laptop,Electronics,2,57607,15,South,Returned
+ORD101221,2025-09-03,CUST0013,Meera Patel,Tablet,Electronics,3,17001,0,West,Delivered
+ORD101222,2025-04-09,CUST0030,  Rohan Khan ,Headphones,Accessories,3,2545,0,North,Delivered
+ORD101223,2024-02-23,CUST0125,Neel Khan,LED Lamp,Home,4,1279,0,North,Delivered
+ORD101224,2024-12-12,CUST0048,Vivaan Gupta,LED Lamp,Home,4,-1,20,North,Delivered
+ORD101225,2024-10-20,CUST0103,Vivaan Patel,Laptop,Electronics,4,54087,0,West,Delivered
+ORD101226,2025-08-15,CUST0011,Ananya Gupta,Air Fryer,,3,6544,15,North,Delivered
+ORD101227,2025-09-30,CUST0157,Vivaan Reddy,LED Lamp,Home,1,1226,0,Central,Delivered
+ORD101228,2024-12-12,CUST0179,Kabir Patel,Backpack,Fashion,4,2059,,South,Delivered
+ORD101229,1/19/2024,CUST0126,  Vivaan Sharma ,Headphones,Accessories,3,2519,0,West,Delivered
+ORD101229,2024-01-20,CUST0126,  Vivaan Sharma ,Headphones,Accessories,3,2519,0,West,Delivered
+ORD101230,2025-06-20,CUST0146,Meera Singh,Tablet,Electronics,4,18016,,East,Delivered
+ORD101231,2025-08-22,CUST0150,Diya Gupta,LED Lamp,Home,4,1259,20,West,Delivered
+ORD101232,2024-08-01,CUST0202,Aarav Iyer,Backpack,Fashion,3,1991,0,East,Delivered
+ORD101233,1/9/2025,CUST0047,Rohan Nair,Sunglasses,Fashion,4,1498,15,East,Delivered
+ORD101234,2025-03-22,CUST0188,Aarav Iyer,Laptop,Electronics,4,53893,0,West,Returned
+ORD101235,9/2/2024,CUST0119,Aarav Khan,Mixer Grinder,Home,1,3909,20,East,Delivered
+ORD101236,2025-02-10,CUST0002,Arjun Das,Sunglasses,Fashion,4,1602,15,East,Cancelled
+ORD101237,2024-02-24,CUST0028,Vivaan Gupta,Charger,Accessories,3,867,0,North,Delivered
+ORD101238,2025-05-08,CUST0092,Meera Reddy,Mixer Grinder,Home,1,4023,0,North,Delivered
+ORD101239,2025-03-26,CUST0116,Diya Khan,Charger,Accessories,2,975,5,,Returned
+ORD101240,2/5/2024,CUST0052,Neel Iyer,Mixer Grinder,Home,2,4091,5,West,Delivered
+ORD101241,2024-04-05,CUST0145,Tara Patel,Charger,Accessories,1,870,0,,Shipped
+ORD101242,2024-09-11,CUST0132,Ananya Singh,Smartwatch,Electronics,1,8652,5,South,Delivered
+ORD101243,2024-09-30,CUST0179,Kabir Patel,Mixer Grinder,Home,1,3660,0,West,Returned
+ORD101244,2024-12-03,CUST0163,Arjun Khan,Tablet,Electronics,3,-1,15,South,Cancelled
+ORD101245,2024-12-04,CUST0006,,Sunglasses,Fashion,4,1465,0,East,shipped
+ORD101246,2024-07-23,CUST0151,Isha Gupta,Mixer Grinder,Home,2,3822,10,North,Cancelled
+ORD101247,2024-08-22,CUST0173,Rohan Iyer,Smartphone,Electronics,1,23093,5,East,Delivered
+ORD101248,2/4/2024,CUST0008,Diya Singh,Backpack,Fashion,0,2064,0,South,Delivered
+ORD101249,2024-08-16,CUST0037,Isha Mehta,Air Fryer,Home,3,5996,0,South,Returned
+ORD101250,2024-08-11,CUST0150,Diya Gupta,Headphones,Accessories,4,2508,0,South,Delivered
+ORD101251,2024-12-02,CUST0205,Ananya Khan,Mixer Grinder,Home,3,3676,5,West,Delivered
+ORD101252,2025-05-08,CUST0101,Tara Mehta,Smartphone,Electronics,4,22935,20,East,Cancelled
+ORD101253,5/25/2024,CUST0028,,Charger,Accessories,2,866,,North,Returned
+ORD101254,7/25/2024,CUST0009,Arjun Sharma,Power Bank,Accessories,3,1706,0,Central,Cancelled
+ORD101255,2025-06-25,CUST0055,Kabir Singh,LED Lamp,Home,3,1214,0,North,Returned
+ORD101256,2024-07-24,CUST0146,Meera Singh,Phone Case,Accessories,2,458,20,East,Delivered
+ORD101257,2024-02-26,CUST0003,Ananya Mehta,Headphones,Accessories,1,2423,10,North,Returned
+ORD101258,2024-09-06,CUST0092,Meera Reddy,Sunglasses,Fashion,2,1403,0,Central,returned
+ORD101259,2025-04-16,CUST0055,Kabir Singh,Smartwatch,Electronics,4,8869,0,,Cancelled
+ORD101260,2024-12-11,CUST0043,Neel Nair,Backpack,Fashion,4,1899,0,North,Delivered
+ORD101261,2025-08-23,CUST0117,Rohan Das,Laptop,Electronics,4,56185,20,Central,Cancelled
+ORD101262,2025-01-18,CUST0123,Sara Das,Tablet,Electronics,4,18191,20,West,Delivered
+ORD101263,2024-10-10,CUST0112,Kabir Nair,Smartwatch,Electronics,3,9475,15,West,Delivered
+ORD101264,10/13/2024,CUST0028,Vivaan Gupta,Backpack,Fashion,1,1748,0,West,Delivered
+ORD101265,2024-08-06,CUST0014,  Aarav Iyer ,Phone Case,Accessories,1,411,0,North,Returned
+ORD101266,2025-05-31,CUST0043,Neel Nair,Charger,Accessories,4,813,10,North,Delivered
+ORD101267,2024-05-16,CUST0170,Vivaan Nair,Mixer Grinder,Home,1,3803,5,South,Delivered
+ORD101268,2024-12-29,CUST0162,Sara Iyer,Sneakers,Fashion,3,2926,20,South,Cancelled
+ORD101269,2025-04-27,CUST0066,Ananya Nair,Backpack,Fashion,1,2047,0,North,Delivered
+ORD101270,2025-07-23,CUST0001,Aarav Singh,LED Lamp,Home,3,1313,,East,Cancelled
+ORD101271,2024-06-26,CUST0142,  Neel Singh ,Sunglasses,Fashion,3,1374,15,West,Delivered
+ORD101272,12/16/2024,CUST0063,Ananya Reddy,Mixer Grinder,Home,1,4119,0,East,Delivered
+ORD101273,2025-03-01,CUST0103,Vivaan Patel,Sunglasses,Fashion,3,1362,5,Central,Delivered
+ORD101274,6/25/2024,CUST0149,Neel Mehta,Tablet,Electronics,3,16338,0,West,Delivered
+ORD101275,2/19/2025,CUST0181,Aarav Singh,Power Bank,Accessories,1,1717,20,South,Delivered
+ORD101276,2024-02-26,CUST0180,Kabir Mehta,Sneakers,Fashion,3,3129,0,North,Delivered
+ORD101277,2024-12-10,CUST0021,Sara Nair,Air Fryer,Home,2,5951,15,North,Delivered
+ORD101278,2025-05-19,CUST0219,Arjun Patel,Tablet,Electronics,4,17920,0,Central,Cancelled
+ORD101279,2025-04-08,CUST0199,Neel Gupta,LED Lamp,Home,3,-1,15,North,Shipped
+ORD101280,2024-05-08,CUST0011,Ananya Gupta,Smartphone,Electronics,4,21636,10,South,Shipped
+ORD101281,2025-01-14,CUST0075,Sara Singh,Sneakers,Fashion,1,3455,15,West,Delivered
+ORD101282,2025-05-25,CUST0219,Arjun Patel,Sunglasses,Fashion,1,1407,0,North,Delivered
+ORD101283,2025-03-29,CUST0165,  Aarav Patel ,Laptop,Electronics,1,53783,20,North,Delivered
+ORD101284,2025-05-03,CUST0068,Kabir Singh,Charger,Accessories,4,928,20,,Returned
+ORD101285,2024-08-19,CUST0199,Neel Gupta,Headphones,Accessories,2,2549,0,East,Delivered
+ORD101286,2025-03-15,CUST0046,Kabir Sharma,Laptop,Electronics,3,52296,0,West,Returned
+ORD101287,2025-06-26,CUST0089,Diya Nair,Phone Case,Accessories,3,446,5,North,Returned
+ORD101288,2024-09-08,CUST0119,Aarav Khan,Backpack,Fashion,1,1920,20,West,Delivered
+ORD101289,2024-02-29,CUST0103,Vivaan Patel,Power Bank,Accessories,4,1563,10,Central,Cancelled
+ORD101290,2025-02-09,CUST0205,Ananya Khan,Charger,Accessories,3,821,10,Central,Returned
+ORD101291,10/28/2024,CUST0131,Tara Gupta,Headphones,Accessories,4,2601,20,East,Shipped
+ORD101292,2025-02-08,CUST0086,Sara Singh,Air Fryer,Home,4,5859,20,North,Shipped
+ORD101293,2025-08-25,CUST0159,Vivaan Singh,Power Bank,Accessories,1,1616,20,Central,Shipped
+ORD101294,2025-03-26,CUST0127,Tara Gupta,Tablet,Electronics,2,19701,5,Central,Cancelled
+ORD101295,2025-06-25,CUST0175,,Tablet,Electronics,2,16443,0,Central,Shipped
+ORD101296,2024-10-14,CUST0068,Kabir Singh,Sneakers,Fashion,4,3244,0,East,delivered
+ORD101297,9/26/2025,CUST0212,Isha Gupta,Sneakers,Fashion,4,3206,10,,Returned
+ORD101298,6/8/2024,CUST0022,Kabir Reddy,Phone Case,Accessories,1,457,0,East,Shipped
+ORD101299,2025-07-03,CUST0177,Tara Reddy,Air Fryer,Home,3,6349,0,West,Cancelled
+ORD101300,1/28/2024,CUST0169,Tara Gupta,Phone Case,Accessories,2,424,0,South,Shipped
+ORD101301,2024-02-18,CUST0049,Tara Patel,Phone Case,Accessories,3,486,0,East,shipped
+ORD101302,2/7/2025,CUST0099,Meera Reddy,Power Bank,Accessories,3,1592,15,East,Shipped
+ORD101303,2024-11-05,CUST0214,Rohan Khan,Sneakers,Fashion,2,3062,,South,Delivered
+ORD101304,2025-09-14,CUST0110,  Kabir Gupta ,Laptop,Electronics,1,56975,20,West,delivered
+ORD101304,2025-09-15,CUST0110,  Kabir Gupta ,Laptop,Electronics,1,56975,20,West,delivered
+ORD101305,2024-09-25,CUST0217,Vivaan Khan,Laptop,Electronics,1,57693,20,Central,Returned
+ORD101306,2024-06-04,CUST0029,Tara Iyer,Sunglasses,Fashion,2,1551,0,Central,Shipped
+ORD101307,2/24/2024,CUST0197,Neel Das,Smartphone,Electronics,4,20432,5,North,Cancelled
+ORD101308,2025-01-12,CUST0183,Vivaan Reddy,Laptop,Electronics,1,53432,0,North,Shipped
+ORD101309,2/24/2024,CUST0101,Tara Mehta,Charger,Accessories,4,931,5,North,
+ORD101310,2025-07-05,CUST0175,Neel Iyer,Mixer Grinder,Home,3,3778,0,South,Cancelled
+ORD101311,2024-12-02,CUST0166,  Isha Mehta ,LED Lamp,Home,2,1098,20,North,shipped
+ORD101312,5/16/2025,CUST0011,Ananya Gupta,LED Lamp,Home,2,1261,0,North,Delivered
+ORD101313,2024-06-06,CUST0089,Diya Nair,Tablet,Electronics,2,16966,10,East,Delivered
+ORD101314,7/6/2024,CUST0196,Diya Patel,Air Fryer,Home,3,7138,0,North,Shipped
+ORD101315,N/A,CUST0034,Diya Mehta,Air Fryer,Home,1,5869,0,Central,Delivered
+ORD101316,2/1/2024,CUST0188,Aarav Iyer,Power Bank,Accessories,2,1606,10,East,Delivered
+ORD101317,2024-06-08,CUST0119,Aarav Khan,Power Bank,,0,1483,5,East,Delivered
+ORD101318,2024-08-05,CUST0087,Kabir Iyer,Laptop,Electronics,1,51773,0,North,Cancelled
+ORD101319,2024-04-28,CUST0125,,Power Bank,Accessories,3,1706,0,East,Delivered
+ORD101320,2025-07-01,CUST0192,Meera Khan,Sunglasses,Fashion,1,1353,10,,Cancelled
+ORD101321,2024-11-26,CUST0111,,LED Lamp,Home,1,1289,0,Central,cancelled
+ORD101322,2024-02-25,CUST0136,Neel Singh,Sneakers,Fashion,4,3243,0,West,Returned
+ORD101323,2025-08-31,CUST0070,Sara Nair,Smartwatch,Electronics,1,9069,0,West,Delivered
+ORD101324,2024-07-27,CUST0043,Neel Nair,Headphones,Accessories,3,2484,15,South,Cancelled
+ORD101325,2024-06-02,CUST0076,Kabir Sharma,Air Fryer,Home,1,7131,20,South,Delivered
+ORD101326,11/6/2024,CUST0005,Diya Singh,Mixer Grinder,Home,3,3551,0,East,Shipped
+ORD101327,N/A,CUST0030,Rohan Khan,Laptop,Electronics,4,55439,5,South,Delivered
+ORD101328,6/8/2024,CUST0010,Arjun Patel,Smartphone,Electronics,4,22859,,Central,Delivered
+ORD101329,2025-07-25,CUST0144,Meera Patel,Power Bank,Accessories,1,1666,15,South,Cancelled
+ORD101330,2024-06-18,CUST0035,Arjun Singh,Power Bank,Accessories,1,1604,0,North,Returned
+ORD101331,9/2/2024,CUST0059,Sara Nair,Sunglasses,Fashion,3,1636,0,West,Shipped
+ORD101332,8/29/2024,CUST0100,Meera Sharma,Laptop,Electronics,1,53361,5,North,Delivered
+ORD101333,2024-12-26,CUST0038,Diya Nair,Charger,Accessories,1,907,0,West,Delivered
+ORD101333,2024-12-27,CUST0038,Diya Nair,Charger,Accessories,1,907,0,West,Delivered
+ORD101334,N/A,CUST0137,Vivaan Singh,Backpack,Fashion,2,2005,15,West,Delivered
+ORD101335,2024-01-24,CUST0037,Isha Mehta,Phone Case,Accessories,1,493,0,Central,Returned
+ORD101336,2024-02-07,CUST0002,Arjun Das,Mixer Grinder,Home,2,4008,10,North,Delivered
+ORD101337,2024-02-25,CUST0004,  Sara Mehta ,Sneakers,Fashion,2,3464,0,Central,Returned
+ORD101338,2024-08-12,CUST0026,Rohan Patel,Mixer Grinder,Home,4,3959,10,West,Delivered
+ORD101339,3/11/2024,CUST0158,Neel Sharma,LED Lamp,Home,4,1170,0,Central,Delivered
+ORD101340,2024-04-14,CUST0151,Isha Gupta,Mixer Grinder,Home,3,3708,20,North,Returned
+ORD101341,2025-09-30,CUST0100,Meera Sharma,Mixer Grinder,,2,4116,10,Central,Delivered
+ORD101342,2024-11-15,CUST0115,Vivaan Sharma,Air Fryer,,4,5904,15,South,Delivered
+ORD101343,2025-05-27,CUST0011,  Ananya Gupta ,Air Fryer,Home,1,7045,20,North,Delivered
+ORD101344,2024-08-06,CUST0160,Vivaan Nair,Smartwatch,Electronics,2,9217,0,West,Returned
+ORD101345,2024-07-09,CUST0048,Vivaan Gupta,Power Bank,Accessories,2,1466,5,East,Shipped
+ORD101346,2025-03-24,CUST0017,Diya Gupta,Mixer Grinder,Home,4,3790,10,North,Delivered
+ORD101347,2024-08-02,CUST0197,Neel Das,Air Fryer,Home,4,5857,10,South,Cancelled
+ORD101348,1/3/2025,CUST0128,Neel Mehta,Backpack,Fashion,2,1904,0,Central,Cancelled
+ORD101349,2024-01-18,CUST0095,Vivaan Nair,Mixer Grinder,Home,2,3597,20,,Delivered
+ORD101350,2024-02-05,CUST0130,Rohan Reddy,Mixer Grinder,Home,3,3637,,South,Cancelled
+ORD101351,2024-05-06,CUST0115,Vivaan Sharma,Headphones,Accessories,1,2386,10,South,Shipped
+ORD101352,2024-02-07,CUST0200,Sara Sharma,Power Bank,Accessories,2,1666,0,Central,Cancelled
+ORD101353,2025-02-24,CUST0010,Arjun Patel,Sneakers,Fashion,4,3135,0,Central,Delivered
+ORD101354,2024-09-29,CUST0166,Isha Mehta,Sneakers,Fashion,2,3087,,East,Returned
+ORD101355,4/22/2024,CUST0050,Neel Das,Phone Case,Accessories,1,431,10,West,Cancelled
+ORD101356,2024-08-29,CUST0142,Neel Singh,Charger,Accessories,1,837,15,North,Delivered
+ORD101357,2024-06-30,CUST0189,Sara Nair,Smartphone,Electronics,4,23251,15,East,Returned
+ORD101358,12/5/2024,CUST0099,  Meera Reddy ,Air Fryer,Home,0,6904,10,Central,Delivered
+ORD101359,2024-05-18,CUST0083,Kabir Reddy,Mixer Grinder,Home,4,3661,5,West,Cancelled
+ORD101360,2024-01-08,CUST0035,Arjun Singh,Charger,Accessories,3,860,0,West,shipped
+ORD101361,2025-02-22,CUST0026,Rohan Patel,Smartwatch,Electronics,3,9569,0,Central,Delivered
+ORD101362,2024-08-07,CUST0046,Kabir Sharma,Smartphone,Electronics,4,22095,20,Central,Delivered
+ORD101363,2024-03-02,CUST0009,Arjun Sharma,Power Bank,Accessories,2,1480,0,Central,Delivered
+ORD101364,2024-04-01,CUST0088,Diya Patel,Mixer Grinder,,4,4038,5,,Cancelled
+ORD101365,9/19/2025,CUST0146,Meera Singh,Tablet,Electronics,3,17042,0,South,Returned
+ORD101366,2025-06-06,CUST0143,Vivaan Iyer,Sunglasses,,3,1529,0,South,Shipped
+ORD101367,2025-08-03,CUST0031,Arjun Nair,Smartphone,Electronics,1,23633,10,East,Shipped
+ORD101368,5/14/2025,CUST0044,Rohan Nair,Power Bank,Accessories,3,1460,0,North,Cancelled
+ORD101369,2025-01-09,CUST0134,Isha Gupta,Phone Case,Accessories,3,428,0,Central,Delivered
+ORD101370,2025-08-02,CUST0007,Sara Reddy,Smartwatch,Electronics,4,9726,0,South,Cancelled
+ORD101371,2024-08-10,CUST0051,Sara Nair,Air Fryer,Home,1,5909,0,Central,Delivered
+ORD101372,5/3/2024,CUST0123,Sara Das,Air Fryer,Home,4,6951,20,Central,Cancelled
+ORD101373,2024-08-12,CUST0145,Tara Patel,Backpack,Fashion,2,2014,0,North,Delivered
+ORD101374,N/A,CUST0188,Aarav Iyer,Power Bank,Accessories,2,1752,10,West,Delivered
+ORD101375,2025-06-14,CUST0168,Vivaan Iyer,Headphones,Accessories,3,2489,0,South,shipped
+ORD101375,2025-06-15,CUST0168,Vivaan Iyer,Headphones,Accessories,3,2489,0,South,shipped
+ORD101376,2025-02-27,CUST0009,Arjun Sharma,Headphones,Accessories,1,2718,5,South,Delivered
+ORD101377,2025-09-21,CUST0197,  Neel Das ,Tablet,Electronics,3,19013,15,South,cancelled
+ORD101377,2025-09-22,CUST0197,  Neel Das ,Tablet,Electronics,3,19013,15,South,cancelled
+ORD101378,2024-03-28,CUST0114,Tara Nair,Sneakers,Fashion,1,3195,20,Central,Cancelled
+ORD101379,2024-09-14,CUST0215,  Isha Mehta ,Charger,Accessories,2,883,15,Central,Returned
+ORD101380,2024-12-07,CUST0047,Rohan Nair,Air Fryer,Home,2,5964,20,South,Cancelled
+ORD101381,2024-02-26,CUST0048,Vivaan Gupta,Phone Case,Accessories,4,445,5,South,Returned
+ORD101382,2025-07-01,CUST0009,Arjun Sharma,Smartwatch,Electronics,0,8706,0,Central,Delivered
+ORD101383,2024-11-03,CUST0067,Kabir Sharma,Sunglasses,Fashion,3,1529,20,West,Delivered
+ORD101384,1/21/2025,CUST0036,Rohan Reddy,Charger,Accessories,3,922,15,North,Delivered
+ORD101385,2/7/2024,CUST0058,  Diya Patel ,Headphones,,2,2650,0,West,Cancelled
+ORD101386,1/7/2025,CUST0190,Diya Das,Air Fryer,Home,3,6119,20,West,Delivered
+ORD101386,2025-01-08,CUST0190,Diya Das,Air Fryer,Home,3,6119,20,West,Delivered
+ORD101387,9/10/2024,CUST0086,Sara Singh,LED Lamp,Home,2,1214,0,North,Returned
+ORD101388,2025-05-22,CUST0009,Arjun Sharma,Mixer Grinder,Home,1,3849,0,South,delivered
+ORD101389,2025-05-13,CUST0212,Isha Gupta,Mixer Grinder,Home,1,3470,10,East,Returned
+ORD101390,2025-03-07,CUST0148,Kabir Iyer,Backpack,Fashion,2,2013,10,West,Shipped
+ORD101391,2025-04-20,CUST0137,  Vivaan Singh ,Smartwatch,Electronics,2,9513,0,South,Delivered
+ORD101392,2024-04-04,CUST0158,Neel Sharma,Charger,Accessories,2,877,0,West,
+ORD101393,2024-03-27,CUST0132,  Ananya Singh ,Backpack,Fashion,1,1800,0,South,Delivered
+ORD101394,5/26/2024,CUST0076,  Kabir Sharma ,Backpack,Fashion,3,1916,0,East,Cancelled
+ORD101395,12/25/2024,CUST0054,Rohan Sharma,Charger,Accessories,4,823,0,Central,delivered
+ORD101396,4/10/2024,CUST0102,Tara Singh,Mixer Grinder,Home,0,3558,0,West,Returned
+ORD101397,2024-08-07,CUST0102,Tara Singh,Headphones,Accessories,4,2585,5,South,Shipped
+ORD101398,2024-07-15,CUST0197,Neel Das,Laptop,Electronics,2,59440,15,East,Delivered
+ORD101399,2024-07-19,CUST0012,Tara Reddy,Smartwatch,Electronics,2,9716,0,South,Delivered
+ORD101400,2024-08-20,CUST0156,Rohan Mehta,Phone Case,Accessories,1,465,20,North,Shipped
+ORD101401,2024-02-26,CUST0015,Meera Das,Sneakers,Fashion,2,3352,15,East,Shipped
+ORD101402,10/19/2024,CUST0116,Diya Khan,Phone Case,Accessories,3,428,5,East,Shipped
+ORD101403,2025-03-06,CUST0138,  Arjun Patel ,Smartphone,Electronics,4,23671,5,,Delivered
+ORD101404,2024-07-16,CUST0189,Sara Nair,Laptop,,2,53956,0,South,Delivered
+ORD101405,2024-10-30,CUST0199,Neel Gupta,Backpack,Fashion,3,1928,10,Central,Delivered
+ORD101406,2024-12-21,CUST0161,Isha Iyer,Headphones,Accessories,3,2403,15,North,Returned
+ORD101407,2024-03-31,CUST0027,Tara Patel,Sneakers,Fashion,2,3049,0,West,Shipped
+ORD101408,2025-05-15,CUST0040,Tara Gupta,Headphones,Accessories,4,2689,0,East,Delivered
+ORD101409,2025-05-18,CUST0176,Aarav Khan,Smartwatch,Electronics,4,9609,10,West,Delivered
+ORD101410,2025-09-12,CUST0095,Vivaan Nair,Mixer Grinder,Home,4,3476,5,South,Cancelled
+ORD101411,10/27/2024,CUST0143,Vivaan Iyer,Smartwatch,Electronics,2,9000,15,South,Cancelled
+ORD101412,2024-08-24,CUST0162,Sara Iyer,Laptop,Electronics,3,60005,15,East,Returned
+ORD101413,2/14/2024,CUST0174,Arjun Das,Sneakers,Fashion,2,3255,0,Central,Cancelled
+ORD101414,2024-01-08,CUST0053,Diya Khan,Smartphone,Electronics,1,21812,15,West,Cancelled
+ORD101415,2025-07-14,CUST0044,Rohan Nair,Backpack,Fashion,3,2042,0,Central,Delivered
+ORD101416,2024-08-07,CUST0088,Diya Patel,Headphones,Accessories,3,2747,0,North,Shipped
+ORD101417,2024-11-27,CUST0130,  Rohan Reddy ,Power Bank,Accessories,1,1493,20,North,Delivered
+ORD101418,2025-04-13,CUST0159,Vivaan Singh,Mixer Grinder,Home,2,3683,20,North,Returned
+ORD101419,2024-03-09,CUST0028,Vivaan Gupta,LED Lamp,,3,1128,0,West,Delivered
+ORD101420,2025-06-14,CUST0202,Aarav Iyer,LED Lamp,Home,3,1197,5,West,Returned
+ORD101421,2025-03-07,CUST0137,Vivaan Singh,Sneakers,Fashion,4,3009,15,Central,Cancelled
+ORD101422,2025-10-01,CUST0164,Aarav Patel,Sneakers,Fashion,3,3068,10,West,Delivered
+ORD101423,2024-07-03,CUST0046,Kabir Sharma,Smartwatch,,3,9142,10,East,Shipped
+ORD101424,2024-07-26,CUST0011,Ananya Gupta,Air Fryer,Home,3,6200,15,East,Delivered
+ORD101425,2024-10-10,CUST0128,Neel Mehta,Charger,Accessories,1,922,20,South,Cancelled
+ORD101426,8/6/2025,CUST0199,  Neel Gupta ,Backpack,Fashion,1,1999,0,South,Delivered
+ORD101427,2025-01-12,CUST0058,Diya Patel,Laptop,Electronics,2,51748,0,Central,Delivered
+ORD101428,2024-11-08,CUST0165,Aarav Patel,Backpack,Fashion,2,1819,20,North,Returned
+ORD101429,8/9/2025,CUST0131,Tara Gupta,LED Lamp,Home,2,1266,20,South,Delivered
+ORD101430,2024-11-22,CUST0217,Vivaan Khan,Backpack,Fashion,2,2061,0,West,Cancelled
+ORD101431,2025-04-05,CUST0069,Vivaan Khan,Mixer Grinder,Home,1,3619,5,West,Cancelled
+ORD101432,2024-06-29,CUST0093,Meera Patel,Laptop,,4,59765,5,Central,Returned
+ORD101433,2024-01-11,CUST0205,Ananya Khan,Charger,Accessories,4,913,0,Central,shipped
+ORD101434,2025-06-03,CUST0112,  Kabir Nair ,Backpack,Fashion,2,1720,0,Central,Shipped
+ ,2024-05-13,CUST0075,Sara Singh,Sneakers,Fashion,3,3430,5,North,Delivered
+ORD101436,2024-09-09,CUST0057,  Isha Nair ,Mixer Grinder,Home,2,4140,0,North,Cancelled
+ORD101437,2025-08-26,CUST0060,Vivaan Sharma,Headphones,Accessories,3,2613,0,Central,Cancelled
+ORD101438,2024-04-03,CUST0072,Kabir Patel,Power Bank,Accessories,3,1542,0,East,delivered
+ORD101439,2024-11-28,CUST0130,Rohan Reddy,Sneakers,Fashion,1,2904,0,South,Cancelled
+ORD101440,2025-09-25,CUST0132,Ananya Singh,LED Lamp,Home,2,1289,0,North,Shipped
+ORD101441,2024-10-07,CUST0119,Aarav Khan,Phone Case,Accessories,4,408,15,North,Delivered
+ORD101442,6/3/2025,CUST0061,Neel Khan,Phone Case,Accessories,3,454,15,Central,Delivered
+ORD101443,2025-09-15,CUST0092,Meera Reddy,LED Lamp,Home,3,1281,0,South,Delivered
+ORD101444,2025-05-12,CUST0082,Meera Reddy,Sneakers,Fashion,3,2924,10,East,Returned
+ORD101445,2025-07-05,CUST0065,Neel Singh,Air Fryer,Home,2,6771,20,East,Delivered
+ORD101446,2024-01-31,CUST0205,Ananya Khan,Laptop,Electronics,2,60435,0,Central,Delivered
+ORD101447,2024-10-31,CUST0162,Sara Iyer,Smartwatch,Electronics,3,8881,15,,Returned
+ORD101448,2024-08-27,CUST0138,Arjun Patel,Backpack,Fashion,1,1829,0,Central,delivered
+ORD101449,2/22/2024,CUST0154,Vivaan Patel,Laptop,Electronics,4,58716,0,West,Shipped
+ORD101450,2024-07-14,CUST0079,Diya Nair,Charger,Accessories,2,831,0,South,Delivered
+ORD101450,2024-07-15,CUST0079,Diya Nair,Charger,Accessories,2,831,0,South,Delivered
+ORD101451,2024-02-09,CUST0219,Arjun Patel,Tablet,Electronics,2,17365,20,North,Delivered
+ORD101452,2025-09-28,CUST0016,Meera Mehta,Mixer Grinder,Home,4,4131,5,East,Shipped
+ORD101453,4/21/2024,CUST0008,Diya Singh,Charger,Accessories,2,956,15,East,Delivered
+ORD101454,2025-06-23,CUST0214,Rohan Khan,Mixer Grinder,Home,1,3956,5,North,Cancelled
+ORD101455,2024-06-12,CUST0163,Arjun Khan,Mixer Grinder,Home,1,3864,10,South,Delivered
+ORD101456,2024-10-15,CUST0160,  Vivaan Nair ,Phone Case,Accessories,1,452,0,West,Shipped
+ORD101456,2024-10-16,CUST0160,  Vivaan Nair ,Phone Case,Accessories,1,452,0,West,Shipped
+ORD101457,2025-08-21,CUST0176,Aarav Khan,Sunglasses,Fashion,2,1613,15,West,Shipped
+ORD101458,2025-02-08,CUST0103,Vivaan Patel,Sunglasses,Fashion,4,1537,10,Central,Delivered
+ORD101459,6/4/2024,CUST0159,Vivaan Singh,Air Fryer,Home,1,6103,15,,delivered
+ORD101460,2024-10-20,CUST0134,Isha Gupta,Phone Case,Accessories,1,424,0,West,Cancelled
+ORD101461,2024-05-16,CUST0071,Aarav Patel,Laptop,Electronics,1,57634,0,East,Cancelled
+ORD101462,2025-01-01,CUST0172,  Rohan Singh ,Laptop,Electronics,3,50891,15,East,Cancelled
+ORD101463,2025-06-26,CUST0127,Tara Gupta,Mixer Grinder,,2,3732,0,West,Shipped
+ORD101464,2024-06-17,CUST0105,  Meera Gupta ,LED Lamp,Home,4,1197,0,South,Cancelled
+ORD101465,2024-01-26,CUST0003,Ananya Mehta,Phone Case,Accessories,2,425,0,East,Delivered
+ORD101466,1/15/2024,CUST0027,Tara Patel,Mixer Grinder,Home,0,3959,0,South,Delivered
+ORD101466,2024-01-16,CUST0027,Tara Patel,Mixer Grinder,Home,0,3959,0,South,Delivered
+ORD101467,2024-07-29,CUST0015,Meera Das,Smartwatch,Electronics,1,8481,0,Central,Shipped
+ORD101468,2025-01-05,CUST0149,Neel Mehta,Tablet,Electronics,4,18424,5,East,Delivered
+ORD101469,2025-01-10,CUST0022,Kabir Reddy,Charger,Accessories,4,811,5,North,Returned
+ORD101470,2025-02-13,CUST0017,Diya Gupta,Backpack,,3,1917,15,South,Returned
+ORD101471,2025-09-26,CUST0197,Neel Das,Smartwatch,Electronics,4,9556,0,East,Returned
+ORD101472,2025-06-12,CUST0218,Ananya Patel,Air Fryer,Home,3,6616,,North,Cancelled
+ORD101473,2025-08-14,CUST0216,Neel Reddy,Air Fryer,Home,1,6343,20,West,delivered
+ORD101474,2024-12-07,CUST0171,Kabir Khan,LED Lamp,Home,2,1193,10,North,Shipped
+ORD101475,2025-01-20,CUST0008,Diya Singh,Tablet,Electronics,1,16952,15,East,Delivered
+ORD101476,2025-03-25,CUST0133,Isha Iyer,Charger,Accessories,3,924,0,East,Cancelled
+ORD101477,2025-01-22,CUST0028,Vivaan Gupta,Power Bank,Accessories,1,1478,10,North,Delivered
+ORD101478,4/16/2025,CUST0026,Rohan Patel,Smartphone,Electronics,2,22192,0,East,Delivered
+ORD101479,2025-02-02,CUST0155,Isha Nair,LED Lamp,Home,2,1283,0,North,Returned
+ORD101480,2024-02-01,CUST0023,Isha Reddy,Backpack,Fashion,2,1831,15,East,Delivered
+ORD101481,2024-01-29,CUST0112,,Charger,Accessories,3,882,0,West,Shipped
+ORD101482,2025-09-19,CUST0010,Arjun Patel,LED Lamp,Home,2,1116,20,South,Delivered
+ORD101483,2024-06-12,CUST0180,Kabir Mehta,Sunglasses,Fashion,1,1433,0,Central,Delivered
+ORD101484,2024-01-29,CUST0119,Aarav Khan,Smartphone,Electronics,4,20577,0,Central,Delivered
+ORD101485,2025-04-11,CUST0146,Meera Singh,Smartwatch,Electronics,3,9473,0,East,Delivered
+ORD101486,2025-05-19,CUST0201,Diya Das,Phone Case,Accessories,3,467,0,East,Delivered
+ORD101487,2024-07-12,CUST0013,Meera Patel,Backpack,Fashion,3,2067,20,North,Delivered
+ORD101488,2025-03-18,CUST0126,Vivaan Sharma,Phone Case,Accessories,2,489,5,Central,Cancelled
+ORD101489,2024-05-22,CUST0053,Diya Khan,Charger,Accessories,2,836,0,East,Delivered
+ORD101490,2025-07-18,CUST0195,Isha Patel,Mixer Grinder,Home,4,4043,5,East,Delivered
+ORD101491,2025-06-16,CUST0110,  Kabir Gupta ,Headphones,Accessories,4,2729,5,,Delivered
+ORD101492,2025-02-10,CUST0142,Neel Singh,Air Fryer,Home,2,6218,20,East,Returned
+ORD101493,2025-10-01,CUST0037,Isha Mehta,Sunglasses,Fashion,2,1647,5,East,Delivered
+ORD101494,7/24/2025,CUST0091,Arjun Mehta,Mixer Grinder,Home,2,3598,15,Central,Shipped
+ORD101495,2025-02-28,CUST0166,Isha Mehta,Phone Case,Accessories,4,409,10,Central,Delivered
+ORD101496,2024-06-30,CUST0057,Isha Nair,LED Lamp,Home,4,1125,0,West,Delivered
+ORD101497,2024-02-21,CUST0077,Meera Das,Smartphone,Electronics,4,21614,10,North,Delivered
+ORD101498,2024-09-09,CUST0169,Tara Gupta,Air Fryer,Home,3,5930,0,South,Delivered
+ORD101498,2024-09-10,CUST0169,Tara Gupta,Air Fryer,Home,3,5930,0,South,Delivered
+ORD101499,2025-02-26,CUST0165,Aarav Patel,Sunglasses,Fashion,1,1476,0,South,Shipped
+ORD101500,2024-06-06,CUST0060,Vivaan Sharma,LED Lamp,Home,4,1274,0,South,Cancelled

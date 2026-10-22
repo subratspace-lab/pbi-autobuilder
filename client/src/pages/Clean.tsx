@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Plus, Wand2 } from 'lucide-react';
+import { FileCode2, Plus, Wand2 } from 'lucide-react';
 import type { CleaningOp, CleaningOpKind, CleaningResult, ColumnType, TableCleaning } from '@shared/types';
 import { api } from '../api/client';
 import { useStore } from '../store/projectStore';
@@ -19,6 +19,8 @@ export function CleanPage() {
   const [result, setResult] = useState<CleaningResult | null>(null);
   const [view, setView] = useState<'after' | 'before' | 'm' | 'types'>('after');
   const [justAdded, setJustAdded] = useState<string | null>(null);
+  const [scriptNotes, setScriptNotes] = useState<{ file: string; notes: string[] } | null>(null);
+  useEffect(() => setScriptNotes(null), [table]);
   const saveTimer = useRef<number>();
 
   useEffect(() => {
@@ -115,6 +117,36 @@ export function CleanPage() {
         )}
       </div>
 
+      {(project.scripts ?? [])
+        .filter((s) => s.table === table)
+        .map((s) => (
+          <div key={s.fileName} className="card mb-4 flex flex-wrap items-center gap-3 border-sky-200 bg-sky-50/60 p-4">
+            <FileCode2 className="h-6 w-6 shrink-0 text-sky-600" />
+            <div className="min-w-0 flex-1 text-sm">
+              <div className="font-semibold text-slate-900">
+                {s.fileName} <span className="font-normal text-slate-500">({s.language === 'sql' ? 'SQL' : 'Python'} script for this table)</span>
+              </div>
+              <div className="text-slate-600">Translate its cleaning logic into the steps below — replaces the current steps of “{table}”.</div>
+            </div>
+            <button
+              className="btn-primary"
+              disabled={busy.applyScript}
+              onClick={async () => {
+                if (ops.length && !confirm(`Replace the ${ops.length} current step(s) with the steps from ${s.fileName}?`)) return;
+                const res = await run('applyScript', () => api.applyScript(project.id, s.fileName, table));
+                if (res) {
+                  setProject(res.project);
+                  setScriptNotes({ file: s.fileName, notes: res.notes });
+                  toast('success', `${res.steps} steps created from ${s.fileName}`);
+                  await load();
+                }
+              }}
+            >
+              {busy.applyScript ? <Spinner /> : <FileCode2 className="h-4 w-4" />} Apply script steps
+            </button>
+          </div>
+        ))}
+      {scriptNotes && <Notice tone="blue" title={`Not translated from ${scriptNotes.file} (review these by hand)`} items={scriptNotes.notes} />}
       {result && <Notice title="Some steps were skipped" items={result.warnings} />}
 
       <div className="grid gap-6 xl:grid-cols-[minmax(340px,420px)_1fr]">

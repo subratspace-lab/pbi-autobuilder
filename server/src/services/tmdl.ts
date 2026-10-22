@@ -158,25 +158,24 @@ const CHUNK = 60_000;
  * "Enter data"): JSON rows, deflate-compressed, base64. No file path needed.
  * The last step keeps the name "Promoted Headers" so all cleaning steps still apply.
  */
-export function embeddedSourceSteps(raw: RawData): { name: string; expr: string }[] {
+export function embeddedSourceSteps(raw: RawData, lastName = 'Promoted Headers'): { name: string; expr: string }[] {
+  const first = lastName === 'Source' ? 'Embedded Data' : 'Source';
   const b64 = zlib.deflateRawSync(Buffer.from(JSON.stringify(raw.rows), 'utf8'), { level: 9 }).toString('base64');
   const chunks: string[] = [];
   for (let i = 0; i < b64.length; i += CHUNK) chunks.push(`"${b64.slice(i, i + CHUNK)}"`);
   return [
     {
-      name: 'Source',
+      name: first,
       expr: `Binary.Decompress(Binary.FromText(Text.Combine({${chunks.join(',\n        ')}}), BinaryEncoding.Base64), Compression.Deflate)`,
     },
-    { name: 'Promoted Headers', expr: `Table.FromRows(Json.Document(#"Source", 65001), ${mStringList(raw.headers)})` },
+    { name: lastName, expr: `Table.FromRows(Json.Document(#${mString(first)}, 65001), ${mStringList(raw.headers)})` },
   ];
 }
 
-/** Replace the file-reading steps (everything up to "Promoted Headers") with other source steps. */
-function withSource(steps: { name: string; expr: string }[], source?: { name: string; expr: string }[]) {
-  if (!source) return steps;
-  const k = steps.findIndex((s) => s.name === 'Promoted Headers');
-  if (k < 0) throw new Error('Cleaning steps have no "Promoted Headers" step');
-  return [...source, ...steps.slice(k + 1)];
+/** Replace the source-reading steps with other source steps (e.g. embedded data). */
+function withSource(pipe: PipelineOutput, source?: { name: string; expr: string }[]) {
+  if (!source) return pipe.steps;
+  return [...source, ...pipe.steps.slice(pipe.sourceStepCount)];
 }
 
 /**
@@ -198,7 +197,7 @@ export function buildTableQueries(
 
   for (const source of new Set([...model.tables.map((t) => t.source), ...merged])) {
     if ((consumers.get(source) ?? 0) > 1) {
-      expressions.push({ name: stagingName(source), m: mLet(withSource(pipelines.get(source)!.steps, embedded?.get(source))) });
+      expressions.push({ name: stagingName(source), m: mLet(withSource(pipelines.get(source)!, embedded?.get(source))) });
     }
   }
 
@@ -209,7 +208,7 @@ export function buildTableQueries(
       const steps = [{ name: 'Source', expr: mId(stagingName(t.source)) }, ...shape];
       tables.set(t.name, mLet(steps));
     } else {
-      const steps = withSource(cleaned.steps, embedded?.get(t.source));
+      const steps = withSource(cleaned, embedded?.get(t.source));
       const shape = shapeSteps(t, cleaned, steps[steps.length - 1].name);
       tables.set(t.name, mLet([...steps, ...shape]));
     }
