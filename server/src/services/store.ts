@@ -1,16 +1,54 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Project, ProjectSummary, SourceTable, TableCleaning } from '../../../shared/types.js';
 import { WORKSPACE } from './paths.js';
 import { loadRawTable, type RawTable } from './ingest.js';
 import { runPipeline, type PipelineOutput } from './cleaning.js';
 
 const PROJECTS = path.join(WORKSPACE, 'projects');
+const VISITORS = path.join(WORKSPACE, 'visitors');
+
+/** Online demo: each visitor (a random id kept in their browser) gets their own empty workspace. */
+const visitorScope = new AsyncLocalStorage<string>();
+
+export function withVisitor<T>(visitor: string, fn: () => T): T {
+  return visitorScope.run(visitor, fn);
+}
+
+function projectsRoot() {
+  const visitor = visitorScope.getStore();
+  return visitor ? path.join(VISITORS, visitor, 'projects') : PROJECTS;
+}
+
+/** Delete visitor workspaces nobody has touched for `maxAgeMs` (keeps the demo server's disk small). */
+export function removeIdleVisitors(maxAgeMs: number) {
+  if (!fs.existsSync(VISITORS)) return;
+  const cutoff = Date.now() - maxAgeMs;
+  for (const visitor of fs.readdirSync(VISITORS)) {
+    const dir = path.join(VISITORS, visitor);
+    const projects = path.join(dir, 'projects');
+    const times = [fs.statSync(dir).mtimeMs];
+    if (fs.existsSync(projects)) {
+      for (const p of fs.readdirSync(projects)) {
+        const file = path.join(projects, p, 'project.json');
+        if (fs.existsSync(file)) times.push(fs.statSync(file).mtimeMs);
+      }
+    }
+    if (Math.max(...times) < cutoff) {
+      fs.rmSync(dir, { recursive: true, force: true });
+      for (const key of [...rawCache.keys(), ...pipelineCache.keys()]) {
+        const id = key.split(':')[0];
+        if (!fs.existsSync(path.join(projects, id))) (rawCache.delete(key), pipelineCache.delete(key));
+      }
+    }
+  }
+}
 
 export function projectDir(id: string) {
   if (!/^[a-z0-9-]+$/i.test(id)) throw new Error('Invalid project id');
-  return path.join(PROJECTS, id);
+  return path.join(projectsRoot(), id);
 }
 
 export function dataDir(id: string) {
@@ -22,10 +60,11 @@ export function briefDir(id: string) {
 }
 
 export function listProjects(): ProjectSummary[] {
-  if (!fs.existsSync(PROJECTS)) return [];
+  const root = projectsRoot();
+  if (!fs.existsSync(root)) return [];
   return fs
-    .readdirSync(PROJECTS)
-    .filter((d) => fs.existsSync(path.join(PROJECTS, d, 'project.json')))
+    .readdirSync(root)
+    .filter((d) => fs.existsSync(path.join(root, d, 'project.json')))
     .map((d) => {
       const p = getProject(d);
       return { id: p.id, name: p.name, updatedAt: p.updatedAt, tables: p.tables.length };

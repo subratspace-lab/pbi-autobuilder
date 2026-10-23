@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import path from 'node:path';
 import type { LlmSettings } from '../../../shared/types.js';
 import { WORKSPACE } from './paths.js';
@@ -20,12 +21,33 @@ export const PROVIDER_PRESETS: Record<LlmSettings['provider'], { baseUrl: string
 
 const FILE = path.join(WORKSPACE, 'settings.json');
 
+/**
+ * Online demo (HOSTED=true): every visitor brings their own AI key. It stays in their browser,
+ * arrives with each request and is used for that request only — nothing is saved on the server.
+ */
+export const isHosted = () => /^(1|true|yes)$/i.test(process.env.HOSTED ?? '');
+
+const requestAi = new AsyncLocalStorage<Partial<StoredSettings>>();
+
+/** Run `fn` with the AI settings a visitor's browser sent (hosted mode). */
+export function withRequestSettings<T>(values: Partial<StoredSettings>, fn: () => T): T {
+  return requestAi.run(values, fn);
+}
+
+function visitorSettings(): StoredSettings {
+  const v = requestAi.getStore() ?? {};
+  const provider = v.provider && v.provider in PROVIDER_PRESETS ? v.provider : 'gemini';
+  const preset = PROVIDER_PRESETS[provider];
+  return { provider, baseUrl: v.baseUrl || preset.baseUrl, model: v.model || preset.model, apiKey: v.apiKey || '' };
+}
+
 function guessProvider(url: string): LlmSettings['provider'] {
   for (const [k, v] of Object.entries(PROVIDER_PRESETS)) if (v.baseUrl && url.startsWith(v.baseUrl)) return k as LlmSettings['provider'];
   return 'custom';
 }
 
 export function loadSettings(): StoredSettings {
+  if (isHosted()) return visitorSettings();
   if (fs.existsSync(FILE)) {
     try {
       return JSON.parse(fs.readFileSync(FILE, 'utf8')) as StoredSettings;
@@ -50,6 +72,8 @@ export function saveSettings(update: Partial<StoredSettings>): StoredSettings {
   };
   // An empty key in the form means "keep the existing key".
   if (update.apiKey === '') next.apiKey = current.apiKey;
+  // Hosted: the visitor's browser keeps the settings; never write a key to the server's disk.
+  if (isHosted()) return next;
   fs.mkdirSync(WORKSPACE, { recursive: true });
   fs.writeFileSync(FILE, JSON.stringify(next, null, 2));
   return next;
@@ -62,5 +86,6 @@ export function publicSettings(s: StoredSettings): LlmSettings {
     model: s.model,
     hasApiKey: Boolean(s.apiKey) || s.provider === 'ollama',
     apiKeyHint: s.apiKey ? `••••${s.apiKey.slice(-4)}` : undefined,
+    hosted: isHosted() || undefined,
   };
 }

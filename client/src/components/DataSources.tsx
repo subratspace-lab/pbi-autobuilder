@@ -177,6 +177,7 @@ export function PathLoader({ initial, suggestions = [], onLoaded }: { initial?: 
 /** What a script says about where its data lives, with the matching action. */
 export function ScriptSource({ script, onLoaded }: { script: TransformScript; onLoaded: Loaded }) {
   const { project } = useStore();
+  const hosted = useStore((s) => s.settings?.hosted);
   const [info, setInfo] = useState<{ connection: ScriptConnection; candidates: Record<string, string[]> } | null>(null);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -208,9 +209,13 @@ export function ScriptSource({ script, onLoaded }: { script: TransformScript; on
                 · database <b className="font-mono">{c.database}</b>
               </span>
             )}
-            <button className="btn-ghost px-2 py-0.5 text-xs text-brand-600" onClick={() => setOpen(!open)}>
-              {open ? 'Hide' : fromServer ? 'Reload from server' : 'Connect & load'}
-            </button>
+            {hosted ? (
+              <span className="text-slate-400">(upload the data as CSV / Excel in the online demo)</span>
+            ) : (
+              <button className="btn-ghost px-2 py-0.5 text-xs text-brand-600" onClick={() => setOpen(!open)}>
+                {open ? 'Hide' : fromServer ? 'Reload from server' : 'Connect & load'}
+              </button>
+            )}
           </div>
           {open && (
             <div className="mt-2">

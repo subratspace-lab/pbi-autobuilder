@@ -7,6 +7,7 @@ import { NextStep } from '../components/Layout';
 
 export function ExportPage() {
   const { project, setProject, run, busy, toast } = useStore();
+  const hosted = useStore((s) => s.settings?.hosted);
   const [fileName, setFileName] = useState('');
   const [dataFolder, setDataFolder] = useState('');
   const [embedData, setEmbedData] = useState(true);
@@ -138,6 +139,7 @@ export function ExportPage() {
             <a className="btn-primary" href={api.downloadUrl(project.id)}>
               <Download className="h-4 w-4" /> Download .zip
             </a>
+            {!hosted && <>
             <button className="btn-secondary" disabled={busy.open} onClick={openPbi}>
               {busy.open ? <Spinner /> : <ExternalLink className="h-4 w-4" />} Open in Power BI Desktop
             </button>
@@ -149,6 +151,8 @@ export function ExportPage() {
                 {status.powerBiDesktop ? '✓ Power BI Desktop found on this PC' : 'Power BI Desktop not detected — the file opens with its default app'}
               </span>
             )}
+            </>}
+            {hosted && <span className="text-xs text-slate-500">Online demo: download the zip, extract it and open the .pbip file in Power BI Desktop.</span>}
           </div>
         </div>
       )}

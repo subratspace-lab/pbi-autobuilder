@@ -15,6 +15,7 @@ import {
   listProjects,
   refreshCleanedSchemas,
   saveProject,
+  withVisitor,
 } from '../services/store.js';
 import { describeDataFile, isBriefFile, isDataFile, readBriefFile } from '../services/ingest.js';
 import { detectScriptTable, scriptColumns, scriptLanguage, scriptText, translateScript } from '../services/scripts.js';
@@ -30,6 +31,7 @@ import { layoutPage, normalizeVisual, reportPages } from '../services/report.js'
 import { exportLocation, exportProject } from '../services/pbipWriter.js';
 import { findPowerBiDesktop, openFolder, openInPowerBi } from '../services/opener.js';
 import { APP_ROOT } from '../services/paths.js';
+import { isHosted } from '../services/settings.js';
 import {
   MASTER,
   collectionsAnalysis,
@@ -44,13 +46,28 @@ import {
 export const projects = Router();
 
 type Handler = (req: Request, res: Response) => Promise<unknown> | unknown;
+/**
+ * Online demo: run in this visitor's workspace. Set again here because upload parsing (multer)
+ * loses the async context the server middleware started.
+ */
+const inVisitor = <T>(res: Response | undefined, fn: () => T): T => {
+  const visitor = res?.locals.visitor as string | undefined;
+  return visitor ? withVisitor(visitor, fn) : fn();
+};
+
 const h = (fn: Handler) => (req: Request, res: Response, next: NextFunction) => {
-  Promise.resolve(fn(req, res)).then((out) => {
-    if (out !== undefined && !res.headersSent) res.json(out);
-  }, next);
+  Promise.resolve()
+    .then(() => inVisitor(res, () => fn(req, res)))
+    .then((out) => {
+      if (out !== undefined && !res.headersSent) res.json(out);
+    }, next);
 };
 
 const fail = (status: number, message: string) => Object.assign(new Error(message), { status });
+
+/** Features that act on the PC running the app: off in the online demo. */
+const localOnly = (_req: Request, _res: Response, next: NextFunction) =>
+  next(isHosted() ? fail(403, 'Not available in the online demo — SQL Server, file paths and opening Power BI Desktop need the app running on your own PC') : undefined);
 
 function load(req: Request) {
   return getProject(req.params.id);
@@ -116,7 +133,7 @@ projects.patch('/:id', h((req) => {
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, _file, cb) => {
-      const dir = path.join(dataDir(req.params.id), '..', 'incoming');
+      const dir = inVisitor(req.res, () => path.join(dataDir(req.params.id), '..', 'incoming'));
       fs.mkdirSync(dir, { recursive: true });
       cb(null, dir);
     },
@@ -162,7 +179,7 @@ projects.post(
         p.scripts = [...(p.scripts ?? []).filter((x) => x.fileName !== name), script];
         newScripts.push(script);
         // If the script says where its data is (SQL Server details or a full file path), load it now.
-        const auto = await autoLoadFromScript(p, script);
+        const auto = isHosted() ? { loaded: [], notes: [] } : await autoLoadFromScript(p, script);
         if (auto.loaded.length) {
           dataLoaded = true;
           warnings.push(`${name}: loaded ${auto.loaded.join('; ')}`);
@@ -334,11 +351,11 @@ projects.get('/:id/scripts/:file/connection', h((req) => {
   const script = p.scripts?.find((x) => x.fileName === req.params.file);
   if (!script) throw fail(404, 'Script not found');
   const connection = detectConnection(script);
-  const candidates = Object.fromEntries(connection.files.filter((f) => !/^[A-Za-z]:[\\/]|^\\\\|^\//.test(f)).map((f) => [f, findCandidates(f)]));
+  const candidates = isHosted() ? {} : Object.fromEntries(connection.files.filter((f) => !/^[A-Za-z]:[\\/]|^\\\\|^\//.test(f)).map((f) => [f, findCandidates(f)]));
   return { connection, candidates };
 }));
 
-projects.post('/:id/sql/test', h(async (req) => {
+projects.post('/:id/sql/test', localOnly, h(async (req) => {
   const p = load(req);
   const conn = connFromBody(req.body);
   try {
@@ -350,7 +367,7 @@ projects.post('/:id/sql/test', h(async (req) => {
   }
 }));
 
-projects.post('/:id/sql/tables', h(async (req) => {
+projects.post('/:id/sql/tables', localOnly, h(async (req) => {
   const p = load(req);
   const conn = connFromBody(req.body);
   try {
@@ -366,7 +383,7 @@ projects.post('/:id/sql/tables', h(async (req) => {
   }
 }));
 
-projects.post('/:id/sql/import', h(async (req) => {
+projects.post('/:id/sql/import', localOnly, h(async (req) => {
   const p = load(req);
   const conn = connFromBody(req.body);
   const items = (Array.isArray(req.body?.items) ? req.body.items : []) as { table?: string; query?: string; name?: string }[];
@@ -388,7 +405,7 @@ projects.post('/:id/sql/import', h(async (req) => {
   return { project: saveProject(p), loaded, warnings };
 }));
 
-projects.post('/:id/files/from-path', h((req) => {
+projects.post('/:id/files/from-path', localOnly, h((req) => {
   const p = load(req);
   const filePath = String(req.body?.path ?? '').trim();
   if (!filePath) throw fail(400, 'Enter the full path of the file, e.g. C:\\Data\\sales.csv');
@@ -404,7 +421,7 @@ projects.post('/:id/files/from-path', h((req) => {
 }));
 
 /** Reload a SQL Server table (Windows sign-in, or the password typed now / written in a script). */
-projects.post('/:id/tables/:table/refresh', h(async (req) => {
+projects.post('/:id/tables/:table/refresh', localOnly, h(async (req) => {
   const p = load(req);
   const table = p.tables.find((t) => t.name === req.params.table);
   if (!table?.sql) throw fail(400, 'Only SQL Server tables can be refreshed — re-upload files instead');
@@ -607,7 +624,7 @@ projects.get('/:id/export/status', h((req) => {
 
 projects.get('/:id/export/download', (req, res, next) => {
   try {
-    const loc = existingExport(getProject(req.params.id));
+    const loc = inVisitor(res, () => existingExport(getProject(req.params.id)));
     if (!fs.existsSync(loc.zipPath)) throw fail(404, 'Generate the project again to create the zip');
     res.download(loc.zipPath, path.basename(loc.zipPath));
   } catch (e) {
@@ -615,7 +632,7 @@ projects.get('/:id/export/download', (req, res, next) => {
   }
 });
 
-projects.post('/:id/export/open', h(async (req) => {
+projects.post('/:id/export/open', localOnly, h(async (req) => {
   const loc = existingExport(load(req));
   if (req.body?.target === 'pbip') {
     const res = await openInPowerBi(loc.projectFile);

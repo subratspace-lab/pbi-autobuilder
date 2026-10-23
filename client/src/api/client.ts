@@ -17,10 +17,62 @@ import type {
   ExportCheck,
 } from '@shared/types';
 
+export interface AiForm {
+  provider: string;
+  baseUrl: string;
+  model: string;
+  apiKey: string;
+}
+
+const AI_KEY = 'pbi-autobuilder.ai';
+
+/** Online demo: this visitor's AI settings, kept only in their browser. */
+export function browserAi(): Partial<AiForm> {
+  try {
+    return JSON.parse(localStorage.getItem(AI_KEY) ?? '{}') as Partial<AiForm>;
+  } catch {
+    return {};
+  }
+}
+
+export function rememberBrowserAi(form: AiForm) {
+  const apiKey = form.apiKey || browserAi().apiKey || '';
+  try {
+    localStorage.setItem(AI_KEY, JSON.stringify({ ...form, apiKey }));
+  } catch {
+    /* storage blocked: the settings last for this request only */
+  }
+}
+
+const VISITOR_KEY = 'pbi-autobuilder.visitor';
+let tabVisitor: string | undefined;
+
+/** Random id for this browser: in the online demo each visitor sees only their own projects. */
+function visitorId(): string {
+  try {
+    let id = localStorage.getItem(VISITOR_KEY);
+    if (!id) localStorage.setItem(VISITOR_KEY, (id = crypto.randomUUID()));
+    return id;
+  } catch {
+    return (tabVisitor ??= crypto.randomUUID());
+  }
+}
+
+function aiHeaders(): Record<string, string> {
+  const ai = browserAi();
+  const pairs: [string, string | undefined][] = [
+    ['x-ai-provider', ai.provider],
+    ['x-ai-base-url', ai.baseUrl],
+    ['x-ai-model', ai.model],
+    ['x-ai-key', ai.apiKey],
+  ];
+  return { 'x-visitor': visitorId(), ...Object.fromEntries(pairs.filter((p): p is [string, string] => Boolean(p[1]))) };
+}
+
 async function request<T>(method: string, url: string, body?: unknown): Promise<T> {
   const res = await fetch(`/api${url}`, {
     method,
-    headers: body instanceof FormData || body === undefined ? undefined : { 'Content-Type': 'application/json' },
+    headers: { ...aiHeaders(), ...(body instanceof FormData || body === undefined ? {} : { 'Content-Type': 'application/json' }) },
     body: body instanceof FormData ? body : body === undefined ? undefined : JSON.stringify(body),
   });
   const text = await res.text();
@@ -125,5 +177,6 @@ export const api = {
   openExport: (id: string, target: 'folder' | 'pbip') =>
     request<{ ok: boolean; target: string; method?: 'powerbi' | 'default-app' }>('POST', `/projects/${id}/export/open`, { target }),
   exportStatus: (id: string) => request<ExportStatus>('GET', `/projects/${id}/export/status`),
-  downloadUrl: (id: string) => `/api/projects/${id}/export/download`,
+  downloadUrl: (id: string) => `/api/projects/${id}/export/download?visitor=${visitorId()}`,
+  loadSample: (id: string) => request<Project>('POST', `/projects/${id}/sample`),
 };

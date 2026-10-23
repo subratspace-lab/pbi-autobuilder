@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle2, ExternalLink, KeyRound, ListChecks, PlugZap, Save, XCircle } from 'lucide-react';
-import { api } from '../api/client';
+import { api, rememberBrowserAi } from '../api/client';
 import { useStore } from '../store/projectStore';
 import { Notice, PageHeader, Spinner } from '../components/ui';
 
@@ -19,6 +19,7 @@ export function SettingsPage() {
   const [keyHint, setKeyHint] = useState<string | undefined>();
   const [models, setModels] = useState<string[]>([]);
   const [test, setTest] = useState<{ ok: boolean; reply?: string; error?: string } | null>(null);
+  const hosted = useStore((s) => s.settings?.hosted);
 
   useEffect(() => {
     void run('settings', async () => {
@@ -38,6 +39,7 @@ export function SettingsPage() {
   const save = async () => {
     const res = await run('save', () => api.saveSettings(form));
     if (res) {
+      if (res.settings.hosted) rememberBrowserAi(form);
       setKeyHint(res.settings.apiKeyHint);
       setForm((f) => ({ ...f, apiKey: '' }));
       await loadSettings();
@@ -53,6 +55,7 @@ export function SettingsPage() {
     setTest(res);
     if (res.models?.length) setModels(res.models);
     if (res.ok && res.settings) {
+      if (res.settings.hosted) rememberBrowserAi({ ...form, model: res.settings.model });
       setKeyHint(res.settings.apiKeyHint);
       setForm((f) => ({ ...f, apiKey: '', model: res.settings!.model }));
       await loadSettings();
@@ -76,7 +79,14 @@ export function SettingsPage() {
 
   return (
     <>
-      <PageHeader title="AI provider" subtitle="Any free OpenAI-compatible model works. The key is stored only on this computer (workspace/settings.json) and is never sent to the browser." />
+      <PageHeader
+        title="AI provider"
+        subtitle={
+          hosted
+            ? 'Online demo: use your own free API key. It is kept only in this browser and sent with your requests — never saved on the server. Every step also works without AI (rules mode).'
+            : 'Any free OpenAI-compatible model works. The key is stored only on this computer (workspace/settings.json) and is never sent to the browser.'
+        }
+      />
 
       <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-5">
         {PROVIDERS.map((p) => (

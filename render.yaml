@@ -1,0 +1,16 @@
+# Render Blueprint for the online demo (free plan).
+# HOSTED=true: visitors use their own AI key (kept in their browser, never saved on the server)
+# and the PC-only features (SQL Server, file paths, opening Power BI Desktop) are switched off.
+services:
+  - type: web
+    name: pbi-autobuilder
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run start -w server
+    healthCheckPath: /api/health
+    envVars:
+      - key: HOSTED
+        value: "true"
+      - key: NODE_VERSION
+        value: "22"

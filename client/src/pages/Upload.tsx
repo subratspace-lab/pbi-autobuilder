@@ -39,6 +39,7 @@ function DropZone({ accept, label, hint, onFiles, busy, icon }: { accept: string
 
 export function UploadPage() {
   const { project, setProject, run, busy, toast } = useStore();
+  const hosted = useStore((s) => s.settings?.hosted);
   const navigate = useNavigate();
   const [brief, setBrief] = useState(project?.brief.text ?? '');
   const [preview, setPreview] = useState<{ table: string; headers: string[]; rows: Cell[][]; total: number } | null>(null);
@@ -85,14 +86,14 @@ export function UploadPage() {
             busy={busy.data}
             onFiles={(f) => upload(f, 'data')}
           />
-          <div className="mt-2 flex flex-wrap gap-2">
+          {!hosted && <div className="mt-2 flex flex-wrap gap-2">
             <button className={`btn-secondary py-1.5 text-xs ${source === 'sql' ? 'border-brand-500 text-brand-700' : ''}`} onClick={() => setSource(source === 'sql' ? null : 'sql')}>
               <Database className="h-3.5 w-3.5" /> Connect to SQL Server
             </button>
             <button className={`btn-secondary py-1.5 text-xs ${source === 'path' ? 'border-brand-500 text-brand-700' : ''}`} onClick={() => setSource(source === 'path' ? null : 'path')}>
               <FolderOpen className="h-3.5 w-3.5" /> Load from a file path
             </button>
-          </div>
+          </div>}
           {source === 'sql' && (
             <div className="mt-2">
               <SqlConnectForm onLoaded={(r) => (setProject(r.project), setSource(null))} />

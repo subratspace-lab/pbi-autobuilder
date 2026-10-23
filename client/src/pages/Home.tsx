@@ -23,9 +23,7 @@ export function HomePage() {
     const p = await run('create', async () => {
       const project = await api.createProject(sample ? 'Superstore Sales (sample)' : name || 'Untitled project');
       if (!sample) return project;
-      const res = await fetch('/api/projects/' + project.id + '/sample', { method: 'POST' });
-      if (!res.ok) throw new Error((await res.json()).error);
-      return (await res.json()) as typeof project;
+      return api.loadSample(project.id);
     });
     if (p) {
       setProject(p);

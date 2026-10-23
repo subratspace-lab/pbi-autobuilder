@@ -402,6 +402,8 @@ export interface LlmSettings {
   model: string;
   hasApiKey: boolean;
   apiKeyHint?: string;
+  /** Online demo: the key lives in this browser, and PC-only features (SQL Server, file paths, opening Power BI) are off. */
+  hosted?: boolean;
 }
 
 export interface ExportCheck {
